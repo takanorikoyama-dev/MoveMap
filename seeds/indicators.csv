@@ -1,0 +1,8 @@
+id,name_ja,name_en,unit,category,is_predictable,source_id
+price_index,物価指数,PriceIndex,point,must,true,estat
+land_price,地価,LandPrice,JPY/m2,must,true,mlit_land_price
+rent_index,賃料相場,RentIndex,point,must,true,mlit_rent_index
+birth_count,出生数,BirthCount,per_1000pop,must,true,estat
+air_quality,空気質,AirQuality,ug/m3,must,false,env_soramame
+disaster_risk,災害リスク,DisasterRisk,score,must,false,gsi_hazard
+transport_access,交通アクセス,TransportAccess,score,must,false,mlit_transport

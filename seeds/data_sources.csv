@@ -1,0 +1,7 @@
+id,name,url,license,update_frequency
+estat,政府統計の総合窓口(e-Stat),https://www.e-stat.go.jp/,政府標準利用規約 2.0,monthly
+mlit_land_price,国土交通省 地価公示,https://www.land.mlit.go.jp/landPrice_/,政府標準利用規約 2.0,yearly
+mlit_rent_index,国土交通省 不動産価格指数,https://www.reinfolib.mlit.go.jp/,政府標準利用規約 2.0,monthly
+env_soramame,環境省 そらまめくん(大気汚染物質広域監視システム),https://soramame.env.go.jp/,政府標準利用規約 2.0,monthly
+gsi_hazard,国土地理院 ハザードマップポータル,https://disaportal.gsi.go.jp/,政府標準利用規約 2.0,irregular
+mlit_transport,国土交通省 交通インフラデータ,https://www.mlit.go.jp/sogoseisaku/transport/,政府標準利用規約 2.0,yearly

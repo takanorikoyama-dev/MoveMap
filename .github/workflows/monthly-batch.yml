@@ -1,0 +1,66 @@
+name: Monthly Batch
+
+on:
+  schedule:
+    # 毎月 1 日 02:00 JST (UTC では前日 17:00)
+    - cron: "0 17 1 * *"
+  workflow_dispatch:
+
+jobs:
+  run-batch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          enable-cache: true
+
+      - name: Set up Python
+        run: uv python install 3.11
+
+      - name: Install dependencies
+        run: uv sync
+
+      - name: Initialize DB
+        run: uv run python scripts/seed.py
+
+      - name: Run monthly batch
+        env:
+          ESTAT_APP_ID: ${{ secrets.ESTAT_APP_ID }}
+          REINFOLIB_API_KEY: ${{ secrets.REINFOLIB_API_KEY }}
+        run: uv run python scripts/run_batch.py
+
+      - name: Health check (post-batch)
+        if: always()
+        run: |
+          uv run python scripts/health_check.py --json > health_report.json
+          echo "=== Human-readable summary ==="
+          uv run python scripts/health_check.py
+
+      - name: Take DB snapshot
+        if: always()
+        run: uv run python scripts/snapshot.py --tag "$(date -u +%Y%m_%H%M%S)" || true
+
+      - name: Upload DB + health report (artifact)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: movemap-db-${{ github.run_id }}
+          path: |
+            data/movemap.duckdb
+            health_report.json
+            logs/
+          retention-days: 365
+
+      - name: Fail job if health check abnormal
+        if: always()
+        run: |
+          rc=$(uv run python scripts/health_check.py > /dev/null; echo $?)
+          if [ "$rc" = "2" ]; then
+            echo "::error::health_check returned abnormal (exit code 2)"
+            exit 1
+          elif [ "$rc" = "1" ]; then
+            echo "::warning::health_check returned warning (exit code 1)"
+          fi

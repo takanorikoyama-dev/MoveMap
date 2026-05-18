@@ -1,0 +1,128 @@
+"""ヒートマップ ラベル(annotation_mode)のロジック検証.
+
+annotation_mode:
+- "off": ラベル無し(オーバーレイ trace 追加されない)
+- "extremes": 上位 N + 下位 N(値 None は除外)
+- "all": 47 都道府県全て(値 None は除外)
+"""
+
+from __future__ import annotations
+
+import pytest
+
+from app.features.map_view.components.heatmap import (
+    PREFECTURE_SHORT_NAMES,
+    _select_labeled_codes,
+    load_japan_geojson,
+    render_choropleth,
+)
+
+
+def test_prefecture_short_names_cover_47() -> None:
+    assert len(PREFECTURE_SHORT_NAMES) == 47
+    assert set(PREFECTURE_SHORT_NAMES.keys()) == {f"{i:02d}" for i in range(1, 48)}
+
+
+def test_select_labeled_codes_off_returns_empty() -> None:
+    values: dict[str, float | None] = {f"{i:02d}": float(i) for i in range(1, 48)}
+    assert _select_labeled_codes(values, mode="off", extremes_n=5) == []
+
+
+def test_select_labeled_codes_all_returns_only_non_none() -> None:
+    values: dict[str, float | None] = {
+        f"{i:02d}": (float(i) if i % 2 == 0 else None) for i in range(1, 48)
+    }
+    codes = _select_labeled_codes(values, mode="all", extremes_n=5)
+    # None の都道府県は除外
+    assert all(values[c] is not None for c in codes)
+    # 偶数(2,4,...,46)= 23 都道府県
+    assert len(codes) == 23
+
+
+def test_select_labeled_codes_extremes_returns_top_and_bottom_n() -> None:
+    """値が異なる 10+ 都道府県のうち上位 3 + 下位 3 を返す."""
+    values: dict[str, float | None] = {
+        "01": 1.0, "02": 2.0, "03": 3.0, "04": 4.0, "05": 5.0,
+        "06": 6.0, "07": 7.0, "08": 8.0, "09": 9.0, "10": 10.0,
+    }
+    codes = _select_labeled_codes(values, mode="extremes", extremes_n=3)
+    # 下位 3: 01, 02, 03 / 上位 3: 08, 09, 10
+    assert set(codes) == {"01", "02", "03", "08", "09", "10"}
+    assert len(codes) == 6
+
+
+def test_select_labeled_codes_extremes_when_few_values() -> None:
+    """有効値が 2N 以下なら全件を返す."""
+    values: dict[str, float | None] = {"01": 1.0, "02": 2.0, "03": 3.0}
+    codes = _select_labeled_codes(values, mode="extremes", extremes_n=5)
+    assert set(codes) == {"01", "02", "03"}
+
+
+def test_select_labeled_codes_extremes_ignores_none() -> None:
+    values: dict[str, float | None] = {
+        "01": 1.0, "02": None, "03": 3.0, "04": 4.0, "05": None, "06": 6.0,
+    }
+    codes = _select_labeled_codes(values, mode="extremes", extremes_n=2)
+    # None を除外して 4 件 = 2N → 全件
+    assert set(codes) == {"01", "03", "04", "06"}
+
+
+def test_render_choropleth_with_extremes_adds_overlay_trace() -> None:
+    """extremes モードで Scattergeo オーバーレイ trace(3 レイヤー)が追加される."""
+    geojson = load_japan_geojson()
+    if geojson is None:
+        pytest.skip("GeoJSON 未配置")
+
+    values: dict[str, float | None] = {f"{i:02d}": float(i) for i in range(1, 48)}
+    fig = render_choropleth(values, indicator_label="テスト", annotation_mode="extremes")
+    # choropleth(1) + scattergeo(3 = halo/name/value-pill) = 4 trace
+    assert len(fig.data) == 4
+    trace_types = {t.type for t in fig.data}
+    assert "choropleth" in trace_types
+    assert "scattergeo" in trace_types
+    scatter_traces = [t for t in fig.data if t.type == "scattergeo"]
+    assert len(scatter_traces) == 3
+
+
+def test_render_choropleth_off_no_overlay() -> None:
+    """off モードでは Scattergeo trace は追加されない."""
+    geojson = load_japan_geojson()
+    if geojson is None:
+        pytest.skip("GeoJSON 未配置")
+
+    values: dict[str, float | None] = {f"{i:02d}": float(i) for i in range(1, 48)}
+    fig = render_choropleth(values, indicator_label="テスト", annotation_mode="off")
+    trace_types = {t.type for t in fig.data}
+    assert "scattergeo" not in trace_types
+
+
+def test_render_choropleth_all_overlay_includes_47() -> None:
+    """all モードでは 47 都道府県の値+ラベルが Scattergeo (3 trace) に乗る."""
+    geojson = load_japan_geojson()
+    if geojson is None:
+        pytest.skip("GeoJSON 未配置")
+
+    values: dict[str, float | None] = {f"{i:02d}": float(i) for i in range(1, 48)}
+    fig = render_choropleth(values, indicator_label="テスト", annotation_mode="all")
+    scatter_traces = [t for t in fig.data if t.type == "scattergeo"]
+    # halo + name + value-pill = 3
+    assert len(scatter_traces) == 3
+    for overlay in scatter_traces:
+        assert len(overlay.text) == 47
+        assert len(overlay.lon) == 47
+        assert len(overlay.lat) == 47
+
+
+def test_render_choropleth_value_pill_has_white_marker() -> None:
+    """値ピル(3 trace目)は白丸+黒枠で地図色との干渉を避ける."""
+    geojson = load_japan_geojson()
+    if geojson is None:
+        pytest.skip("GeoJSON 未配置")
+
+    values: dict[str, float | None] = {f"{i:02d}": float(i) for i in range(1, 48)}
+    fig = render_choropleth(values, indicator_label="テスト", annotation_mode="all")
+    scatter_traces = [t for t in fig.data if t.type == "scattergeo"]
+    pill = scatter_traces[-1]  # 最後 = 値ピル(最前面)
+    assert pill.marker.color == "white"
+    assert pill.marker.line.color == "black"
+    assert pill.textposition == "middle center"
