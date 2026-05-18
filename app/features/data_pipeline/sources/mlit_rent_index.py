@@ -1,9 +1,14 @@
-"""API-EXT-03 国土交通省 不動産価格指数(賃料相場の代理).
+"""API-EXT-03 国土交通省 賃料相場(代理指標) - 暫定無効化.
 
-reinfolib `XCT001`(不動産価格指数)を都道府県別に取得する.
-住宅地・住宅・商業地の指数のうち、住宅向けの値を採用.
+経緯(2026-05-19): reinfolib の `XCT001` を当初「不動産価格指数」と想定したが、
+実 API 検証の結果、本エンドポイントは地価公示(標準地の単価)を返すことが判明.
+賃料相場の代理として使うのは妥当性に欠けるため、適切な賃料統計の
+エンドポイント特定までは fetch を skip する.
 
-参照: https://www.reinfolib.mlit.go.jp/help/apiManual/
+候補(後日検討):
+    - e-Stat 住宅・土地統計調査(都道府県別 家賃の月額) の表 ID 特定
+    - 不動産情報ライブラリの別エンドポイント
+    - 民間: SUUMO / LIFULL HOME'S のリリースデータ
 """
 
 from __future__ import annotations
@@ -29,28 +34,11 @@ class MlitRentIndexAdapter(DataSourceAdapter):
         self.api_key = api_key or os.getenv("REINFOLIB_API_KEY")
 
     def fetch(self) -> Iterator[dict[str, Any]]:
-        if not self.api_key:
-            logger.warning("REINFOLIB_API_KEY 未設定。rent_index fetch をスキップ(INV-EXT-001)")
-            return
-
-        headers = {"Ocp-Apim-Subscription-Key": self.api_key}
-        for pref_int in range(1, 48):
-            pref_code = f"{pref_int:02d}"
-            try:
-                payload = get_json(ENDPOINT_RENT_INDEX, params={"area": pref_int}, headers=headers)
-            except HttpRetryExhausted:
-                logger.exception(f"rent_index fetch failed for area={pref_int}")
-                continue
-
-            record = _latest_residential_index(payload)
-            if record is None:
-                continue
-            yield {
-                "indicator_id": "rent_index",
-                "prefecture_code": pref_code,
-                "value": record["value"],
-                "measured_at": record.get("measured_at"),
-            }
+        # 暫定: 賃料の適切な API エンドポイントが特定できていないため skip.
+        # 詳細はモジュール docstring を参照. INV-EXT-001 に従い空イテレータを返す.
+        logger.warning("mlit_rent_index: 暫定無効化中(賃料 API 未特定)。dummy フォールバックに任せる")
+        return
+        yield  # noqa: B901  # unreachable, signature 維持のため
 
     def last_updated(self) -> str | None:
         return head_last_modified(ENDPOINT_RENT_INDEX)
