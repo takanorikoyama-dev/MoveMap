@@ -25,17 +25,18 @@ logger = get_logger(__name__)
 E_STAT_BASE_URL = "https://api.e-stat.go.jp/rest/3.0/app/json"
 GET_STATS_DATA = f"{E_STAT_BASE_URL}/getStatsData"
 
-# 統計コードと内部 indicator_id のマッピング.
-# 注意: 統計コードは e-Stat 側で更新される可能性があり、運用中に要再検証.
+# 内部 indicator_id ごとに必要なリクエストパラメータ(statsDataId + 絞り込み軸).
 #
-# price_index = 0003143513: 消費者物価指数(2020年基準). area は県庁所在地ベース('13A01' 等).
-#   _extract_prefecture_code() で先頭 2 桁から都道府県コードに変換する.
-#
-# birth_count = 0003412062: 人口動態統計 確定数 保管統計表 都道府県別 出生(年次, area='01000' 等).
-#   当初 '0003411634' を使っていたが全国計のみで都道府県別の @area を持たなかったため差し替え.
-INDICATOR_TO_STATS_ID: dict[str, str] = {
-    "price_index": "0003143513",
-    "birth_count": "0003412062",
+# price_index: 消費者物価指数(2020年基準, 中分類, area=県庁所在地ベース).
+# birth_count: 人口動態統計 確定数 保管統計表 都道府県別 出生(年次).
+# rent_index : 消費者物価指数の「民営家賃」(cdCat01=0047)サブ分類を抜き出した家賃指数.
+#              当初 reinfolib XCT001 を想定したが実 API は地価公示を返したため、CPI 内部の
+#              家賃サブ分類で代替(2026-05-19).
+INDICATOR_TO_STATS_PARAMS: dict[str, dict[str, str]] = {
+    "price_index": {"statsDataId": "0003143513"},
+    "birth_count": {"statsDataId": "0003412062"},
+    # rent_index は mlit_rent_index.py に移管(住宅・土地統計調査の家賃階級加重平均).
+    # 0003143513 + cdCat01=0047 では都道府県別データが取れなかったため.
 }
 
 
@@ -64,20 +65,23 @@ class EStatAdapter(DataSourceAdapter):
         if not self.app_id:
             raise RuntimeError("ESTAT_APP_ID が未設定。.env か Secrets で渡してください")
 
-        for indicator_id, stats_data_id in INDICATOR_TO_STATS_ID.items():
-            logger.info(f"e-Stat fetch: indicator={indicator_id} statsDataId={stats_data_id}")
+        for indicator_id, extra in INDICATOR_TO_STATS_PARAMS.items():
+            stats_data_id = extra["statsDataId"]
+            params: dict[str, Any] = {
+                "appId": self.app_id,
+                "statsDataId": stats_data_id,
+                "metaGetFlg": "Y",
+                "cntGetFlg": "N",
+                "explanationGetFlg": "N",
+                "annotationGetFlg": "N",
+            }
+            # statsDataId 以外のキー(cdCat01 等)はそのままリクエストに渡す
+            for k, v in extra.items():
+                if k != "statsDataId":
+                    params[k] = v
+            logger.info(f"e-Stat fetch: indicator={indicator_id} params={ {k: v for k, v in extra.items()} }")
             try:
-                payload = get_json(
-                    GET_STATS_DATA,
-                    params={
-                        "appId": self.app_id,
-                        "statsDataId": stats_data_id,
-                        "metaGetFlg": "Y",
-                        "cntGetFlg": "N",
-                        "explanationGetFlg": "N",
-                        "annotationGetFlg": "N",
-                    },
-                )
+                payload = get_json(GET_STATS_DATA, params=params)
             except HttpRetryExhausted:
                 logger.exception(f"e-Stat fetch failed (retry exhausted): {indicator_id}")
                 continue

@@ -6,6 +6,8 @@
 
 from __future__ import annotations
 
+import pytest
+
 from app.features.data_pipeline.sources.env_soramame import (
     SoramameAdapter,
     _parse_waqi_feed,
@@ -69,8 +71,10 @@ def test_parse_waqi_feed_handles_missing_time() -> None:
     assert record["measured_at"] is None
 
 
-def test_fetch_skipped_without_token() -> None:
-    """WAQI_TOKEN 未設定なら fetch は空(INV-EXT-001)."""
+def test_fetch_skipped_without_token(monkeypatch: pytest.MonkeyPatch) -> None:
+    """WAQI_TOKEN 未設定なら fetch は空(INV-EXT-001、実 API は叩かない)."""
+    monkeypatch.delenv("WAQI_TOKEN", raising=False)
     adapter = SoramameAdapter(token=None)
+    adapter.token = None  # __init__ で .env から読んでしまっていた場合に備えて上書き
     records = list(adapter.fetch())
     assert records == []
