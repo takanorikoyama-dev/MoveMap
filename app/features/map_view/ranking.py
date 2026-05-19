@@ -105,16 +105,29 @@ def _compute_deviation_scores(values_by_pref: dict[str, float | None], direction
     return result
 
 
-def compute_ranking(horizon: Horizon = "current") -> list[PrefectureRank]:
+def compute_ranking(
+    horizon: Horizon = "current",
+    weights: dict[str, float] | None = None,
+) -> list[PrefectureRank]:
     """全 47 都道府県の指標値 + 偏差値 + 総合偏差値 + 星 を計算する.
 
     Args:
         horizon: 集計対象の時点(現在 or 予測).
+        weights: {indicator_id: weight} の重み(正の数). None なら等加重平均.
+            指定された場合は正規化(合計1)して加重平均.
 
     Returns:
         PrefectureRank のリスト(総合偏差値の降順、Noneは末尾).
     """
     from app.features.map_view.usecases.show_prefecture_detail import PREFECTURE_NAMES
+
+    # 重みの正規化(指定された指標のみ採用、合計1にスケール)
+    effective_weights: dict[str, float] | None = None
+    if weights:
+        positive = {k: float(v) for k, v in weights.items() if k in ALL_INDICATORS and float(v) > 0}
+        total = sum(positive.values())
+        if total > 0:
+            effective_weights = {k: v / total for k, v in positive.items()}
 
     # 各指標について 47 都道府県の値を一括取得
     indicator_values: dict[str, dict[str, float | None]] = {}
@@ -129,8 +142,7 @@ def compute_ranking(horizon: Horizon = "current") -> list[PrefectureRank]:
     for code, name in PREFECTURE_NAMES.items():
         per_value = {ind: indicator_values[ind].get(code) for ind in ALL_INDICATORS}
         per_score = {ind: indicator_scores[ind].get(code) for ind in ALL_INDICATORS}
-        valid_scores = [s for s in per_score.values() if s is not None]
-        composite = statistics.fmean(valid_scores) if valid_scores else None
+        composite = _aggregate_composite(per_score, effective_weights)
         ranks.append(
             PrefectureRank(
                 prefecture_code=code,
@@ -145,6 +157,25 @@ def compute_ranking(horizon: Horizon = "current") -> list[PrefectureRank]:
     # 総合偏差値の降順、None は最下位
     ranks.sort(key=lambda r: (r.composite_score is None, -(r.composite_score or 0.0)))
     return ranks
+
+
+def _aggregate_composite(
+    per_score: dict[str, float | None],
+    weights: dict[str, float] | None,
+) -> float | None:
+    """偏差値辞書 → 総合偏差値. None値は集計対象外、weights があれば加重平均."""
+    if weights:
+        weighted_sum = 0.0
+        weight_sum = 0.0
+        for ind, w in weights.items():
+            s = per_score.get(ind)
+            if s is None:
+                continue
+            weighted_sum += s * w
+            weight_sum += w
+        return weighted_sum / weight_sum if weight_sum > 0 else None
+    valid = [s for s in per_score.values() if s is not None]
+    return statistics.fmean(valid) if valid else None
 
 
 def stars_to_unicode(stars: int, max_stars: int = 5) -> str:

@@ -13,6 +13,7 @@ from typing import Any, Literal
 
 import plotly.graph_objects as go
 
+from app.features.map_view.regions import MAJOR_CITIES, REGION_BOUNDS, medal_for_rank
 from app.shared.config import PROJECT_ROOT
 from app.shared.geo import prefecture_centroids
 from app.shared.logger import get_logger
@@ -69,27 +70,31 @@ def _pref_code_to_geojson_id(code: str) -> int:
 def render_choropleth(
     values: dict[str, float | None],
     indicator_label: str,
-    color_scale: str = "viridis",
+    color_scale: str = "RdYlGn",
     annotation_mode: AnnotationMode = "off",
     extremes_n: int = 5,
+    reverse_color: bool = False,
+    show_major_cities: bool = True,
+    region_zoom: str = "全国",
+    rich_hover: dict[str, dict[str, object]] | None = None,
 ) -> go.Figure:
     """都道府県コード → 値 の dict から Plotly Figure を作る.
 
-    - `quality_status='no_prediction'` 等で None が入っている都道府県は灰色塗り(UX-D-01)
-    - 全国分布の四分位で 5階層(R2.3)
-    - GeoJSON 未配置時は棒グラフにフォールバック(UI が必ず動くように)
-    - `annotation_mode='extremes'` で上位 N + 下位 N の都道府県名+値を引き出し線でラベル表示
-    - `annotation_mode='all'` で 47 都道府県全てをラベル表示
+    R2.3 5階層 + 色覚多様性配慮(RdYlGn は緑=良い, 赤=悪い でユニバーサル).
+    direction("低いほど良い" 指標)では `reverse_color=True` で色を反転し、
+    どの指標でも「緑=住みやすい」になるよう統一する.
 
     Args:
         values: {prefecture_code: value_or_None}.
         indicator_label: 凡例ラベル.
-        color_scale: Plotly カラースケール名(viridis 推奨).
+        color_scale: Plotly カラースケール名(RdYlGn 推奨).
         annotation_mode: ラベル表示モード("off" / "extremes" / "all").
         extremes_n: extremes モード時に表示する上位・下位の都道府県数(片側).
-
-    Returns:
-        plotly.graph_objects.Figure.
+        reverse_color: True で住みやすさ方向反転(値が低いほど緑になる).
+        show_major_cities: True で主要 11 都市マーカーをオーバーレイ.
+        region_zoom: '全国' or REGIONS のいずれかで初期表示範囲を変更.
+        rich_hover: {pref_code: {label, value_unit, rank, composite, stars}} 形式の
+            拡張ツールチップ情報. 渡されると hovertemplate に組み込まれる.
     """
     geojson = load_japan_geojson()
     if geojson is None:
@@ -97,11 +102,29 @@ def render_choropleth(
 
     locations: list[int] = []
     z: list[float | None] = []
-    customdata: list[str] = []
+    customdata: list[list[object]] = []
     for code, val in values.items():
         locations.append(_pref_code_to_geojson_id(code))
         z.append(val)
-        customdata.append(code)
+        info = (rich_hover or {}).get(code, {})
+        customdata.append(
+            [
+                code,
+                info.get("name", PREFECTURE_SHORT_NAMES.get(code, code)),
+                info.get("value_unit", ""),
+                info.get("rank", "—"),
+                info.get("composite", "—"),
+                info.get("stars", ""),
+            ]
+        )
+
+    hovertemplate = (
+        "<b>%{customdata[1]}(%{customdata[0]})</b><br>"
+        "値: %{z:,.2f}%{customdata[2]}<br>"
+        "総合偏差値: %{customdata[4]}<br>"
+        "順位: %{customdata[3]} / 47<br>"
+        "★: %{customdata[5]}<extra></extra>"
+    )
 
     fig = go.Figure(
         go.Choropleth(
@@ -110,30 +133,67 @@ def render_choropleth(
             z=z,
             featureidkey=PREFECTURE_FEATURE_ID_KEY,
             colorscale=color_scale,
-            colorbar={"title": indicator_label, "thickness": 12, "len": 0.6},
-            marker_line_color="white",
-            marker_line_width=0.4,
+            reversescale=reverse_color,
+            colorbar={
+                "title": {"text": indicator_label, "font": {"size": 13}},
+                "thickness": 14,
+                "len": 0.7,
+            },
+            marker_line_color="#666",
+            marker_line_width=0.5,
             customdata=customdata,
-            hovertemplate="<b>%{customdata}</b><br>%{z:.2f}<extra></extra>",
+            hovertemplate=hovertemplate,
         )
     )
 
-    # ラベル(引き出し線)を重ねる
-    if annotation_mode != "off":
-        labeled_codes = _select_labeled_codes(values, annotation_mode, extremes_n)
-        _add_label_overlay(fig, values, labeled_codes)
+    # 全国平均ライン(カラーバー内の白破線)
+    valid_vals = [v for v in z if v is not None]
+    if valid_vals:
+        mean_val = sum(valid_vals) / len(valid_vals)
+        fig.add_annotation(
+            text=f"全国平均: {mean_val:,.1f}",
+            xref="paper", yref="paper",
+            x=1.02, y=0.92, xanchor="left", showarrow=False,
+            font={"size": 10, "color": "#444"},
+        )
 
-    fig.update_geos(
-        fitbounds="locations",
-        visible=False,
-        projection_type="mercator",
-        bgcolor="rgba(0,0,0,0)",
-    )
+    # ラベル(引き出し線 + メダル)
+    if annotation_mode != "off":
+        labeled_codes = _select_labeled_codes(values, annotation_mode, extremes_n, reverse_color)
+        _add_label_overlay(fig, values, labeled_codes, reverse_color)
+
+    if show_major_cities:
+        _add_major_city_markers(fig)
+
+    # 地域ジャンプ
+    if region_zoom and region_zoom != "全国" and region_zoom in REGION_BOUNDS:
+        lat_min, lat_max, lon_min, lon_max = REGION_BOUNDS[region_zoom]
+        fig.update_geos(
+            visible=False,
+            projection_type="mercator",
+            bgcolor="rgba(0,0,0,0)",
+            lataxis_range=[lat_min, lat_max],
+            lonaxis_range=[lon_min, lon_max],
+        )
+    else:
+        fig.update_geos(
+            fitbounds="locations",
+            visible=False,
+            projection_type="mercator",
+            bgcolor="rgba(248,250,252,0.4)",  # 淡いグレートーン
+        )
+
     fig.update_layout(
-        margin={"r": 0, "t": 30, "l": 0, "b": 0},
-        height=600,
-        title={"text": indicator_label, "x": 0.5},
+        margin={"r": 0, "t": 50, "l": 0, "b": 0},
+        height=620,
+        title={
+            "text": f"<b>{indicator_label}</b>",
+            "x": 0.5,
+            "font": {"size": 18, "color": "#1f4068"},
+        },
         showlegend=False,
+        paper_bgcolor="rgba(0,0,0,0)",
+        plot_bgcolor="rgba(0,0,0,0)",
     )
     return fig
 
@@ -142,8 +202,9 @@ def _select_labeled_codes(
     values: dict[str, float | None],
     mode: AnnotationMode,
     extremes_n: int,
+    reverse_color: bool = False,
 ) -> list[str]:
-    """ラベル表示する都道府県コードのリスト."""
+    """ラベル表示する都道府県コードのリスト. reverse_color=True なら住みやすさ順を反転."""
     if mode == "all":
         return [c for c, v in values.items() if v is not None]
     if mode == "extremes":
@@ -151,15 +212,27 @@ def _select_labeled_codes(
         with_values.sort(key=lambda kv: kv[1])
         if len(with_values) <= 2 * extremes_n:
             return [c for c, _ in with_values]
-        # 上位 N + 下位 N
+        # 上位 N + 下位 N(値ベース)
         return [c for c, _ in with_values[:extremes_n]] + [c for c, _ in with_values[-extremes_n:]]
     return []
+
+
+def _ranked_top_codes(
+    values: dict[str, float | None],
+    n: int,
+    higher_is_better: bool,
+) -> list[str]:
+    """住みやすさ方向で上位 N の都道府県コード(メダル表示用)."""
+    with_values = [(c, v) for c, v in values.items() if v is not None]
+    with_values.sort(key=lambda kv: kv[1], reverse=higher_is_better)
+    return [c for c, _ in with_values[:n]]
 
 
 def _add_label_overlay(
     fig: go.Figure,
     values: dict[str, float | None],
     codes_to_label: list[str],
+    reverse_color: bool = False,
 ) -> None:
     """choropleth に Scattergeo オーバーレイで都道府県名+値ラベルを追加.
 
@@ -176,12 +249,18 @@ def _add_label_overlay(
     lats: list[float] = []
     name_texts: list[str] = []
     val_texts: list[str] = []
+    # 住みやすさ方向で上位 3 にメダル
+    medal_codes = set(_ranked_top_codes(values, 3, higher_is_better=not reverse_color))
+    medal_map = {c: medal_for_rank(i + 1) for i, c in enumerate(
+        _ranked_top_codes(values, 3, higher_is_better=not reverse_color)
+    )}
     for code in codes_to_label:
         if code not in centroids:
             continue
         val = values.get(code)
         lat, lon = centroids[code]
-        name = PREFECTURE_SHORT_NAMES.get(code, code)
+        base_name = PREFECTURE_SHORT_NAMES.get(code, code)
+        name = f"{medal_map[code]} {base_name}" if code in medal_codes else base_name
         lons.append(lon)
         lats.append(lat)
         name_texts.append(name)
@@ -232,6 +311,33 @@ def _add_label_overlay(
             textfont={"family": "Arial Black", "size": 10, "color": "black"},
             textposition="middle center",
             hoverinfo="skip",
+            showlegend=False,
+        )
+    )
+
+
+def _add_major_city_markers(fig: go.Figure) -> None:
+    """主要 11 都市マーカーを重ねる(青い小さなピン + ラベル)."""
+    lons = [c[3] for c in MAJOR_CITIES]
+    lats = [c[2] for c in MAJOR_CITIES]
+    names = [c[1] for c in MAJOR_CITIES]
+    fig.add_trace(
+        go.Scattergeo(
+            lon=lons,
+            lat=lats,
+            text=names,
+            mode="markers+text",
+            marker={
+                "size": 8,
+                "color": "#1f4068",
+                "symbol": "circle",
+                "line": {"width": 1.2, "color": "white"},
+            },
+            textfont={"family": "Arial", "size": 9, "color": "#1f4068"},
+            textposition="bottom right",
+            hoverinfo="text",
+            hovertemplate="<b>%{text}</b><extra></extra>",
+            name="主要都市",
             showlegend=False,
         )
     )

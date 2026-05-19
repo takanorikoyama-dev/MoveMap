@@ -74,7 +74,10 @@ def test_render_choropleth_with_extremes_adds_overlay_trace() -> None:
         pytest.skip("GeoJSON 未配置")
 
     values: dict[str, float | None] = {f"{i:02d}": float(i) for i in range(1, 48)}
-    fig = render_choropleth(values, indicator_label="テスト", annotation_mode="extremes")
+    fig = render_choropleth(
+        values, indicator_label="テスト", annotation_mode="extremes",
+        show_major_cities=False,
+    )
     # choropleth(1) + scattergeo(3 = halo/name/value-pill) = 4 trace
     assert len(fig.data) == 4
     trace_types = {t.type for t in fig.data}
@@ -85,13 +88,16 @@ def test_render_choropleth_with_extremes_adds_overlay_trace() -> None:
 
 
 def test_render_choropleth_off_no_overlay() -> None:
-    """off モードでは Scattergeo trace は追加されない."""
+    """off モードでは(都市マーカーOFFなら)Scattergeo trace は追加されない."""
     geojson = load_japan_geojson()
     if geojson is None:
         pytest.skip("GeoJSON 未配置")
 
     values: dict[str, float | None] = {f"{i:02d}": float(i) for i in range(1, 48)}
-    fig = render_choropleth(values, indicator_label="テスト", annotation_mode="off")
+    fig = render_choropleth(
+        values, indicator_label="テスト", annotation_mode="off",
+        show_major_cities=False,
+    )
     trace_types = {t.type for t in fig.data}
     assert "scattergeo" not in trace_types
 
@@ -103,7 +109,10 @@ def test_render_choropleth_all_overlay_includes_47() -> None:
         pytest.skip("GeoJSON 未配置")
 
     values: dict[str, float | None] = {f"{i:02d}": float(i) for i in range(1, 48)}
-    fig = render_choropleth(values, indicator_label="テスト", annotation_mode="all")
+    fig = render_choropleth(
+        values, indicator_label="テスト", annotation_mode="all",
+        show_major_cities=False,
+    )
     scatter_traces = [t for t in fig.data if t.type == "scattergeo"]
     # halo + name + value-pill = 3
     assert len(scatter_traces) == 3
@@ -120,9 +129,30 @@ def test_render_choropleth_value_pill_has_white_marker() -> None:
         pytest.skip("GeoJSON 未配置")
 
     values: dict[str, float | None] = {f"{i:02d}": float(i) for i in range(1, 48)}
-    fig = render_choropleth(values, indicator_label="テスト", annotation_mode="all")
+    fig = render_choropleth(
+        values, indicator_label="テスト", annotation_mode="all",
+        show_major_cities=False,
+    )
     scatter_traces = [t for t in fig.data if t.type == "scattergeo"]
     pill = scatter_traces[-1]  # 最後 = 値ピル(最前面)
     assert pill.marker.color == "white"
     assert pill.marker.line.color == "black"
     assert pill.textposition == "middle center"
+
+
+def test_render_choropleth_major_cities_adds_one_trace() -> None:
+    """show_major_cities=True で主要都市マーカー trace が 1 つ追加される."""
+    geojson = load_japan_geojson()
+    if geojson is None:
+        pytest.skip("GeoJSON 未配置")
+
+    values: dict[str, float | None] = {f"{i:02d}": float(i) for i in range(1, 48)}
+    fig_with = render_choropleth(
+        values, indicator_label="テスト", annotation_mode="off",
+        show_major_cities=True,
+    )
+    fig_without = render_choropleth(
+        values, indicator_label="テスト", annotation_mode="off",
+        show_major_cities=False,
+    )
+    assert len(fig_with.data) == len(fig_without.data) + 1

@@ -22,8 +22,9 @@ class Config:
     seeds_dir: Path
     log_level: str
     estat_app_id: str | None
-    reinfolib_api_key: str | None
-    waqi_token: str | None
+    # 追加 API キー(後方互換のため None デフォルト)
+    reinfolib_api_key: str | None = None
+    waqi_token: str | None = None
 
 
 def load_config() -> Config:
