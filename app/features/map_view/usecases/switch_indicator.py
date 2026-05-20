@@ -29,6 +29,22 @@ INDICATOR_LABELS: dict[IndicatorId, str] = {
     "transport_access": "交通アクセス",
 }
 
+# 各指標のアイコン(絵文字)。ラベルと組み合わせて視認性 UP.
+INDICATOR_ICONS: dict[IndicatorId, str] = {
+    "price_index": "💰",
+    "land_price": "🏘️",
+    "rent_index": "🏠",
+    "birth_count": "👶",
+    "air_quality": "🌬️",
+    "disaster_risk": "🌀",
+    "transport_access": "🚆",
+}
+
+
+def labeled(indicator_id: IndicatorId) -> str:
+    """アイコン + 指標名 を返す(例: '💰 物価指数')."""
+    return f"{INDICATOR_ICONS.get(indicator_id, '')} {INDICATOR_LABELS.get(indicator_id, indicator_id)}".strip()
+
 # 各指標の単位(列ヘッダ・ツールチップ用)
 INDICATOR_UNITS: dict[IndicatorId, str] = {
     "price_index": "(2020=100)",
@@ -82,11 +98,11 @@ INDICATOR_DEFINITIONS: dict[IndicatorId, dict[str, str]] = {
 
 def _render_indicator_definitions() -> None:
     """サイドバーに指標定義の一覧をエクスパンダで表示."""
-    with st.sidebar.expander("📖 指標の定義(クリックで展開)", expanded=False):
-        for ind_id, label in INDICATOR_LABELS.items():
+    with st.sidebar.expander("📖 観点の意味と単位(クリックで展開)", expanded=False):
+        for ind_id in INDICATOR_LABELS:
             d = INDICATOR_DEFINITIONS[ind_id]
             unit = INDICATOR_UNITS[ind_id]
-            st.markdown(f"**{label} {unit}**")
+            st.markdown(f"**{labeled(ind_id)} {unit}**")
             st.markdown(f"・{d['what']}")
             st.caption(f"{d['interpret']}")
             st.caption(f"出典: {d['source']}")
@@ -99,20 +115,22 @@ def switch_indicator() -> IndicatorId:
     Returns:
         選択された indicator_id.
     """
-    label_to_id: dict[str, IndicatorId] = {label: ind for ind, label in INDICATOR_LABELS.items()}
+    # 表示用ラベル(絵文字付き)と内部 ID の往復辞書
+    icon_label_to_id: dict[str, IndicatorId] = {labeled(ind): ind for ind in INDICATOR_LABELS}
+    options = list(icon_label_to_id.keys())
 
     chosen_label = st.sidebar.radio(
-        "指標選択",
-        options=list(INDICATOR_LABELS.values()),
+        "📊 比べたい観点を選ぶ",
+        options=options,
         index=0,
         key="selected_indicator_label",
     )
-    chosen_id = label_to_id[chosen_label]
+    chosen_id = icon_label_to_id[chosen_label]
 
     # 選択中指標の説明をすぐ下に表示(現指標の意味を即座に確認できる)
     d = INDICATOR_DEFINITIONS[chosen_id]
     st.sidebar.info(
-        f"**{chosen_label} {INDICATOR_UNITS[chosen_id]}**\n\n"
+        f"**{labeled(chosen_id)} {INDICATOR_UNITS[chosen_id]}**\n\n"
         f"{d['what']}\n\n"
         f"_{d['interpret']}_"
     )

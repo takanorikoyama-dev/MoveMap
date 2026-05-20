@@ -9,7 +9,11 @@ import streamlit as st
 
 from app.features.map_view.ranking import ALL_INDICATORS, compute_ranking, stars_to_unicode
 from app.features.map_view.regions import region_of
-from app.features.map_view.usecases.switch_indicator import INDICATOR_LABELS, INDICATOR_UNITS
+from app.features.map_view.usecases.switch_indicator import (
+    INDICATOR_ICONS,
+    INDICATOR_LABELS,
+    INDICATOR_UNITS,
+)
 
 Horizon = Literal["current", "3y", "5y", "10y"]
 
@@ -45,7 +49,10 @@ def show_comparison(horizon: Horizon = "current") -> None:
     a, b = options[a_label], options[b_label]
 
     # レーダーチャート(偏差値 30〜70 を半径に)
-    categories = [INDICATOR_LABELS[ind] for ind in ALL_INDICATORS]  # type: ignore[index]
+    categories = [
+        f"{INDICATOR_ICONS.get(ind, '')} {INDICATOR_LABELS[ind]}"  # type: ignore[index,arg-type]
+        for ind in ALL_INDICATORS
+    ]
     a_scores = [a.per_indicator_score[ind] or 50.0 for ind in ALL_INDICATORS]
     b_scores = [b.per_indicator_score[ind] or 50.0 for ind in ALL_INDICATORS]
 
@@ -97,7 +104,7 @@ def show_comparison(horizon: Horizon = "current") -> None:
         diff = None if (a_sc is None or b_sc is None) else round(a_sc - b_sc, 1)
         winner = "A" if (diff is not None and diff > 0) else "B" if (diff is not None and diff < 0) else "—"
         rows.append({
-            "指標": f"{INDICATOR_LABELS[ind]} {INDICATOR_UNITS.get(ind, '')}",  # type: ignore[index]
+            "指標": f"{INDICATOR_ICONS.get(ind, '')} {INDICATOR_LABELS[ind]} {INDICATOR_UNITS.get(ind, '')}",  # type: ignore[index,arg-type]
             "A 実数値": a_val,
             "A 偏差値": round(a_sc, 1) if a_sc is not None else None,
             "B 実数値": b_val,

@@ -28,6 +28,7 @@ from app.features.map_view.regions import REGION_BOUNDS, medal_for_rank
 from app.features.map_view.usecases.switch_horizon import HORIZON_LABELS
 from app.features.map_view.usecases.switch_indicator import (
     INDICATOR_DEFINITIONS,
+    INDICATOR_ICONS,
     INDICATOR_LABELS,
     INDICATOR_UNITS,
     IndicatorId,
@@ -79,7 +80,7 @@ def show_map(indicator_id: IndicatorId, horizon: Horizon) -> None:
         indicator_id: 表示する指標 ID.
         horizon: 現在 or 予測時点.
     """
-    indicator_label = INDICATOR_LABELS[indicator_id]
+    indicator_label = f"{INDICATOR_ICONS.get(indicator_id, '')} {INDICATOR_LABELS[indicator_id]}".strip()
     horizon_label = HORIZON_LABELS[horizon]
     is_lower_better = indicator_id in LOWER_IS_BETTER
 

@@ -31,6 +31,7 @@ from app.features.map_view.ranking import (
 from app.features.map_view.regions import REGIONS, medal_for_rank, region_of
 from app.features.map_view.usecases.switch_indicator import (
     INDICATOR_DEFINITIONS,
+    INDICATOR_ICONS,
     INDICATOR_LABELS,
     INDICATOR_UNITS,
 )
@@ -83,10 +84,11 @@ def _score_to_color(score: float | None) -> str:
 
 
 def _column_header(indicator_id: str) -> str:
+    icon = INDICATOR_ICONS.get(indicator_id, "")  # type: ignore[arg-type]
     label = INDICATOR_LABELS.get(indicator_id, indicator_id)  # type: ignore[arg-type]
     arrow = _direction_arrow(indicator_id)
     unit = INDICATOR_UNITS.get(indicator_id, "")  # type: ignore[arg-type]
-    return f"{label} {arrow} {unit}".strip()
+    return f"{icon} {label} {arrow} {unit}".strip()
 
 
 def _make_formatter(fmt: str):
@@ -110,7 +112,7 @@ def _render_weight_sliders(horizon: Horizon) -> dict[str, float]:
         for i, ind in enumerate(ALL_INDICATORS):
             with cols[i % 4]:
                 weights[ind] = st.slider(
-                    INDICATOR_LABELS[ind],
+                    f"{INDICATOR_ICONS.get(ind, '')} {INDICATOR_LABELS[ind]}",
                     min_value=0,
                     max_value=100,
                     value=st.session_state.get(f"weight_{ind}_{horizon}", 50),
@@ -167,8 +169,11 @@ def show_ranking(horizon: Horizon = "current") -> None:
     """ランキング画面を描画."""
     st.subheader("都道府県ランキング(住みやすさ総合)")
     st.caption(
-        f"対象時点: **{horizon}** ｜ 各指標を 50±Z×10 で偏差値化し、住みやすさ方向(↑↓)を反映した上で平均。"
-        " セルの色は偏差値ベース(🟢良い〜🔴悪い)。重み付けスライダーで個人の優先度を反映できます。"
+        "**住みやすさスコア(=総合偏差値)** で並べた都道府県ランキングです。"
+        f"対象時点: **{horizon}** ｜ "
+        "50 が全国平均、60 以上で「平均より良い」、70 以上で「全国トップクラス」の目安です。"
+        " 各観点はあなたの優先度(⚖️ スライダー)で重み付けできます。"
+        " セルの色: 🟢 平均より良い 〜 🔴 平均より悪い。"
     )
 
     # --- コントロール ---
