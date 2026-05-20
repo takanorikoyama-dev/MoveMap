@@ -15,6 +15,7 @@ from app.features.compliance.disclaimer import render as render_disclaimer
 from app.features.compliance.show_data_sources import show_data_sources
 from app.features.map_view.components.status_panel import render_status_panel
 from app.features.map_view.usecases.show_comparison import show_comparison
+from app.features.map_view.usecases.show_diagnosis import show_diagnosis
 from app.features.map_view.usecases.show_map import show_map
 from app.features.map_view.usecases.show_model_detail import show_model_detail
 from app.features.map_view.usecases.show_prefecture_detail import (
@@ -98,9 +99,17 @@ if print_mode:
 # データ状態パネル(運用透明性)
 render_status_panel()
 
-tab_map, tab_ranking, tab_compare, tab_detail, tab_model = st.tabs(
-    ["🗾 MAP", "🏆 ランキング", "⚔️ 2県比較", "📍 都道府県詳細", "🤖 モデル根拠"]
+tab_diagnosis, tab_map, tab_ranking, tab_compare, tab_detail, tab_model = st.tabs(
+    ["🎯 移住タイプ診断", "🗾 MAP", "🏆 ランキング", "⚔️ 2県比較", "📍 都道府県詳細", "🤖 モデル根拠"]
 )
+
+with tab_diagnosis:
+    render_tab_guide(
+        "<strong>このタブから始めるのがおすすめです。</strong> "
+        "5 つの簡単な質問に答えるだけで、あなたに合う <strong>移住先 3 県</strong> をご提案します。"
+        "<br>診断結果は「🏆 ランキング」タブの重み付けスライダーにも自動反映されます。"
+    )
+    show_diagnosis(horizon)
 
 with tab_map:
     render_tab_guide(
