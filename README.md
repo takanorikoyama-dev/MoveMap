@@ -15,6 +15,8 @@
 | [docs/learning/01_executive_summary.md](docs/learning/01_executive_summary.md) | **5 分で全体を語る**エグゼクティブサマリー |
 | [docs/learning/02_self_quiz.md](docs/learning/02_self_quiz.md) | 初級/中級/上級 各 10 問の **自己テスト**(解答 + 解説) |
 | [docs/learning/03_architecture.md](docs/learning/03_architecture.md) | **Mermaid 図** + 詳細解説のアーキテクチャ |
+| [docs/learning/04_pitch_deck_outline.md](docs/learning/04_pitch_deck_outline.md) | **7 スライド**ピッチデッキ構成案(顧客/投資家/自治体/メディア向けバリエーション付き) |
+| [docs/learning/07_ai_dev_playbook.md](docs/learning/07_ai_dev_playbook.md) | **AI 駆動開発プレイブック**(twin-build フロー汎用化、5 原則 / Phase チェックリスト / つまずき TOP10 / 提案フレーズ集) |
 
 ---
 
