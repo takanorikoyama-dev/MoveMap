@@ -8,6 +8,16 @@
 
 ---
 
+## 📚 学習ドキュメント(セールス / AI コンサル向け)
+
+| ドキュメント | 内容 |
+|---|---|
+| [docs/learning/01_executive_summary.md](docs/learning/01_executive_summary.md) | **5 分で全体を語る**エグゼクティブサマリー |
+| [docs/learning/02_self_quiz.md](docs/learning/02_self_quiz.md) | 初級/中級/上級 各 10 問の **自己テスト**(解答 + 解説) |
+| [docs/learning/03_architecture.md](docs/learning/03_architecture.md) | **Mermaid 図** + 詳細解説のアーキテクチャ |
+
+---
+
 ## 主な機能
 
 | 機能 | 内容 |
