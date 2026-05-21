@@ -184,12 +184,12 @@ def render_choropleth(
         )
 
     fig.update_layout(
-        margin={"r": 0, "t": 50, "l": 0, "b": 0},
-        height=620,
+        margin={"r": 0, "t": 40, "l": 0, "b": 0},
+        height=540,  # 縦長スマホ + 通常デスクトップの両立点
         title={
             "text": f"<b>{indicator_label}</b>",
             "x": 0.5,
-            "font": {"size": 18, "color": "#1f4068"},
+            "font": {"size": 17, "color": "#1f4068"},
         },
         showlegend=False,
         paper_bgcolor="rgba(0,0,0,0)",

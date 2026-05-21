@@ -29,7 +29,13 @@ from app.features.map_view.usecases.switch_indicator import (
     labeled as indicator_labeled,
     switch_indicator,
 )
-from app.shared.ui_theme import inject_global_css, render_hero, render_tab_guide
+from app.shared.ui_theme import (
+    inject_global_css,
+    render_current_band,
+    render_hero,
+    render_mobile_hint,
+    render_tab_guide,
+)
 
 st.set_page_config(
     page_title="MoveMap — 地方移住MAP",
@@ -43,6 +49,7 @@ inject_global_css()
 
 st.title("MoveMap — 地方移住MAP")
 render_hero()
+render_mobile_hint()
 render_disclaimer()
 
 # --- URL query → セッション初期値 反映(共有用) ---
@@ -75,6 +82,9 @@ st.sidebar.caption(
     "🔗 このページの URL をコピーすれば、同じ選択状態で開けます(指標・年次が URL に反映)"
 )
 
+# 画面上部に「現在の選択」を大きく表示(スマホでサイドバーが隠れていても何を見ているか分かる)
+render_current_band(indicator_labeled(indicator_id), HORIZON_LABELS[horizon])
+
 # 印刷モードトグル(サイドバー下部)
 st.sidebar.markdown("---")
 print_mode = st.sidebar.checkbox(
@@ -100,7 +110,7 @@ if print_mode:
 render_status_panel()
 
 tab_diagnosis, tab_map, tab_ranking, tab_compare, tab_detail, tab_model = st.tabs(
-    ["🎯 移住タイプ診断", "🗾 MAP", "🏆 ランキング", "⚔️ 2県比較", "📍 都道府県詳細", "🤖 モデル根拠"]
+    ["🎯 診断", "🗾 地図", "🏆 順位", "⚔️ 比較", "📍 詳細", "🤖 AI根拠"]
 )
 
 with tab_diagnosis:

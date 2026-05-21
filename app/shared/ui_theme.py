@@ -124,6 +124,74 @@ a:hover { color: #0d2547 !important; }
     .movemap-hero h2, .movemap-hero p { color: black !important; }
     html, body { font-size: 12pt !important; }
 }
+
+/* ---- モバイル対応(画面幅 768px 以下) ---- */
+@media (max-width: 768px) {
+    /* ヒーローバナーを縦コンパクトに */
+    .movemap-hero { padding: 0.85rem 1rem !important; margin: 0.3rem 0 0.7rem 0 !important; border-radius: 8px !important; }
+    .movemap-hero h2 { font-size: 1.18rem !important; margin-bottom: 0.3rem !important; }
+    .movemap-hero p { font-size: 0.92rem !important; line-height: 1.45 !important; }
+    /* 見出しサイズダウン(縦が貴重なので) */
+    h1, h1 span { font-size: 1.55rem !important; }
+    h2, h2 span { font-size: 1.3rem !important; }
+    h3, h3 span { font-size: 1.12rem !important; }
+    h4, h4 span { font-size: 1.02rem !important; }
+    /* ガイドカード縮小 */
+    .movemap-guide { padding: 0.6rem 0.85rem !important; font-size: 0.92rem !important; line-height: 1.5 !important; }
+    /* タブを少し詰めて全タブが見えるように */
+    button[data-baseweb="tab"] { padding: 0.6em 0.5em !important; font-size: 0.95rem !important; font-weight: 700 !important; }
+    [data-testid="stTabs"] [data-baseweb="tab-list"] { gap: 0 !important; }
+    /* ボタンも少しコンパクト(ただしタップ領域 44px 維持) */
+    .stButton button, .stDownloadButton button {
+        padding: 0.55em 1em !important;
+        font-size: 1rem !important;
+        min-height: 44px !important;
+    }
+    /* 本文フォントを少しだけ小さく(画面幅優先) */
+    html, body, [class*="css"], [data-testid="stMarkdownContainer"] p {
+        font-size: 16px !important;
+        line-height: 1.55 !important;
+    }
+    /* メトリック数字も縮小 */
+    [data-testid="stMetricValue"] { font-size: 1.5rem !important; }
+    [data-testid="stMetricLabel"] { font-size: 0.9rem !important; }
+    /* 「現在の選択」サマリバンドのスマホ調整 */
+    .movemap-current-band {
+        font-size: 1rem !important;
+        padding: 0.6rem 0.8rem !important;
+    }
+    .movemap-current-band strong { font-size: 1.05rem !important; }
+    /* スマホ案内バナー(モバイルでだけ表示) */
+    .movemap-mobile-hint { display: block !important; }
+}
+
+/* デスクトップでは非表示(スマホ案内バナー) */
+.movemap-mobile-hint { display: none; }
+
+/* ---- 「現在の選択」サマリバンド(画面上部) ---- */
+.movemap-current-band {
+    background: #f5f7fa;
+    border: 1px solid #d8e0ea;
+    border-left: 5px solid #1f4068;
+    padding: 0.7rem 1.1rem;
+    border-radius: 6px;
+    margin: 0.4rem 0 1rem 0;
+    font-size: 1.05rem;
+    color: #1a1a2e;
+}
+.movemap-current-band strong { color: #1f4068; font-size: 1.1rem; }
+.movemap-current-band .sep { color: #999; margin: 0 0.5rem; }
+
+/* ---- スマホ案内バナー ---- */
+.movemap-mobile-hint {
+    background: #fff8e1;
+    border: 1px solid #ffd54f;
+    border-radius: 6px;
+    padding: 0.55rem 0.9rem;
+    margin: 0.3rem 0 0.8rem 0;
+    font-size: 0.95rem;
+    color: #6d4c00;
+}
 </style>
 """
 
@@ -156,4 +224,36 @@ def render_tab_guide(text: str) -> None:
     st.markdown(f'<div class="movemap-guide">{text}</div>', unsafe_allow_html=True)
 
 
-__all__ = ["inject_global_css", "render_hero", "render_tab_guide"]
+def render_current_band(indicator_html: str, horizon_label: str) -> None:
+    """画面上部に「現在の選択」を大きく表示するサマリバンド.
+
+    スマホでサイドバーが隠れている時も、何を見ているかが一目で分かる.
+    """
+    st.markdown(
+        f'<div class="movemap-current-band">'
+        f"📊 観点: <strong>{indicator_html}</strong>"
+        f'<span class="sep">｜</span>'
+        f"📅 時点: <strong>{horizon_label}</strong>"
+        f"</div>",
+        unsafe_allow_html=True,
+    )
+
+
+def render_mobile_hint() -> None:
+    """スマホで開いた時だけ表示される操作案内バナー(CSS で表示制御)."""
+    st.markdown(
+        '<div class="movemap-mobile-hint">'
+        "📱 スマホからご利用の場合、観点・時点の変更は左上の "
+        "<strong>☰ メニュー</strong> から行えます。"
+        "</div>",
+        unsafe_allow_html=True,
+    )
+
+
+__all__ = [
+    "inject_global_css",
+    "render_current_band",
+    "render_hero",
+    "render_mobile_hint",
+    "render_tab_guide",
+]
