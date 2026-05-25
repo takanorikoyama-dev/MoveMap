@@ -28,7 +28,7 @@ from app.features.map_view.ranking import (
     compute_ranking,
     stars_to_unicode,
 )
-from app.features.map_view.regions import REGIONS, medal_for_rank, region_of
+from app.features.map_view.regions import medal_for_rank, region_of
 from app.features.map_view.usecases.switch_indicator import (
     INDICATOR_DEFINITIONS,
     INDICATOR_ICONS,
@@ -128,31 +128,6 @@ def _render_weight_sliders(horizon: Horizon) -> dict[str, float]:
     return weights
 
 
-def _render_filters(horizon: Horizon) -> dict[str, object]:
-    """地方・しきい値フィルタ."""
-    c1, c2, c3 = st.columns([2.2, 1.6, 1.6])
-    with c1:
-        sel_regions = st.multiselect(
-            "地方で絞り込み(空 = 全国)",
-            options=list(REGIONS),
-            default=[],
-            key=f"filter_regions_{horizon}",
-        )
-    with c2:
-        min_composite = st.slider(
-            "総合偏差値 ≥",
-            min_value=0, max_value=80, value=0, step=5,
-            key=f"filter_composite_{horizon}",
-        )
-    with c3:
-        min_stars = st.slider(
-            "★ ≥",
-            min_value=0, max_value=5, value=0,
-            key=f"filter_stars_{horizon}",
-        )
-    return {"regions": sel_regions, "min_composite": min_composite, "min_stars": min_stars}
-
-
 def _render_pin_selector(horizon: Horizon, pref_codes_and_names: list[tuple[str, str]]) -> list[str]:
     """お気に入りピン留め(複数選択 → 上に固定)."""
     options = [f"{c} {n}" for c, n in pref_codes_and_names]
@@ -178,7 +153,6 @@ def show_ranking(horizon: Horizon = "current") -> None:
 
     # --- コントロール ---
     weights = _render_weight_sliders(horizon)
-    filters = _render_filters(horizon)
 
     # --- ランキング計算(重み反映) ---
     ranks = compute_ranking(horizon=horizon, weights=weights)
@@ -224,25 +198,11 @@ def show_ranking(horizon: Horizon = "current") -> None:
     ]
     df_value["総合偏差値"] = df_value["総合偏差値"].round(1)
 
-    # ピン留め(フィルタ適用前に上に並べる)
+    # ピン留め(上に並べる)
     pinned_codes = _render_pin_selector(horizon, pref_codes_and_names)
 
-    # フィルタ適用
     df_filtered = df_value.copy()
     df_score_filtered = df_score.copy()
-    if filters["regions"]:
-        mask = df_filtered["地方"].isin(filters["regions"])
-        df_filtered = df_filtered[mask].reset_index(drop=True)
-        df_score_filtered = df_score_filtered[mask.values].reset_index(drop=True)
-    if filters["min_composite"] > 0:
-        mask = df_filtered["総合偏差値"].fillna(-1) >= filters["min_composite"]
-        df_filtered = df_filtered[mask].reset_index(drop=True)
-        df_score_filtered = df_score_filtered[mask.values].reset_index(drop=True)
-    if filters["min_stars"] > 0:
-        star_unicode = "★"
-        mask = df_filtered["★"].fillna("").map(lambda s: s.count(star_unicode)) >= filters["min_stars"]
-        df_filtered = df_filtered[mask].reset_index(drop=True)
-        df_score_filtered = df_score_filtered[mask.values].reset_index(drop=True)
 
     # ピン留めを上に
     if pinned_codes:
@@ -259,11 +219,7 @@ def show_ranking(horizon: Horizon = "current") -> None:
         )
 
     n = len(df_filtered)
-    if n == 0:
-        st.warning("条件に合う都道府県がありません。フィルタを緩めてください。")
-        return
-
-    st.caption(f"表示中: **{n} 県** / 47 県中(フィルタ適用後)")
+    st.caption(f"全 **{n} 県** を住みやすさスコア順で表示中")
 
     # --- 表示モード切替 ---
     view_mode = st.radio(

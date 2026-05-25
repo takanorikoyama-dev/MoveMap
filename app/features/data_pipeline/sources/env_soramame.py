@@ -70,7 +70,7 @@ class SoramameAdapter(DataSourceAdapter):
 
 
 def _parse_waqi_feed(pref_code: str, payload: dict[str, Any]) -> dict[str, Any] | None:
-    """WAQI のレスポンスから PM2.5 値を抽出.
+    """WAQI のレスポンスから大気質値を抽出.
 
     レスポンス例:
         {"status": "ok", "data": {
@@ -79,6 +79,13 @@ def _parse_waqi_feed(pref_code: str, payload: dict[str, Any]) -> dict[str, Any] 
             "time": {"s": "2026-05-18 09:00:00", "iso": "..."},
             "city": {"name": "Tokyo, Japan", "geo": [35.68, 139.69]}
         }}
+
+    値の選定方針(2026-05-26 更新):
+        AQI(総合大気質指数)を優先採用.
+        PM2.5 単体の瞬間値は観測点の特殊条件で極端に低い値(例: pm25=1)を返すことが
+        あり、ランキングで都市間比較する際にミスリーディングになるため.
+        AQI は PM2.5/PM10/O3/CO/NO2/SO2 の中で最も悪い値で計算される総合指数.
+        AQI が欠損の場合のみ PM2.5 で代用.
 
     Returns:
         正規化前レコード or None(取得不可).
@@ -91,17 +98,17 @@ def _parse_waqi_feed(pref_code: str, payload: dict[str, Any]) -> dict[str, Any] 
     if not isinstance(data, dict):
         return None
 
-    # PM2.5 を優先採用、無ければ AQI で代用
-    iaqi = data.get("iaqi") or {}
+    # AQI を優先採用、欠損時のみ PM2.5 で代用
     value: float | None = None
-    if isinstance(iaqi, dict):
-        pm25 = iaqi.get("pm25")
-        if isinstance(pm25, dict) and isinstance(pm25.get("v"), (int, float)):
-            value = float(pm25["v"])
+    aqi = data.get("aqi")
+    if isinstance(aqi, (int, float)) and aqi >= 0:
+        value = float(aqi)
     if value is None:
-        aqi = data.get("aqi")
-        if isinstance(aqi, (int, float)):
-            value = float(aqi)
+        iaqi = data.get("iaqi") or {}
+        if isinstance(iaqi, dict):
+            pm25 = iaqi.get("pm25")
+            if isinstance(pm25, dict) and isinstance(pm25.get("v"), (int, float)):
+                value = float(pm25["v"])
     if value is None or value < 0:
         return None
 

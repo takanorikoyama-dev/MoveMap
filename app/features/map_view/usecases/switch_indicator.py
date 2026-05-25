@@ -20,11 +20,11 @@ IndicatorId = Literal[
 ]
 
 INDICATOR_LABELS: dict[IndicatorId, str] = {
-    "price_index": "物価指数",
+    "price_index": "物価変動率",
     "land_price": "地価",
     "rent_index": "賃料相場",
     "birth_count": "出生数",
-    "air_quality": "空気質(PM2.5)",
+    "air_quality": "空気質(AQI)",
     "disaster_risk": "災害リスク",
     "transport_access": "交通アクセス",
 }
@@ -59,9 +59,14 @@ INDICATOR_UNITS: dict[IndicatorId, str] = {
 # 各指標の定義(サイドバーで表示)
 INDICATOR_DEFINITIONS: dict[IndicatorId, dict[str, str]] = {
     "price_index": {
-        "what": "消費者物価指数(CPI)。100を基準に物価水準を示す。",
-        "interpret": "↓ 低いほど物価が安く生活コストが低い(住みやすい)。",
-        "source": "e-Stat『2020年基準 消費者物価指数』(県庁所在地ベース・月次)",
+        "what": (
+            "消費者物価の **変動率**(2020 年=100)。100 を超えると 2020 年比で物価が上昇していることを示す。"
+            " ⚠️ **絶対的な物価水準ではなく『どれだけ値上がりしたか』** の指標。"
+            "地方の方がインフレ率が高く、東京・大阪などの大都市は変動率は控えめになる傾向あり。"
+            "「絶対的な物価水準で東京と地方を比較」したい場合は別データ(物価地域差指数)が必要。"
+        ),
+        "interpret": "↓ 低いほど物価上昇が抑えられている(将来の生活コスト悪化リスクが低い)。",
+        "source": "e-Stat『2020年基準 消費者物価指数』0003143513(県庁所在地ベース・月次)",
     },
     "land_price": {
         "what": "不動産取引の単価(1㎡あたり)。土地+建物の取引データから算出した県平均。",
@@ -79,8 +84,12 @@ INDICATOR_DEFINITIONS: dict[IndicatorId, dict[str, str]] = {
         "source": "e-Stat『人口動態統計 確定数』0003412062(年次・最新確定値)",
     },
     "air_quality": {
-        "what": "県庁所在地付近のPM2.5/AQI(大気質指数)。リアルタイム測定値。",
-        "interpret": "↓ 低いほど空気がきれいで健康面で住みやすい。",
+        "what": (
+            "県庁所在地付近の **AQI(総合大気質指数、0-500)** のリアルタイム値。"
+            "PM2.5/PM10/O3/CO/NO2/SO2 の中で最も悪い値で算出される総合指標。"
+            "値は観測時点に依存(リアルタイム瞬間値)。"
+        ),
+        "interpret": "↓ 低いほど空気がきれい(0-50=良好、51-100=普通、100超=注意)。",
         "source": "WAQI(World Air Quality Index)観測ステーション",
     },
     "disaster_risk": {

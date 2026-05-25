@@ -9,10 +9,10 @@ import streamlit as st
 
 from app.features.map_view.ranking import ALL_INDICATORS, compute_ranking, stars_to_unicode
 from app.features.map_view.regions import region_of
+from app.features.map_view.usecases.show_prefecture_detail import _format_value
 from app.features.map_view.usecases.switch_indicator import (
     INDICATOR_ICONS,
     INDICATOR_LABELS,
-    INDICATOR_UNITS,
 )
 
 Horizon = Literal["current", "3y", "5y", "10y"]
@@ -104,12 +104,12 @@ def show_comparison(horizon: Horizon = "current") -> None:
         diff = None if (a_sc is None or b_sc is None) else round(a_sc - b_sc, 1)
         winner = "A" if (diff is not None and diff > 0) else "B" if (diff is not None and diff < 0) else "—"
         rows.append({
-            "指標": f"{INDICATOR_ICONS.get(ind, '')} {INDICATOR_LABELS[ind]} {INDICATOR_UNITS.get(ind, '')}",  # type: ignore[index,arg-type]
-            "A 実数値": a_val,
-            "A 偏差値": round(a_sc, 1) if a_sc is not None else None,
-            "B 実数値": b_val,
-            "B 偏差値": round(b_sc, 1) if b_sc is not None else None,
-            "A−B 偏差値差": diff,
+            "指標": f"{INDICATOR_ICONS.get(ind, '')} {INDICATOR_LABELS[ind]}",  # type: ignore[index,arg-type]
+            "A 実数値": _format_value(ind, a_val),
+            "A 偏差値": f"{a_sc:.1f}" if a_sc is not None else "—",
+            "B 実数値": _format_value(ind, b_val),
+            "B 偏差値": f"{b_sc:.1f}" if b_sc is not None else "—",
+            "差(A−B)": f"{diff:+.1f}" if diff is not None else "—",
             "勝者": winner,
         })
 

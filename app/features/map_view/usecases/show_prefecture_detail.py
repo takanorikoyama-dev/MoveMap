@@ -43,9 +43,33 @@ def show_prefecture_detail(prefecture_code: str) -> None:
         per_horizon = table.get(indicator_id, {})
         for horizon, horizon_label in HORIZON_LABELS.items():
             val = per_horizon.get(horizon)  # type: ignore[arg-type]
-            row[horizon_label] = "—" if val is None else f"{val:,.2f}"
+            row[horizon_label] = _format_value(indicator_id, val)
         rows.append(row)
 
     df = pd.DataFrame(rows)
     st.dataframe(df, use_container_width=True, hide_index=True)
     st.caption("※ 予測対象外の指標(空気質/災害リスク/交通アクセス)は予測列を「—」表示しています。")
+
+
+def _format_value(indicator_id: str, val: float | None) -> str:
+    """指標に応じて値を整形表示.
+
+    - 地価 / 賃料: ¥ 記号 + 千区切り + 小数点なし(例: ¥937,111)
+    - 出生数: 千区切り + 「人」(例: 84,207 人)
+    - 物価変動率: 小数 1 桁(例: 102.6)
+    - 空気質(AQI): 整数(例: 55)
+    - 災害リスク / 交通アクセス: 小数 2 桁(0-5 スコア)
+    """
+    if val is None:
+        return "—"
+    if indicator_id == "land_price":
+        return f"¥{int(round(val)):,}/㎡"
+    if indicator_id == "rent_index":
+        return f"¥{int(round(val)):,}/月"
+    if indicator_id == "birth_count":
+        return f"{int(round(val)):,} 人"
+    if indicator_id == "price_index":
+        return f"{val:.1f}"
+    if indicator_id == "air_quality":
+        return f"{int(round(val))}"
+    return f"{val:.2f}"

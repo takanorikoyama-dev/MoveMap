@@ -14,8 +14,8 @@ from app.features.data_pipeline.sources.env_soramame import (
 )
 
 
-def test_parse_waqi_feed_picks_pm25() -> None:
-    """data.iaqi.pm25.v を優先採用."""
+def test_parse_waqi_feed_prefers_aqi() -> None:
+    """data.aqi(総合大気質指数)を優先採用."""
     payload = {
         "status": "ok",
         "data": {
@@ -28,23 +28,38 @@ def test_parse_waqi_feed_picks_pm25() -> None:
     assert record is not None
     assert record["indicator_id"] == "air_quality"
     assert record["prefecture_code"] == "13"
-    assert record["value"] == 18.5
+    assert record["value"] == 55.0  # AQI を採用
     assert record["measured_at"] == "2026-05-18"
 
 
-def test_parse_waqi_feed_falls_back_to_aqi_when_no_pm25() -> None:
+def test_parse_waqi_feed_falls_back_to_pm25_when_aqi_missing() -> None:
+    """AQI が欠損 / 無い場合は PM2.5 で代用."""
     payload = {
         "status": "ok",
         "data": {
-            "aqi": 42,
-            "iaqi": {"pm10": {"v": 30.0}},
+            "iaqi": {"pm25": {"v": 30.0}},
             "time": {"s": "2026-05-18 09:00:00"},
         },
     }
     record = _parse_waqi_feed("01", payload)
     assert record is not None
-    assert record["value"] == 42.0
+    assert record["value"] == 30.0
     assert record["measured_at"] == "2026-05-18"
+
+
+def test_parse_waqi_feed_ignores_pm25_when_aqi_present_and_low() -> None:
+    """AQI が小さくても、PM2.5 単体の極端な値より優先される(再現: 広島 aqi=9, pm25=1)."""
+    payload = {
+        "status": "ok",
+        "data": {
+            "aqi": 9,
+            "iaqi": {"pm25": {"v": 1}},
+            "time": {"iso": "2026-05-26T06:00:00+09:00"},
+        },
+    }
+    record = _parse_waqi_feed("34", payload)
+    assert record is not None
+    assert record["value"] == 9.0  # pm25=1 ではなく aqi=9
 
 
 def test_parse_waqi_feed_rejects_non_ok_status() -> None:
@@ -59,7 +74,7 @@ def test_parse_waqi_feed_rejects_missing_data() -> None:
 
 
 def test_parse_waqi_feed_rejects_negative_value() -> None:
-    """WAQI は観測欠損時 aqi=-1 などを返す場合あり."""
+    """WAQI は観測欠損時 aqi=-1 などを返す場合あり(PM2.5 も無ければ None)."""
     payload = {"status": "ok", "data": {"aqi": -1, "iaqi": {}, "time": {"iso": "2026-05-18"}}}
     assert _parse_waqi_feed("13", payload) is None
 
