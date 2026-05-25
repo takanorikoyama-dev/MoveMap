@@ -120,7 +120,34 @@ def values_for(indicator_id: str, horizon: Horizon) -> ValueWithMeta:
 
         # 未来予測 horizon
         if indicator_id not in PREDICTABLE_INDICATORS:
-            # 予測対象外: 全 None(UI で「予測なし」灰色表示)
+            # 予測対象外指標(空気質/災害/交通)は将来も「現状と同じ」と仮定し、
+            # 現在値をそのまま返す(ランキング・比較で None になる UX 問題回避).
+            # quality_status 上は推測値だが、データ源の性質(地形/施設等で年単位の急変が少ない)から妥当.
+            if _current_value_row_count(con) > 0:
+                rows = con.execute(
+                    """
+                    SELECT prefecture_code, value, updated_at
+                    FROM current_values
+                    WHERE indicator_id = $1
+                    """,
+                    [indicator_id],
+                ).fetchall()
+                values_inherit: dict[str, float | None] = {code: None for code in PREF_CODES}
+                latest_inherit: datetime | None = None
+                for code, value, updated_at in rows:
+                    values_inherit[code] = float(value) if value is not None else None
+                    if updated_at is not None and (latest_inherit is None or updated_at > latest_inherit):
+                        latest_inherit = updated_at
+                if any(v is not None for v in values_inherit.values()):
+                    return ValueWithMeta(
+                        values=values_inherit,
+                        availability=DataAvailability(
+                            source="db",
+                            last_updated=latest_inherit,
+                            note="予測対象外: 現在値を将来時点に継承",
+                        ),
+                    )
+            # current_values も空なら従来通り全 None
             return ValueWithMeta(
                 values={code: None for code in PREF_CODES},
                 availability=DataAvailability(source="db", note="この指標は予測対象外"),
@@ -226,14 +253,18 @@ def prefecture_full_table(prefecture_code: str) -> dict[str, dict[Horizon, float
             con.close()
 
     # DB に値が入っていないセルは dummy で補完
-    # (予測対象外 × 未来 horizon は None 維持)
+    # 予測対象外指標 × 未来 horizon は **現在値を継承**(ランキング/比較画面と挙動を揃える)
     for ind in indicators:
         is_predictable = ind in PREDICTABLE_INDICATORS
         for h in horizons:
             if table[ind][h] is not None:
                 continue
             if h != "current" and not is_predictable:
-                continue  # 予測対象外 × 未来は None のまま
+                # 予測対象外 × 未来 horizon → 現在値を継承
+                current_val = table[ind].get("current")
+                if current_val is not None:
+                    table[ind][h] = current_val
+                continue
             # DB に該当データがなければ dummy で埋める
             if h == "current" and not db_has_current:
                 table[ind][h] = dummy_value(ind, prefecture_code, h)

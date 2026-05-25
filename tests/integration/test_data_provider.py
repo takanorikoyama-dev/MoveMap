@@ -155,8 +155,12 @@ def test_values_for_no_prediction_returns_none(isolated_config) -> None:  # type
     assert pack.values["13"] is None
 
 
-def test_values_for_non_predictable_indicator_at_future_returns_all_none(isolated_config) -> None:  # type: ignore[no-untyped-def]
-    """予測対象外指標(air_quality)を 5y で取ると全 None."""
+def test_values_for_non_predictable_indicator_at_future_inherits_current(isolated_config) -> None:  # type: ignore[no-untyped-def]
+    """予測対象外指標(air_quality)を 5y で取ると現在値を継承して返す.
+
+    UX 上「3年/5年/10年で空気質が None になる」のを避けるため、
+    地形/施設等で年単位の急変が少ない指標は現在値を将来値として継承する.
+    """
     con = duckdb.connect(str(isolated_config.db_path))
     _seed_basic(con)
     con.execute(
@@ -166,7 +170,8 @@ def test_values_for_non_predictable_indicator_at_future_returns_all_none(isolate
 
     pack = dp_mod.values_for("air_quality", "5y")
     assert pack.availability.source == "db"
-    assert all(v is None for v in pack.values.values())
+    assert pack.values["13"] == 8.0  # 現在値が継承される
+    assert pack.availability.note and "継承" in pack.availability.note
 
 
 def test_latest_model_for_returns_dummy_when_no_model(isolated_config) -> None:  # type: ignore[no-untyped-def]
@@ -206,7 +211,7 @@ def test_latest_model_for_non_predictable_returns_dummy(isolated_config) -> None
 
 
 def test_prefecture_full_table_falls_back_to_dummy(isolated_config) -> None:  # type: ignore[no-untyped-def]
-    """DB なし時、7指標 × 4時点の表が dummy で埋まる(予測対象外×未来は None)."""
+    """DB なし時、7指標 × 4時点の表が dummy で埋まる(予測対象外×未来は現在値を継承)."""
     table = dp_mod.prefecture_full_table("13")
     assert set(table.keys()) == {
         "price_index", "land_price", "rent_index", "birth_count",
@@ -217,6 +222,7 @@ def test_prefecture_full_table_falls_back_to_dummy(isolated_config) -> None:  # 
         assert table[ind]["current"] is not None
     # 主要4指標の未来は埋まる
     assert table["price_index"]["5y"] is not None
-    # 予測対象外指標の未来は None
-    assert table["air_quality"]["5y"] is None
-    assert table["disaster_risk"]["3y"] is None
+    # 予測対象外指標の未来は現在値を継承
+    assert table["air_quality"]["5y"] == table["air_quality"]["current"]
+    assert table["disaster_risk"]["3y"] == table["disaster_risk"]["current"]
+    assert table["transport_access"]["10y"] == table["transport_access"]["current"]
