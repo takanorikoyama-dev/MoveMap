@@ -23,8 +23,8 @@ from collections.abc import Iterator
 from typing import Any
 
 from app.features.data_pipeline.sources._base import DataSourceAdapter
+from app.features.map_view.regions import PREFECTURE_CITY_CENTERS
 from app.shared.config import load_config
-from app.shared.geo import prefecture_centroids
 from app.shared.http_client import HttpRetryExhausted, HttpSchemaError, get_json, head_last_modified
 from app.shared.logger import get_logger
 
@@ -47,7 +47,9 @@ class SoramameAdapter(DataSourceAdapter):
             logger.warning("WAQI_TOKEN 未設定。air_quality fetch をスキップ(INV-EXT-001)")
             return
 
-        for pref_code, (lat, lon) in prefecture_centroids().items():
+        # 県重心(山中の場合あり)ではなく、主要都市の中心(駅周辺)を観測点に使う.
+        # 交通量・人口集積のある観測ステーションが選ばれ、都市間比較が妥当になる.
+        for pref_code, (lat, lon) in PREFECTURE_CITY_CENTERS.items():
             try:
                 payload = get_json(
                     WAQI_FEED_URL.format(lat=lat, lon=lon),

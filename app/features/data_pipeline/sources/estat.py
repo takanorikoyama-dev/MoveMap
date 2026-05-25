@@ -27,16 +27,15 @@ GET_STATS_DATA = f"{E_STAT_BASE_URL}/getStatsData"
 
 # 内部 indicator_id ごとに必要なリクエストパラメータ(statsDataId + 絞り込み軸).
 #
-# price_index: 消費者物価指数(2020年基準, 中分類, area=県庁所在地ベース).
+# price_index: 小売物価統計調査(構造編) 消費者物価地域差指数 / 0003441258 + cdCat01=00010(総合).
+#   全国 = 100 を基準に地域間の **物価水準そのもの** を示す指数(東京は約 102、沖縄は約 99 など).
+#   2026-05-26 までは CPI(0003143513、2020 年比の変動率)を使っていたが、ユーザーの
+#   「東京は物価が高いはず」直感と乖離する数値が出るため切り替え.
 # birth_count: 人口動態統計 確定数 保管統計表 都道府県別 出生(年次).
-# rent_index : 消費者物価指数の「民営家賃」(cdCat01=0047)サブ分類を抜き出した家賃指数.
-#              当初 reinfolib XCT001 を想定したが実 API は地価公示を返したため、CPI 内部の
-#              家賃サブ分類で代替(2026-05-19).
+# rent_index : mlit_rent_index.py で住宅・土地統計調査の家賃階級加重平均.
 INDICATOR_TO_STATS_PARAMS: dict[str, dict[str, str]] = {
-    "price_index": {"statsDataId": "0003143513"},
+    "price_index": {"statsDataId": "0003441258", "cdCat01": "00010"},
     "birth_count": {"statsDataId": "0003412062"},
-    # rent_index は mlit_rent_index.py に移管(住宅・土地統計調査の家賃階級加重平均).
-    # 0003143513 + cdCat01=0047 では都道府県別データが取れなかったため.
 }
 
 

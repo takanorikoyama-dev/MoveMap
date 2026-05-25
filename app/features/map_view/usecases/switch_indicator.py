@@ -20,7 +20,7 @@ IndicatorId = Literal[
 ]
 
 INDICATOR_LABELS: dict[IndicatorId, str] = {
-    "price_index": "物価変動率",
+    "price_index": "物価水準",
     "land_price": "地価",
     "rent_index": "賃料相場",
     "birth_count": "出生数",
@@ -47,7 +47,7 @@ def labeled(indicator_id: IndicatorId) -> str:
 
 # 各指標の単位(列ヘッダ・ツールチップ用)
 INDICATOR_UNITS: dict[IndicatorId, str] = {
-    "price_index": "(2020=100)",
+    "price_index": "(全国=100)",
     "land_price": "(万円/㎡)",
     "rent_index": "(万円/月)",
     "birth_count": "(万人/年)",
@@ -60,13 +60,12 @@ INDICATOR_UNITS: dict[IndicatorId, str] = {
 INDICATOR_DEFINITIONS: dict[IndicatorId, dict[str, str]] = {
     "price_index": {
         "what": (
-            "消費者物価の **変動率**(2020 年=100)。100 を超えると 2020 年比で物価が上昇していることを示す。"
-            " ⚠️ **絶対的な物価水準ではなく『どれだけ値上がりしたか』** の指標。"
-            "地方の方がインフレ率が高く、東京・大阪などの大都市は変動率は控えめになる傾向あり。"
-            "「絶対的な物価水準で東京と地方を比較」したい場合は別データ(物価地域差指数)が必要。"
+            "**消費者物価地域差指数**(全国 = 100)。地域間の物価水準そのものを示す指数。"
+            "100 超 = 全国平均より物価が高い、100 未満 = 安い。"
+            "東京は約 102 前後、沖縄は約 99 前後で、大都市が高く地方が低い直感的な数値になる。"
         ),
-        "interpret": "↓ 低いほど物価上昇が抑えられている(将来の生活コスト悪化リスクが低い)。",
-        "source": "e-Stat『2020年基準 消費者物価指数』0003143513(県庁所在地ベース・月次)",
+        "interpret": "↓ 低いほど物価が安く生活コストが低い(住みやすい)。",
+        "source": "e-Stat『小売物価統計調査(構造編)消費者物価地域差指数』0003441258(年次・10大費目=総合)",
     },
     "land_price": {
         "what": "不動産取引の単価(1㎡あたり)。土地+建物の取引データから算出した県平均。",
