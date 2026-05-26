@@ -127,8 +127,12 @@ def test_values_for_predicted_uses_predicted_values(isolated_config) -> None:  #
     assert pack.values["13"] == 115.0
 
 
-def test_values_for_no_prediction_returns_none(isolated_config) -> None:  # type: ignore[no-untyped-def]
-    """quality_status='no_prediction' は None として表示される."""
+def test_values_for_no_prediction_falls_back_to_simple_extrapolation(isolated_config) -> None:  # type: ignore[no-untyped-def]
+    """quality_status='no_prediction' のとき、現在値 × 簡易年率で外挿補完.
+
+    AI モデル(ARIMA/Prophet)が R² 不足で no_prediction を出した場合の救済策.
+    UX 上「予測タブで全部 None」を避けるための新仕様(2026-05-26).
+    """
     con = duckdb.connect(str(isolated_config.db_path))
     _seed_basic(con)
     con.execute(
@@ -152,7 +156,10 @@ def test_values_for_no_prediction_returns_none(isolated_config) -> None:  # type
 
     pack = dp_mod.values_for("price_index", "3y")
     assert pack.availability.source == "db"
-    assert pack.values["13"] is None
+    # 100.0 × (1 + 0.005)^3 ≈ 101.5(price_index は年率 +0.5%)
+    assert pack.values["13"] is not None
+    assert abs(pack.values["13"] - 100.0 * (1.005 ** 3)) < 0.01
+    assert pack.availability.note is not None and "簡易年率" in pack.availability.note
 
 
 def test_values_for_non_predictable_indicator_at_future_inherits_current(isolated_config) -> None:  # type: ignore[no-untyped-def]

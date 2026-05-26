@@ -28,6 +28,23 @@ logger = get_logger(__name__)
 Horizon = Literal["current", "3y", "5y", "10y"]
 HORIZON_TO_YEARS: dict[Horizon, int] = {"3y": 3, "5y": 5, "10y": 10}
 
+# AI モデル(ARIMA+Prophet)の R² が不十分(< 0.6)で no_prediction が出た場合の
+# **簡易外挿フォールバック** に使う年率トレンド.
+# データソース切替で履歴が短くなり ML 学習が破綻したケースの当面の救済策.
+# 将来、月次バッチで履歴が蓄積されれば ML 予測に戻る.
+_SIMPLE_FORECAST_RATES: dict[str, float] = {
+    "price_index": 0.005,   # +0.5%/年(緩やかなインフレ前提)
+    "land_price": 0.005,    # +0.5%/年
+    "rent_index": 0.010,    # +1.0%/年
+    "birth_count": -0.025,  # -2.5%/年(少子化トレンド)
+}
+
+
+def _simple_extrapolate(indicator_id: str, current_value: float, years: int) -> float:
+    """現在値 × (1 + 年率)^years で簡易外挿."""
+    rate = _SIMPLE_FORECAST_RATES.get(indicator_id, 0.0)
+    return current_value * ((1.0 + rate) ** years)
+
 
 @dataclass(frozen=True, slots=True)
 class DataAvailability:
@@ -170,14 +187,41 @@ def values_for(indicator_id: str, horizon: Horizon) -> ValueWithMeta:
 
         result: dict[str, float | None] = {code: None for code in PREF_CODES}
         latest = None
+        no_prediction_codes: list[str] = []
         for code, value, quality, predicted_at in rows:
             if quality == "no_prediction":
                 result[code] = None
+                no_prediction_codes.append(code)
             else:
                 result[code] = float(value) if value is not None else None
             if predicted_at is not None and (latest is None or predicted_at > latest):
                 latest = predicted_at
-        return ValueWithMeta(values=result, availability=DataAvailability(source="db", last_updated=latest))
+
+        # ML モデルが no_prediction を出した予測値を、現在値 × 仮定年率 で補完
+        # (履歴データ不足で ARIMA/Prophet が機能しない場合の救済策)
+        note = None
+        if no_prediction_codes and indicator_id in _SIMPLE_FORECAST_RATES:
+            current_rows = con.execute(
+                """
+                SELECT prefecture_code, value
+                FROM current_values
+                WHERE indicator_id = $1 AND prefecture_code = ANY($2)
+                """,
+                [indicator_id, no_prediction_codes],
+            ).fetchall()
+            current_lookup = {c: float(v) for c, v in current_rows if v is not None}
+            filled = 0
+            for code in no_prediction_codes:
+                if code in current_lookup:
+                    result[code] = _simple_extrapolate(indicator_id, current_lookup[code], years)
+                    filled += 1
+            if filled > 0:
+                note = f"AI予測精度不足 {filled} 件を現在値 × 簡易年率(+/-1〜2.5%)で補完"
+
+        return ValueWithMeta(
+            values=result,
+            availability=DataAvailability(source="db", last_updated=latest, note=note),
+        )
     finally:
         con.close()
 
@@ -252,23 +296,29 @@ def prefecture_full_table(prefecture_code: str) -> dict[str, dict[Horizon, float
         finally:
             con.close()
 
-    # DB に値が入っていないセルは dummy で補完
-    # 予測対象外指標 × 未来 horizon は **現在値を継承**(ランキング/比較画面と挙動を揃える)
+    # 1. まず current を埋める(dummy 含めて確定)
+    for ind in indicators:
+        if table[ind]["current"] is None and not db_has_current:
+            table[ind]["current"] = dummy_value(ind, prefecture_code, "current")
+
+    # 2. 次に未来 horizon を埋める
+    #   - 予測対象外指標 × 未来 → 現在値を継承
+    #   - 主要4指標で AI 予測が no_prediction → 現在値 × 簡易年率で外挿
+    #   - DB に予測なし → dummy
+    horizon_year_map: dict[Horizon, int] = {"3y": 3, "5y": 5, "10y": 10}
     for ind in indicators:
         is_predictable = ind in PREDICTABLE_INDICATORS
+        current_val = table[ind].get("current")  # 上記で埋め済み
         for h in horizons:
-            if table[ind][h] is not None:
+            if h == "current" or table[ind][h] is not None:
                 continue
-            if h != "current" and not is_predictable:
-                # 予測対象外 × 未来 horizon → 現在値を継承
-                current_val = table[ind].get("current")
+            years = horizon_year_map.get(h)  # type: ignore[arg-type]
+            if not is_predictable:
                 if current_val is not None:
                     table[ind][h] = current_val
-                continue
-            # DB に該当データがなければ dummy で埋める
-            if h == "current" and not db_has_current:
-                table[ind][h] = dummy_value(ind, prefecture_code, h)
-            elif h != "current" and ind not in db_has_predicted_for:
+            elif ind in _SIMPLE_FORECAST_RATES and current_val is not None and years is not None:
+                table[ind][h] = _simple_extrapolate(ind, current_val, years)
+            elif ind not in db_has_predicted_for:
                 table[ind][h] = dummy_value(ind, prefecture_code, h)
     return table
 

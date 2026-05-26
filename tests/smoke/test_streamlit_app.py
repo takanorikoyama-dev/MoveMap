@@ -18,7 +18,8 @@ APP_PATH = Path(__file__).resolve().parents[2] / "app" / "main.py"
 
 
 def _new_app() -> "AppTest":
-    return AppTest.from_file(str(APP_PATH), default_timeout=30)
+    # 6 タブの初期描画で compute_ranking が複数回走るため余裕を持って 90 秒
+    return AppTest.from_file(str(APP_PATH), default_timeout=90)
 
 
 def test_app_runs_without_exceptions() -> None:
