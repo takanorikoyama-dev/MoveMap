@@ -156,10 +156,11 @@ def test_values_for_no_prediction_falls_back_to_simple_extrapolation(isolated_co
 
     pack = dp_mod.values_for("price_index", "3y")
     assert pack.availability.source == "db"
-    # 100.0 × (1 + 0.005)^3 ≈ 101.5(price_index は年率 +0.5%)
+    # price_index 年率 +0.5%、pref_code='13'(東京・三大都市圏)は補正 ×2.5
+    # → 100.0 × (1 + 0.005 × 2.5)^3 = 100.0 × 1.0125^3 ≈ 103.80
     assert pack.values["13"] is not None
-    assert abs(pack.values["13"] - 100.0 * (1.005 ** 3)) < 0.01
-    assert pack.availability.note is not None and "簡易年率" in pack.availability.note
+    assert abs(pack.values["13"] - 100.0 * (1.0125 ** 3)) < 0.01
+    assert pack.availability.note is not None and ("簡易年率" in pack.availability.note or "県別" in pack.availability.note)
 
 
 def test_values_for_non_predictable_indicator_at_future_inherits_current(isolated_config) -> None:  # type: ignore[no-untyped-def]

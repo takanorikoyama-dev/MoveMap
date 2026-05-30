@@ -39,10 +39,48 @@ _SIMPLE_FORECAST_RATES: dict[str, float] = {
     "birth_count": -0.025,  # -2.5%/年(少子化トレンド)
 }
 
+# 三大都市圏(東京/神奈川/埼玉/千葉/大阪/愛知)
+_BIG_THREE_METRO: frozenset[str] = frozenset({"13", "14", "11", "12", "27", "23"})
+# 政令市圏・地方中核都市(札幌/仙台/京都/兵庫/広島/福岡 等)
+_REGIONAL_HUBS: frozenset[str] = frozenset({"01", "04", "26", "28", "33", "34", "40", "43"})
 
-def _simple_extrapolate(indicator_id: str, current_value: float, years: int) -> float:
-    """現在値 × (1 + 年率)^years で簡易外挿."""
-    rate = _SIMPLE_FORECAST_RATES.get(indicator_id, 0.0)
+
+def _pref_trend_modifier(indicator_id: str, pref_code: str) -> float:
+    """県別の年率補正係数(1.0 = 標準).
+
+    実際の傾向を反映:
+        - 地価/賃料/物価は三大都市圏で大きく上昇、地方では伸びが鈍い
+        - 出生数は流入超過県(都市圏)では減少が緩やか、地方では急減
+    これで「現在 vs 10年後」の偏差値が県別に動く.
+    """
+    if indicator_id in ("land_price", "rent_index", "price_index"):
+        if pref_code in _BIG_THREE_METRO:
+            return 2.5  # 三大都市圏: 2.5 倍の率で上昇
+        if pref_code in _REGIONAL_HUBS:
+            return 1.4  # 地方中核: 1.4 倍
+        return 0.4  # 地方郡部: 0.4 倍(伸び鈍い)
+    if indicator_id == "birth_count":
+        if pref_code in _BIG_THREE_METRO:
+            return 0.4  # 三大都市圏: 減少緩やか(-1.0%/年)
+        if pref_code in _REGIONAL_HUBS:
+            return 0.8  # 地方中核: 標準より緩やか
+        return 1.6  # 地方郡部: 急減(-4.0%/年)
+    return 1.0
+
+
+def _simple_extrapolate(
+    indicator_id: str,
+    current_value: float,
+    years: int,
+    pref_code: str | None = None,
+) -> float:
+    """現在値 × (1 + 年率 × 県別補正)^years で簡易外挿.
+
+    pref_code を渡すと県別補正係数が掛かり、偏差値(=相対順位)が時間で動く.
+    """
+    base_rate = _SIMPLE_FORECAST_RATES.get(indicator_id, 0.0)
+    modifier = _pref_trend_modifier(indicator_id, pref_code) if pref_code else 1.0
+    rate = base_rate * modifier
     return current_value * ((1.0 + rate) ** years)
 
 
@@ -213,10 +251,12 @@ def values_for(indicator_id: str, horizon: Horizon) -> ValueWithMeta:
             filled = 0
             for code in no_prediction_codes:
                 if code in current_lookup:
-                    result[code] = _simple_extrapolate(indicator_id, current_lookup[code], years)
+                    result[code] = _simple_extrapolate(
+                        indicator_id, current_lookup[code], years, pref_code=code
+                    )
                     filled += 1
             if filled > 0:
-                note = f"AI予測精度不足 {filled} 件を現在値 × 簡易年率(+/-1〜2.5%)で補完"
+                note = f"AI予測精度不足 {filled} 件を現在値 × 県別簡易年率で補完(三大都市圏/地方中核/地方郡部で別)"
 
         return ValueWithMeta(
             values=result,
@@ -338,7 +378,9 @@ def values_for_all_indicators(
                     for code in no_prediction_by_ind[ind]:
                         cv = current_lookup.get(ind, {}).get(code)
                         if cv is not None:
-                            result[ind][code] = _simple_extrapolate(ind, cv, years)
+                            result[ind][code] = _simple_extrapolate(
+                                ind, cv, years, pref_code=code
+                            )
 
         return result
     finally:
@@ -430,7 +472,9 @@ def prefecture_full_table(prefecture_code: str) -> dict[str, dict[Horizon, float
                 if current_val is not None:
                     table[ind][h] = current_val
             elif ind in _SIMPLE_FORECAST_RATES and current_val is not None and years is not None:
-                table[ind][h] = _simple_extrapolate(ind, current_val, years)
+                table[ind][h] = _simple_extrapolate(
+                    ind, current_val, years, pref_code=prefecture_code
+                )
             elif ind not in db_has_predicted_for:
                 table[ind][h] = dummy_value(ind, prefecture_code, h)
     return table
