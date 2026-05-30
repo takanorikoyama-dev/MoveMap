@@ -163,11 +163,11 @@ def test_values_for_no_prediction_falls_back_to_simple_extrapolation(isolated_co
     assert pack.availability.note is not None and ("簡易年率" in pack.availability.note or "県別" in pack.availability.note)
 
 
-def test_values_for_non_predictable_indicator_at_future_inherits_current(isolated_config) -> None:  # type: ignore[no-untyped-def]
-    """予測対象外指標(air_quality)を 5y で取ると現在値を継承して返す.
+def test_values_for_non_predictable_indicator_at_future_uses_scenario_extrapolation(isolated_config) -> None:  # type: ignore[no-untyped-def]
+    """予測対象外指標(air_quality)を 5y で取ると、シナリオ外挿で値が変化する.
 
-    UX 上「3年/5年/10年で空気質が None になる」のを避けるため、
-    地形/施設等で年単位の急変が少ない指標は現在値を将来値として継承する.
+    旧仕様: 現在値継承で同じ値を返していた
+    新仕様: _SIMPLE_FORECAST_RATES に登録された指標は県別の年率トレンドで外挿
     """
     con = duckdb.connect(str(isolated_config.db_path))
     _seed_basic(con)
@@ -178,8 +178,11 @@ def test_values_for_non_predictable_indicator_at_future_inherits_current(isolate
 
     pack = dp_mod.values_for("air_quality", "5y")
     assert pack.availability.source == "db"
-    assert pack.values["13"] == 8.0  # 現在値が継承される
-    assert pack.availability.note and "継承" in pack.availability.note
+    # air_quality 年率 -1.0%、pref_code='13'(東京・三大都市圏)は補正 ×1.5
+    # → 実年率 -1.5%、5年で 8.0 × (1 - 0.015)^5 ≈ 7.418
+    assert pack.values["13"] is not None
+    assert abs(pack.values["13"] - 8.0 * (1.0 - 0.015) ** 5) < 0.01
+    assert pack.availability.note and ("外挿" in pack.availability.note or "継承" in pack.availability.note)
 
 
 def test_latest_model_for_returns_dummy_when_no_model(isolated_config) -> None:  # type: ignore[no-untyped-def]
@@ -219,7 +222,7 @@ def test_latest_model_for_non_predictable_returns_dummy(isolated_config) -> None
 
 
 def test_prefecture_full_table_falls_back_to_dummy(isolated_config) -> None:  # type: ignore[no-untyped-def]
-    """DB なし時、7指標 × 4時点の表が dummy で埋まる(予測対象外×未来は現在値を継承)."""
+    """DB なし時、7指標 × 4時点の表が dummy で埋まる(全指標が外挿で horizon ごとに動く)."""
     table = dp_mod.prefecture_full_table("13")
     assert set(table.keys()) == {
         "price_index", "land_price", "rent_index", "birth_count",
@@ -230,7 +233,7 @@ def test_prefecture_full_table_falls_back_to_dummy(isolated_config) -> None:  # 
         assert table[ind]["current"] is not None
     # 主要4指標の未来は埋まる
     assert table["price_index"]["5y"] is not None
-    # 予測対象外指標の未来は現在値を継承
-    assert table["air_quality"]["5y"] == table["air_quality"]["current"]
-    assert table["disaster_risk"]["3y"] == table["disaster_risk"]["current"]
-    assert table["transport_access"]["10y"] == table["transport_access"]["current"]
+    # 予測対象外指標も horizon でシナリオ外挿により値が変化(継承ではない)
+    assert table["air_quality"]["5y"] != table["air_quality"]["current"]
+    assert table["disaster_risk"]["3y"] != table["disaster_risk"]["current"]
+    assert table["transport_access"]["10y"] != table["transport_access"]["current"]

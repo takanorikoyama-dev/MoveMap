@@ -33,10 +33,17 @@ HORIZON_TO_YEARS: dict[Horizon, int] = {"3y": 3, "5y": 5, "10y": 10}
 # データソース切替で履歴が短くなり ML 学習が破綻したケースの当面の救済策.
 # 将来、月次バッチで履歴が蓄積されれば ML 予測に戻る.
 _SIMPLE_FORECAST_RATES: dict[str, float] = {
-    "price_index": 0.005,   # +0.5%/年(緩やかなインフレ前提)
-    "land_price": 0.005,    # +0.5%/年
-    "rent_index": 0.010,    # +1.0%/年
-    "birth_count": -0.025,  # -2.5%/年(少子化トレンド)
+    # 予測対象 4 指標(ARIMA/Prophet 想定だが履歴不足で外挿フォールバック)
+    "price_index": 0.005,    # +0.5%/年(緩やかなインフレ前提)
+    "land_price": 0.005,     # +0.5%/年
+    "rent_index": 0.010,     # +1.0%/年
+    "birth_count": -0.025,   # -2.5%/年(少子化トレンド)
+    # 予測対象外 4 指標(シナリオベースのトレンド反映、過去傾向 + 地域特性)
+    "air_quality": -0.010,   # -1.0%/年(規制強化 AQI 改善傾向)
+    "disaster_risk": 0.005,  # +0.5%/年(気候変動で微増)
+    "transport_access": 0.005,  # +0.5%/年(全国インフラ整備)
+    "public_safety": -0.015,  # -1.5%/年(認知件数の全国減少傾向)
+    # net_migration は率(‰)のため複利ではなく加算式で扱う(_net_migration_extrapolate)
 }
 
 # 三大都市圏(東京/神奈川/埼玉/千葉/大阪/愛知)
@@ -49,23 +56,65 @@ def _pref_trend_modifier(indicator_id: str, pref_code: str) -> float:
     """県別の年率補正係数(1.0 = 標準).
 
     実際の傾向を反映:
-        - 地価/賃料/物価は三大都市圏で大きく上昇、地方では伸びが鈍い
-        - 出生数は流入超過県(都市圏)では減少が緩やか、地方では急減
-    これで「現在 vs 10年後」の偏差値が県別に動く.
+        - 地価/賃料/物価: 三大都市圏は大きく上昇、地方は伸びが鈍い
+        - 出生数: 都市圏は減少緩やか、地方は急減
+        - 空気質: 都市圏は脱工業化で改善大、地方は黄砂等で改善鈍い
+        - 災害リスク: 沿岸部・河川域(三大都市圏含む)で気候変動の影響大
+        - 交通アクセス: 都市圏は新線・地下鉄延伸で改善、地方郡部は路線廃止で悪化
+        - 治安(認知件数): 都市圏は犯罪減少幅大、地方は変化小
     """
     if indicator_id in ("land_price", "rent_index", "price_index"):
         if pref_code in _BIG_THREE_METRO:
-            return 2.5  # 三大都市圏: 2.5 倍の率で上昇
+            return 2.5
         if pref_code in _REGIONAL_HUBS:
-            return 1.4  # 地方中核: 1.4 倍
-        return 0.4  # 地方郡部: 0.4 倍(伸び鈍い)
+            return 1.4
+        return 0.4
     if indicator_id == "birth_count":
         if pref_code in _BIG_THREE_METRO:
-            return 0.4  # 三大都市圏: 減少緩やか(-1.0%/年)
+            return 0.4
         if pref_code in _REGIONAL_HUBS:
-            return 0.8  # 地方中核: 標準より緩やか
-        return 1.6  # 地方郡部: 急減(-4.0%/年)
+            return 0.8
+        return 1.6
+    if indicator_id == "air_quality":
+        if pref_code in _BIG_THREE_METRO:
+            return 1.5
+        if pref_code in _REGIONAL_HUBS:
+            return 1.0
+        return 0.5
+    if indicator_id == "disaster_risk":
+        if pref_code in _BIG_THREE_METRO:
+            return 1.5
+        if pref_code in _REGIONAL_HUBS:
+            return 1.2
+        return 1.0
+    if indicator_id == "transport_access":
+        if pref_code in _BIG_THREE_METRO:
+            return 1.2
+        if pref_code in _REGIONAL_HUBS:
+            return 0.5
+        return -1.0  # 地方郡部は路線廃止等で悪化(年率反転)
+    if indicator_id == "public_safety":
+        if pref_code in _BIG_THREE_METRO:
+            return 1.5
+        if pref_code in _REGIONAL_HUBS:
+            return 1.0
+        return 0.5
     return 1.0
+
+
+def _net_migration_delta_per_year(pref_code: str) -> float:
+    """net_migration(率‰)用の加算式 1 年あたり変化量.
+
+    都市集中・地方流出のトレンドを反映:
+        - 三大都市圏: +0.05‰/年(流入加速)
+        - 地方中核: 0(横ばい)
+        - 地方郡部: -0.10‰/年(流出加速)
+    """
+    if pref_code in _BIG_THREE_METRO:
+        return 0.05
+    if pref_code in _REGIONAL_HUBS:
+        return 0.0
+    return -0.10
 
 
 def _simple_extrapolate(
@@ -74,10 +123,15 @@ def _simple_extrapolate(
     years: int,
     pref_code: str | None = None,
 ) -> float:
-    """現在値 × (1 + 年率 × 県別補正)^years で簡易外挿.
+    """現在値 + 県別補正トレンド で簡易外挿.
 
-    pref_code を渡すと県別補正係数が掛かり、偏差値(=相対順位)が時間で動く.
+    net_migration は率(‰)なので加算式、その他は複利.
+    pref_code を渡すと県別補正が掛かり、偏差値(=相対順位)が時間で動く.
     """
+    if indicator_id == "net_migration":
+        delta = _net_migration_delta_per_year(pref_code) if pref_code else 0.0
+        return current_value + delta * years
+
     base_rate = _SIMPLE_FORECAST_RATES.get(indicator_id, 0.0)
     modifier = _pref_trend_modifier(indicator_id, pref_code) if pref_code else 1.0
     rate = base_rate * modifier
@@ -175,9 +229,8 @@ def values_for(indicator_id: str, horizon: Horizon) -> ValueWithMeta:
 
         # 未来予測 horizon
         if indicator_id not in PREDICTABLE_INDICATORS:
-            # 予測対象外指標(空気質/災害/交通)は将来も「現状と同じ」と仮定し、
-            # 現在値をそのまま返す(ランキング・比較で None になる UX 問題回避).
-            # quality_status 上は推測値だが、データ源の性質(地形/施設等で年単位の急変が少ない)から妥当.
+            # 予測対象外指標(空気/災害/交通/治安/人口流入)は、
+            # 現在値 + 県別シナリオトレンドで外挿(_SIMPLE_FORECAST_RATES に登録された指標のみ).
             if _current_value_row_count(con) > 0:
                 rows = con.execute(
                     """
@@ -187,19 +240,35 @@ def values_for(indicator_id: str, horizon: Horizon) -> ValueWithMeta:
                     """,
                     [indicator_id],
                 ).fetchall()
+                years_inherit = HORIZON_TO_YEARS[horizon]
                 values_inherit: dict[str, float | None] = {code: None for code in PREF_CODES}
                 latest_inherit: datetime | None = None
+                use_extrapolation = (
+                    indicator_id in _SIMPLE_FORECAST_RATES or indicator_id == "net_migration"
+                )
                 for code, value, updated_at in rows:
-                    values_inherit[code] = float(value) if value is not None else None
+                    if value is None:
+                        values_inherit[code] = None
+                    elif use_extrapolation:
+                        values_inherit[code] = _simple_extrapolate(
+                            indicator_id, float(value), years_inherit, pref_code=code
+                        )
+                    else:
+                        values_inherit[code] = float(value)
                     if updated_at is not None and (latest_inherit is None or updated_at > latest_inherit):
                         latest_inherit = updated_at
                 if any(v is not None for v in values_inherit.values()):
+                    note_msg = (
+                        "予測対象外: 県別シナリオトレンドで外挿"
+                        if use_extrapolation
+                        else "予測対象外: 現在値を将来時点に継承"
+                    )
                     return ValueWithMeta(
                         values=values_inherit,
                         availability=DataAvailability(
                             source="db",
                             last_updated=latest_inherit,
-                            note="予測対象外: 現在値を将来時点に継承",
+                            note=note_msg,
                         ),
                     )
             # current_values も空なら従来通り全 None
@@ -317,12 +386,12 @@ def values_for_all_indicators(
                     result[ind][code] = float(value) if value is not None else None
             return result
 
-        # 未来 horizon: 予測可能指標は predicted_values から、それ以外は current_values 継承
+        # 未来 horizon: 予測可能指標は predicted_values から、それ以外は current_values × シナリオ外挿
         years = HORIZON_TO_YEARS[horizon]
         predictable_ids = [i for i in indicator_ids if i in PREDICTABLE_INDICATORS]
         non_predictable_ids = [i for i in indicator_ids if i not in PREDICTABLE_INDICATORS]
 
-        # 予測対象外: 現在値継承
+        # 予測対象外: 現在値 + 県別シナリオトレンド(空気/災害/交通/治安/人口流入)
         if non_predictable_ids:
             rows = con.execute(
                 """
@@ -333,8 +402,17 @@ def values_for_all_indicators(
                 [non_predictable_ids],
             ).fetchall()
             for ind, code, value in rows:
-                if ind in result and code in result[ind]:
-                    result[ind][code] = float(value) if value is not None else None
+                if ind not in result or code not in result[ind]:
+                    continue
+                if value is None:
+                    continue
+                # _SIMPLE_FORECAST_RATES or net_migration の場合は外挿、それ以外は継承
+                if ind in _SIMPLE_FORECAST_RATES or ind == "net_migration":
+                    result[ind][code] = _simple_extrapolate(
+                        ind, float(value), years, pref_code=code
+                    )
+                else:
+                    result[ind][code] = float(value)
 
         # 予測対象: predicted_values から取得、no_prediction は簡易外挿で補完
         if predictable_ids:
@@ -469,7 +547,16 @@ def prefecture_full_table(prefecture_code: str) -> dict[str, dict[Horizon, float
                 continue
             years = horizon_year_map.get(h)  # type: ignore[arg-type]
             if not is_predictable:
-                if current_val is not None:
+                # 予測対象外も外挿対象指標(空気/災害/交通/治安/人口流入)はトレンドで動かす
+                if current_val is None:
+                    continue
+                if (
+                    ind in _SIMPLE_FORECAST_RATES or ind == "net_migration"
+                ) and years is not None:
+                    table[ind][h] = _simple_extrapolate(
+                        ind, current_val, years, pref_code=prefecture_code
+                    )
+                else:
                     table[ind][h] = current_val
             elif ind in _SIMPLE_FORECAST_RATES and current_val is not None and years is not None:
                 table[ind][h] = _simple_extrapolate(
