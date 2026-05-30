@@ -28,9 +28,11 @@ from app.features.map_view.data_provider import values_for
 from app.features.map_view.usecases.switch_indicator import INDICATOR_LABELS
 
 # 値の方向(住みやすさ観点)
-HIGHER_IS_BETTER: frozenset[str] = frozenset({"birth_count", "transport_access"})
+HIGHER_IS_BETTER: frozenset[str] = frozenset(
+    {"birth_count", "transport_access", "net_migration"}
+)
 LOWER_IS_BETTER: frozenset[str] = frozenset(
-    {"price_index", "land_price", "rent_index", "air_quality", "disaster_risk"}
+    {"price_index", "land_price", "rent_index", "air_quality", "disaster_risk", "public_safety"}
 )
 
 ALL_INDICATORS: tuple[str, ...] = (
@@ -41,6 +43,8 @@ ALL_INDICATORS: tuple[str, ...] = (
     "air_quality",
     "disaster_risk",
     "transport_access",
+    "public_safety",
+    "net_migration",
 )
 
 Horizon = Literal["current", "3y", "5y", "10y"]

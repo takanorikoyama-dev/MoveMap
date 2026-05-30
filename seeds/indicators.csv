@@ -6,3 +6,5 @@ birth_count,出生数,BirthCount,per_1000pop,must,true,estat
 air_quality,空気質,AirQuality,ug/m3,must,false,env_soramame
 disaster_risk,災害リスク,DisasterRisk,score,must,false,gsi_hazard
 transport_access,交通アクセス,TransportAccess,score,must,false,mlit_transport
+public_safety,治安,PublicSafety,crime_count,must,false,estat
+net_migration,人口流入,NetMigration,rate,must,false,estat

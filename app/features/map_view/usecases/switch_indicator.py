@@ -17,6 +17,8 @@ IndicatorId = Literal[
     "air_quality",
     "disaster_risk",
     "transport_access",
+    "public_safety",
+    "net_migration",
 ]
 
 INDICATOR_LABELS: dict[IndicatorId, str] = {
@@ -27,6 +29,8 @@ INDICATOR_LABELS: dict[IndicatorId, str] = {
     "air_quality": "空気質(AQI)",
     "disaster_risk": "災害リスク",
     "transport_access": "交通アクセス",
+    "public_safety": "治安",
+    "net_migration": "人口流入",
 }
 
 # 各指標のアイコン(絵文字)。ラベルと組み合わせて視認性 UP.
@@ -38,6 +42,8 @@ INDICATOR_ICONS: dict[IndicatorId, str] = {
     "air_quality": "🌬️",
     "disaster_risk": "🌀",
     "transport_access": "🚆",
+    "public_safety": "👮",
+    "net_migration": "📥",
 }
 
 
@@ -54,6 +60,8 @@ INDICATOR_UNITS: dict[IndicatorId, str] = {
     "air_quality": "(指数)",
     "disaster_risk": "(0-5)",
     "transport_access": "(0-5)",
+    "public_safety": "(件数)",
+    "net_migration": "(率‰)",
 }
 
 # 各指標の定義(サイドバーで表示)
@@ -100,6 +108,23 @@ INDICATOR_DEFINITIONS: dict[IndicatorId, dict[str, str]] = {
         "what": "県重心から最寄り空港・新幹線駅・高速ICまでの距離を 0〜5 でスコア化。",
         "interpret": "↑ 高いほど交通の便が良く移動しやすい(都心と地方の行き来が容易)。",
         "source": "国土数値情報(国土交通省)主要交通施設データから計算",
+    },
+    "public_safety": {
+        "what": (
+            "刑法犯認知件数(2016年 / 都道府県別の **絶対値**)。"
+            " ⚠️ **現バージョンは絶対値のため、人口の多い東京/大阪などは数値が大きくなる傾向**。"
+            "次回更新で人口千人率に正規化予定。"
+        ),
+        "interpret": "↓ 低いほど犯罪発生数が少ない(ただし絶対値のため都市規模の影響を含む)。",
+        "source": "e-Stat 警察庁犯罪統計 0003194949 cat01=100(認知件数 / 都道府県別)",
+    },
+    "net_migration": {
+        "what": (
+            "他都道府県との人口移動の **転入超過率**(=転入−転出を人口で正規化、‰)。"
+            "プラスは流入超過(人気の県)、マイナスは流出超過。"
+        ),
+        "interpret": "↑ 高いほど人口が流入している(=移住者から選ばれている)。",
+        "source": "e-Stat 住民基本台帳人口移動報告 年報 0003443098",
     },
 }
 

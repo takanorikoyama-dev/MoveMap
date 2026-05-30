@@ -294,4 +294,8 @@ def _format_value(indicator_id: str, val: float | None) -> str:
         return f"{val:.1f}"
     if indicator_id == "air_quality":
         return f"{int(round(val))}"
+    if indicator_id == "public_safety":
+        return f"{int(round(val)):,} 件"
+    if indicator_id == "net_migration":
+        return f"{val:+.2f}‰"
     return f"{val:.2f}"

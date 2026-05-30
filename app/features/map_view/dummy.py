@@ -19,6 +19,8 @@ INDICATOR_RANGES: dict[str, tuple[float, float]] = {
     "air_quality": (5.0, 25.0),
     "disaster_risk": (1.0, 5.0),
     "transport_access": (1.0, 5.0),
+    "public_safety": (3.0, 12.0),     # 犯罪認知件数の千人率 ダミー
+    "net_migration": (-8.0, 8.0),     # 転入超過率 ‰ ダミー(−8〜+8)
 }
 
 PREDICTABLE_INDICATORS = frozenset({"price_index", "land_price", "rent_index", "birth_count"})
