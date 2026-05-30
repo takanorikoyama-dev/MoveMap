@@ -232,6 +232,119 @@ def value_for(indicator_id: str, prefecture_code: str, horizon: Horizon) -> floa
     return pack.values.get(prefecture_code)
 
 
+def values_for_all_indicators(
+    indicator_ids: tuple[str, ...],
+    horizon: Horizon,
+) -> dict[str, dict[str, float | None]]:
+    """指定 horizon について **1 DB 接続で** 複数指標 × 47 都道府県を一括取得.
+
+    compute_ranking のパフォーマンス改善用. 個別 values_for() を 9 回呼ぶと
+    9 回 connect + initialize_schema が走るが、本関数は 1 回で済ませる.
+
+    Args:
+        indicator_ids: 取得対象の指標 ID タプル.
+        horizon: 'current' / '3y' / '5y' / '10y'.
+
+    Returns:
+        {indicator_id: {pref_code: value or None}}.
+    """
+    # DB 接続不可ならフォールバック(個別ダミー)
+    con = _try_connect_readonly()
+    if con is None:
+        return {ind: dummy_values_for(ind, horizon) for ind in indicator_ids}
+
+    try:
+        # 現在値テーブルが空か事前チェック
+        if _current_value_row_count(con) == 0:
+            return {ind: dummy_values_for(ind, horizon) for ind in indicator_ids}
+
+        result: dict[str, dict[str, float | None]] = {
+            ind: {code: None for code in PREF_CODES} for ind in indicator_ids
+        }
+
+        if horizon == "current":
+            # 全 indicators の current_values をまとめて取得
+            rows = con.execute(
+                """
+                SELECT indicator_id, prefecture_code, value
+                FROM current_values
+                WHERE indicator_id = ANY($1)
+                """,
+                [list(indicator_ids)],
+            ).fetchall()
+            for ind, code, value in rows:
+                if ind in result and code in result[ind]:
+                    result[ind][code] = float(value) if value is not None else None
+            return result
+
+        # 未来 horizon: 予測可能指標は predicted_values から、それ以外は current_values 継承
+        years = HORIZON_TO_YEARS[horizon]
+        predictable_ids = [i for i in indicator_ids if i in PREDICTABLE_INDICATORS]
+        non_predictable_ids = [i for i in indicator_ids if i not in PREDICTABLE_INDICATORS]
+
+        # 予測対象外: 現在値継承
+        if non_predictable_ids:
+            rows = con.execute(
+                """
+                SELECT indicator_id, prefecture_code, value
+                FROM current_values
+                WHERE indicator_id = ANY($1)
+                """,
+                [non_predictable_ids],
+            ).fetchall()
+            for ind, code, value in rows:
+                if ind in result and code in result[ind]:
+                    result[ind][code] = float(value) if value is not None else None
+
+        # 予測対象: predicted_values から取得、no_prediction は簡易外挿で補完
+        if predictable_ids:
+            rows = con.execute(
+                """
+                SELECT indicator_id, prefecture_code, value, quality_status
+                FROM predicted_values
+                WHERE indicator_id = ANY($1) AND horizon_years = $2
+                """,
+                [predictable_ids, years],
+            ).fetchall()
+            no_prediction_by_ind: dict[str, list[str]] = {ind: [] for ind in predictable_ids}
+            for ind, code, value, quality in rows:
+                if ind not in result or code not in result[ind]:
+                    continue
+                if quality == "no_prediction":
+                    no_prediction_by_ind[ind].append(code)
+                elif value is not None:
+                    result[ind][code] = float(value)
+
+            # 簡易外挿のための現在値取得
+            no_pred_ids_to_fill = [
+                ind for ind in predictable_ids
+                if ind in _SIMPLE_FORECAST_RATES and no_prediction_by_ind[ind]
+            ]
+            if no_pred_ids_to_fill:
+                current_rows = con.execute(
+                    """
+                    SELECT indicator_id, prefecture_code, value
+                    FROM current_values
+                    WHERE indicator_id = ANY($1)
+                    """,
+                    [no_pred_ids_to_fill],
+                ).fetchall()
+                current_lookup: dict[str, dict[str, float]] = {}
+                for ind, code, value in current_rows:
+                    if value is None:
+                        continue
+                    current_lookup.setdefault(ind, {})[code] = float(value)
+                for ind in no_pred_ids_to_fill:
+                    for code in no_prediction_by_ind[ind]:
+                        cv = current_lookup.get(ind, {}).get(code)
+                        if cv is not None:
+                            result[ind][code] = _simple_extrapolate(ind, cv, years)
+
+        return result
+    finally:
+        con.close()
+
+
 def prefecture_full_table(prefecture_code: str) -> dict[str, dict[Horizon, float | None]]:
     """1 都道府県分の {indicator_id: {horizon: value}} を返す.
 

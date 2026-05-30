@@ -21,6 +21,7 @@ from app.features.map_view.data_provider import (
     latest_model_for,
     prefecture_full_table,
     values_for,
+    values_for_all_indicators,
 )
 from app.features.map_view.ranking import PrefectureRank, compute_ranking
 
@@ -61,6 +62,14 @@ def cached_ranking(
 def cached_values_for(indicator_id: str, horizon: Horizon) -> ValueWithMeta:
     """values_for の cache 付きラッパー."""
     return values_for(indicator_id, horizon)
+
+
+@st.cache_data(ttl=300, show_spinner=False)
+def cached_values_for_all_indicators(
+    indicator_ids: tuple[str, ...], horizon: Horizon
+) -> dict[str, dict[str, float | None]]:
+    """values_for_all_indicators の cache 付きラッパー(全指標一括取得)."""
+    return values_for_all_indicators(indicator_ids, horizon)
 
 
 @st.cache_data(ttl=300, show_spinner=False)

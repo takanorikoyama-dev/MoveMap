@@ -111,19 +111,20 @@ def _render_weight_sliders(horizon: Horizon) -> dict[str, float]:
         cols = st.columns(4)
         for i, ind in enumerate(ALL_INDICATORS):
             with cols[i % 4]:
+                # key を horizon 非依存に統一(キャッシュヒット率向上 + horizon 切替時の重み維持)
                 weights[ind] = st.slider(
                     f"{INDICATOR_ICONS.get(ind, '')} {INDICATOR_LABELS[ind]}",
                     min_value=0,
                     max_value=100,
-                    value=st.session_state.get(f"weight_{ind}_{horizon}", 50),
+                    value=st.session_state.get(f"weight_{ind}", 50),
                     step=10,
-                    key=f"weight_{ind}_{horizon}",
+                    key=f"weight_{ind}",
                 )
         cb = st.columns([1, 1, 6])
         with cb[0]:
-            if st.button("均等にリセット", key=f"reset_weight_{horizon}"):
+            if st.button("均等にリセット", key="reset_weight"):
                 for ind in ALL_INDICATORS:
-                    st.session_state[f"weight_{ind}_{horizon}"] = 50
+                    st.session_state[f"weight_{ind}"] = 50
                 st.rerun()
     return weights
 

@@ -24,7 +24,7 @@ import statistics
 from dataclasses import dataclass
 from typing import Literal
 
-from app.features.map_view.data_provider import values_for
+from app.features.map_view.data_provider import values_for_all_indicators
 from app.features.map_view.usecases.switch_indicator import INDICATOR_LABELS
 
 # 値の方向(住みやすさ観点)
@@ -133,13 +133,11 @@ def compute_ranking(
         if total > 0:
             effective_weights = {k: v / total for k, v in positive.items()}
 
-    # 各指標について 47 都道府県の値を一括取得
-    indicator_values: dict[str, dict[str, float | None]] = {}
+    # 全 9 指標 × 47 都道府県を 1 DB 接続でまとめて取得(パフォーマンス改善)
+    indicator_values = values_for_all_indicators(ALL_INDICATORS, horizon)
     indicator_scores: dict[str, dict[str, float | None]] = {}
     for ind in ALL_INDICATORS:
-        pack = values_for(ind, horizon)
-        indicator_values[ind] = pack.values
-        indicator_scores[ind] = _compute_deviation_scores(pack.values, _direction(ind))
+        indicator_scores[ind] = _compute_deviation_scores(indicator_values[ind], _direction(ind))
 
     # 都道府県別に集計
     ranks: list[PrefectureRank] = []

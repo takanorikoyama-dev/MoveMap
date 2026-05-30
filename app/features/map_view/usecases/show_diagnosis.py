@@ -172,9 +172,13 @@ def _reasoning(answers: DiagnosisAnswers, weights: dict[IndicatorId, float]) -> 
 
 
 def _apply_to_ranking_sliders(weights: dict[IndicatorId, float], horizon: Horizon) -> None:
-    """ランキングタブの重みスライダーに、診断結果を session_state 経由でセット."""
+    """ランキングタブの重みスライダーに、診断結果を session_state 経由でセット.
+
+    key は horizon 非依存に統一されているため、horizon 引数は API 互換のため受けるが不使用.
+    """
+    _ = horizon
     for ind in ALL_INDICATORS:
-        st.session_state[f"weight_{ind}_{horizon}"] = int(weights[ind])  # type: ignore[index]
+        st.session_state[f"weight_{ind}"] = int(weights[ind])  # type: ignore[index]
 
 
 def show_diagnosis(horizon: Horizon = "current") -> None:
