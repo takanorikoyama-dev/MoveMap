@@ -250,7 +250,37 @@ def render_mobile_hint() -> None:
     )
 
 
+def inject_ga4(measurement_id: str | None) -> None:
+    """Google Analytics 4 のトラッキングタグを注入(設定時のみ).
+
+    Streamlit は HTML を直接埋め込めないため `st.markdown(unsafe_allow_html=True)`
+    で <script> を注入する. Streamlit はその script を iframe 内で実行するため
+    ページビュー以外の細かな計測(ボタンクリック等)は別途 GA4 イベント送信が要.
+
+    Args:
+        measurement_id: G-XXXXXXXXXX 形式の Measurement ID.
+            None または空文字なら何もしない(ローカル開発時のノイズ抑制).
+    """
+    if not measurement_id:
+        return
+    ga4_html = f"""
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id={measurement_id}"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){{dataLayer.push(arguments);}}
+      gtag('js', new Date());
+      gtag('config', '{measurement_id}', {{
+        'anonymize_ip': true,
+        'send_page_view': true
+      }});
+    </script>
+    """
+    st.markdown(ga4_html, unsafe_allow_html=True)
+
+
 __all__ = [
+    "inject_ga4",
     "inject_global_css",
     "render_current_band",
     "render_hero",

@@ -25,6 +25,8 @@ class Config:
     # 追加 API キー(後方互換のため None デフォルト)
     reinfolib_api_key: str | None = None
     waqi_token: str | None = None
+    # GA4 Measurement ID(G-XXXXXXXXXX 形式、設定時のみトラッキング有効)
+    ga4_measurement_id: str | None = None
 
 
 def load_config() -> Config:
@@ -38,4 +40,5 @@ def load_config() -> Config:
         estat_app_id=os.getenv("ESTAT_APP_ID") or None,
         reinfolib_api_key=os.getenv("REINFOLIB_API_KEY") or None,
         waqi_token=os.getenv("WAQI_TOKEN") or None,
+        ga4_measurement_id=os.getenv("GA4_MEASUREMENT_ID") or None,
     )

@@ -29,7 +29,9 @@ from app.features.map_view.usecases.switch_indicator import (
     labeled as indicator_labeled,
     switch_indicator,
 )
+from app.shared.config import load_config
 from app.shared.ui_theme import (
+    inject_ga4,
     inject_global_css,
     render_current_band,
     render_hero,
@@ -46,6 +48,8 @@ st.set_page_config(
 
 # グローバル CSS(可読性 + 印刷モード)を最初に注入
 inject_global_css()
+# GA4 トラッキング(Measurement ID が .env に設定されているときだけ有効化)
+inject_ga4(load_config().ga4_measurement_id)
 
 st.title("MoveMap — 地方移住MAP")
 render_hero()
