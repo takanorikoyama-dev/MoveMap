@@ -66,7 +66,7 @@ def show_prefecture_detail(prefecture_code: str) -> None:
 
 
 def _render_municipality_section(prefecture_code: str, prefecture_name: str) -> None:
-    """主要 5 市区町村の写真 + 概要を表示."""
+    """主要 5 市区町村の写真 + 概要 + 観光/文化セクションを表示."""
     municipalities = get_municipalities_for(prefecture_code)
     if not municipalities:
         return
@@ -74,13 +74,13 @@ def _render_municipality_section(prefecture_code: str, prefecture_name: str) -> 
     st.markdown("---")
     st.markdown(f"### 🏙️ {prefecture_name} の主要な市区町村")
     st.caption(
-        "各市区町村の代表的な街並み・概要を Wikipedia から取得。"
-        "長期居住の参考に「雰囲気」を掴めます。"
+        "各市区町村の街並み・観光・文化を Wikipedia + Wikimedia Commons から取得。"
+        "「もっと見る」で写真ギャラリーと観光情報が展開されます。"
     )
 
-    # 5 件を 1 行 5 列で
-    cols = st.columns(len(municipalities))
-    for col, m in zip(cols, municipalities):
+    # まず上段に「サムネ + 名前」のコンパクトな 5 枚カード
+    thumb_cols = st.columns(len(municipalities))
+    for col, m in zip(thumb_cols, municipalities):
         with col:
             with st.container(border=True):
                 info = _cached_wiki_info(m["wiki_title"])
@@ -90,13 +90,50 @@ def _render_municipality_section(prefecture_code: str, prefecture_name: str) -> 
                     st.markdown("📷 *(画像なし)*")
                 st.markdown(f"**{m['name']}**")
                 if info and info.extract:
-                    # 100 字に省略
-                    text = info.extract[:100] + ("…" if len(info.extract) > 100 else "")
+                    text = info.extract[:80] + ("…" if len(info.extract) > 80 else "")
                     st.caption(text)
-                if info:
-                    st.markdown(f"[🔗 詳しく見る]({info.page_url})")
 
-    st.caption("出典: Wikipedia(CC-BY-SA)")
+    # 下段に「もっと見る」展開エリア(全市区町村が縦に並ぶ)
+    st.markdown("#### 📖 詳しく見る(クリックで展開)")
+    for m in municipalities:
+        info = _cached_wiki_info(m["wiki_title"])
+        with st.expander(f"🏛️ {m['name']} の街並み・観光・文化", expanded=False):
+            if not info:
+                st.warning("情報を取得できませんでした。")
+                continue
+
+            # ヒーロー写真 + 詳細概要
+            top_cols = st.columns([1, 2])
+            with top_cols[0]:
+                if info.image_url:
+                    st.image(info.image_url, use_container_width=True)
+            with top_cols[1]:
+                st.markdown(f"**{info.title}**")
+                if info.extract:
+                    st.markdown(info.extract)
+                st.markdown(f"[🔗 Wikipedia で全文を読む]({info.page_url})")
+
+            # 写真ギャラリー(複数列)
+            if info.gallery_urls:
+                st.markdown("**📷 街並み・風景ギャラリー**")
+                gallery_cols = st.columns(min(3, len(info.gallery_urls)))
+                for i, url in enumerate(info.gallery_urls[:6]):
+                    with gallery_cols[i % len(gallery_cols)]:
+                        st.image(url, use_container_width=True)
+
+            # 観光・文化・街並みセクションリンク
+            if info.sections:
+                st.markdown("**🎯 観光・文化・街並み・産業の情報**")
+                sec_cols = st.columns(min(4, len(info.sections)))
+                for i, sec in enumerate(info.sections):
+                    with sec_cols[i % len(sec_cols)]:
+                        st.markdown(f"🔗 [{sec.name}]({sec.anchor})")
+                st.caption("各リンクをクリックすると Wikipedia の該当セクションに移動します。")
+
+    st.caption(
+        "出典: Wikipedia / Wikimedia Commons(CC-BY-SA)。"
+        "写真はリンクのみで提供。再配布はしておりません。"
+    )
 
 
 def _format_value(indicator_id: str, val: float | None) -> str:
