@@ -76,8 +76,10 @@ def test_priorities_boost_specific_indicators() -> None:
     assert with_access["transport_access"] > base["transport_access"]
 
 
-def test_weights_cover_all_7_indicators() -> None:
+def test_weights_cover_all_9_indicators() -> None:
+    """9 指標すべてに重みが付く(2026-05-26 治安+人口流入追加)."""
     weights = _compute_weights(_ans())
     expected = {"price_index", "land_price", "rent_index", "birth_count",
-                "air_quality", "disaster_risk", "transport_access"}
+                "air_quality", "disaster_risk", "transport_access",
+                "public_safety", "net_migration"}
     assert set(weights.keys()) == expected

@@ -30,14 +30,20 @@ def test_app_runs_without_exceptions() -> None:
 
 
 def test_app_shows_disclaimer_banner() -> None:
-    """INV-BIZ-005: 免責バナーが表示されている(warning 要素として存在)."""
+    """INV-BIZ-005 + INV-BIZ-006(DEC-016 派生): 免責バナーが表示されている(warning 要素として存在).
+
+    DEC-016 で文言を強化:「個人制作のポートフォリオ」+「投資/不動産取引/移住助言ではない」明示.
+    """
     at = _new_app()
     at.run()
     # streamlit の st.warning は warning() で取得可能
     assert len(at.warning) >= 1
     # 免責テキストの主要キーワードを含む
     texts = " ".join(w.value for w in at.warning)
-    assert "個人利用" in texts
+    assert "ポートフォリオ" in texts
+    # INV-BIZ-006: 3 つの助言ではない明示
+    assert "投資助言" in texts
+    assert "移住助言" in texts
 
 
 def test_app_renders_three_tabs() -> None:

@@ -96,3 +96,19 @@ def test_inv_biz_005_disclaimer_invoked_in_main() -> None:
     main = APP_ROOT / "main.py"
     text = main.read_text(encoding="utf-8")
     assert "render_disclaimer" in text, "INV-BIZ-005 違反: app/main.py に render_disclaimer 呼出なし"
+
+
+def test_inv_biz_008_footer_invoked_in_main() -> None:
+    """INV-BIZ-008(DEC-016 派生): app/main.py で render_footer() が呼ばれる(法務リンク導線)."""
+    main = APP_ROOT / "main.py"
+    text = main.read_text(encoding="utf-8")
+    assert "render_footer" in text, "INV-BIZ-008 違反: app/main.py に render_footer 呼出なし"
+
+
+def test_inv_biz_006_disclaimer_includes_advice_disclaimers() -> None:
+    """INV-BIZ-006(DEC-016 派生): 免責文に投資/不動産/移住の助言ではない明示."""
+    disclaimer = APP_ROOT / "features" / "compliance" / "disclaimer.py"
+    text = disclaimer.read_text(encoding="utf-8")
+    assert "投資助言" in text, "INV-BIZ-006 違反: disclaimer.py に「投資助言」明示なし"
+    assert "不動産取引助言" in text, "INV-BIZ-006 違反: disclaimer.py に「不動産取引助言」明示なし"
+    assert "移住助言" in text, "INV-BIZ-006 違反: disclaimer.py に「移住助言」明示なし"

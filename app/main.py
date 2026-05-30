@@ -12,6 +12,7 @@ from __future__ import annotations
 import streamlit as st
 
 from app.features.compliance.disclaimer import render as render_disclaimer
+from app.features.compliance.footer import render as render_footer
 from app.features.compliance.show_data_sources import show_data_sources
 from app.features.map_view.components.status_panel import render_status_panel
 from app.features.map_view.usecases.show_comparison import show_comparison
@@ -177,3 +178,6 @@ with tab_model:
 
 st.markdown("---")
 show_data_sources(None)
+
+# 法務リンクフッター(INV-BIZ-008、DEC-016 派生)
+render_footer()

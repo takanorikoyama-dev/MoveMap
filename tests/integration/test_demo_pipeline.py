@@ -46,9 +46,9 @@ def test_seed_with_synthetic_current_populates_current_values(isolated) -> None:
 
     con = duckdb.connect(str(isolated.db_path))
     try:
-        # 7 指標 × 47 都道府県 = 329 セル
+        # 9 指標 × 47 都道府県 = 423 セル(2026-05-26 治安+人口流入追加)
         (count,) = con.execute("SELECT COUNT(*) FROM current_values").fetchone()
-        assert count == 7 * 47
+        assert count == 9 * 47
 
         # 主要指標は historical の最新と整合(同じ値)
         (hist_last,) = con.execute(
@@ -73,7 +73,7 @@ def test_seed_with_synthetic_current_is_idempotent(isolated) -> None:  # type: i
     con = duckdb.connect(str(isolated.db_path))
     try:
         (count,) = con.execute("SELECT COUNT(*) FROM current_values").fetchone()
-        assert count == 7 * 47
+        assert count == 9 * 47
     finally:
         con.close()
 
@@ -90,7 +90,7 @@ def test_demo_quick_mode_populates_db(isolated) -> None:  # type: ignore[no-unty
         (cur,) = con.execute("SELECT COUNT(*) FROM current_values").fetchone()
         assert pref == 47
         assert hist == 4 * 47 * 24
-        assert cur == 7 * 47
+        assert cur == 9 * 47  # 9 指標 × 47 都道府県(2026-05-26 治安+人口流入追加)
     finally:
         con.close()
 
