@@ -14,6 +14,7 @@ from app.features.map_view.usecases.switch_indicator import INDICATOR_LABELS
 from app.features.map_view.wikipedia import (
     WikiInfo,
     fetch_wiki_info,
+    get_all_municipalities_for,
     get_municipalities_for,
 )
 
@@ -63,6 +64,9 @@ def show_prefecture_detail(prefecture_code: str) -> None:
 
     # ---- 市区町村セクション(写真 + 概要)----
     _render_municipality_section(prefecture_code, name)
+
+    # ---- すべての市区町村を検索(全 1,742 件)----
+    _render_municipality_search(prefecture_code, name)
 
 
 def _render_municipality_section(prefecture_code: str, prefecture_name: str) -> None:
@@ -142,6 +146,81 @@ def _render_municipality_section(prefecture_code: str, prefecture_name: str) -> 
         "出典: Wikipedia / Wikimedia Commons(CC-BY-SA)。"
         "写真はリンクのみで提供。再配布はしておりません。"
     )
+
+
+def _render_municipality_search(prefecture_code: str, prefecture_name: str) -> None:
+    """都道府県内の全市区町村から 1 件選んで詳細表示するセクション."""
+    all_munis = get_all_municipalities_for(prefecture_code)
+    if not all_munis:
+        return
+
+    st.markdown("---")
+    st.markdown(f"### 🔍 {prefecture_name}内のすべての市区町村を検索")
+    st.caption(
+        f"{prefecture_name} には全 **{len(all_munis)} 市区町村** があります。"
+        "気になる地域を選ぶと、Wikipedia から街並み・統計・地図を取得して表示します。"
+    )
+
+    options = [""] + [m["name"] for m in all_munis]
+    chosen_name = st.selectbox(
+        f"市区町村を選択(検索可、{prefecture_name}内 {len(all_munis)} 件)",
+        options=options,
+        index=0,
+        key=f"muni_search_{prefecture_code}",
+        placeholder="市区町村名を入力 / リストから選択…",
+    )
+    if not chosen_name:
+        return
+
+    selected = next((m for m in all_munis if m["name"] == chosen_name), None)
+    if not selected:
+        return
+
+    info = _cached_wiki_info(selected["wiki_title"])
+    with st.container(border=True):
+        st.markdown(f"#### 🏛️ {selected['name']} の詳細")
+        st.caption(f"JIS 市区町村コード: {selected['jis_code']}")
+        if not info:
+            st.warning(
+                "Wikipedia から情報を取得できませんでした。"
+                "ページ名が完全一致しない可能性があります。"
+            )
+            return
+
+        # ヒーロー写真 + 概要
+        top_cols = st.columns([1, 2])
+        with top_cols[0]:
+            if info.image_url:
+                st.image(info.image_url, use_container_width=True)
+            else:
+                st.markdown("📷 *(画像なし)*")
+        with top_cols[1]:
+            st.markdown(f"**{info.title}**")
+            if info.extract:
+                st.markdown(info.extract)
+            st.markdown(f"[🔗 Wikipedia で全文を読む]({info.page_url})")
+
+        # ギャラリー
+        if info.gallery_urls:
+            st.markdown("**📷 街並み・風景ギャラリー**")
+            gallery_cols = st.columns(min(3, len(info.gallery_urls)))
+            for i, url in enumerate(info.gallery_urls[:6]):
+                with gallery_cols[i % len(gallery_cols)]:
+                    st.image(url, use_container_width=True)
+
+        # 統計 + マップ
+        if info.stats:
+            _render_stats_panel(info.stats)
+        if info.stats and info.stats.latitude and info.stats.longitude:
+            _render_osm_map(info.stats.latitude, info.stats.longitude, info.title)
+
+        # 観光・文化セクションリンク
+        if info.sections:
+            st.markdown("**🎯 観光・文化・街並み・産業の情報**")
+            sec_cols = st.columns(min(4, len(info.sections)))
+            for i, sec in enumerate(info.sections):
+                with sec_cols[i % len(sec_cols)]:
+                    st.markdown(f"🔗 [{sec.name}]({sec.anchor})")
 
 
 def _render_stats_panel(stats) -> None:  # type: ignore[no-untyped-def]

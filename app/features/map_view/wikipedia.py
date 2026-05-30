@@ -30,6 +30,7 @@ WIKIDATA_API_URL = "https://www.wikidata.org/wiki/Special:EntityData"
 USER_AGENT = "MoveMap/0.1 (https://github.com/takanorikoyama-dev/MoveMap; takanori.koyama@gree.net)"
 
 MUNICIPALITIES_SEED = PROJECT_ROOT / "seeds" / "municipalities.json"
+ALL_MUNICIPALITIES_SEED = PROJECT_ROOT / "seeds" / "all_municipalities.json"
 
 # 観光・文化・街並み・商店街などの関連セクション名(部分一致でチェック).
 SECTION_KEYWORDS: tuple[str, ...] = (
@@ -95,8 +96,28 @@ def load_municipalities() -> dict[str, list[dict[str, str]]]:
 
 
 def get_municipalities_for(pref_code: str) -> list[dict[str, str]]:
-    """指定都道府県コードの市区町村リストを返す."""
+    """指定都道府県コードの主要 5 市区町村リストを返す."""
     return load_municipalities().get(pref_code, [])
+
+
+@lru_cache(maxsize=1)
+def load_all_municipalities() -> dict[str, list[dict[str, str]]]:
+    """seeds/all_municipalities.json をロードしてキャッシュ.
+
+    Returns:
+        {pref_code: [{jis_code, name, wiki_title}, ...]} の辞書.
+        全国 1,742 市区町村(政令市の区を除く、東京23区を含む).
+    """
+    if not ALL_MUNICIPALITIES_SEED.exists():
+        logger.warning(f"all_municipalities.json が見つかりません: {ALL_MUNICIPALITIES_SEED}")
+        return {}
+    data = json.loads(ALL_MUNICIPALITIES_SEED.read_text(encoding="utf-8"))
+    return {k: v for k, v in data.items() if not k.startswith("_")}
+
+
+def get_all_municipalities_for(pref_code: str) -> list[dict[str, str]]:
+    """指定都道府県コードの全市区町村リストを返す(検索 UI 用)."""
+    return load_all_municipalities().get(pref_code, [])
 
 
 def fetch_wiki_info(
@@ -337,6 +358,8 @@ __all__ = [
     "WikiSection",
     "WikiStats",
     "fetch_wiki_info",
+    "get_all_municipalities_for",
     "get_municipalities_for",
+    "load_all_municipalities",
     "load_municipalities",
 ]
