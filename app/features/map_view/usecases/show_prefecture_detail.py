@@ -11,6 +11,17 @@ import streamlit as st
 from app.features.map_view._cache import cached_prefecture_full_table
 from app.features.map_view.usecases.switch_horizon import HORIZON_LABELS
 from app.features.map_view.usecases.switch_indicator import INDICATOR_LABELS
+from app.features.map_view.wikipedia import (
+    WikiInfo,
+    fetch_wiki_info,
+    get_municipalities_for,
+)
+
+
+@st.cache_data(ttl=3600, show_spinner=False)
+def _cached_wiki_info(wiki_title: str) -> WikiInfo | None:
+    """Wikipedia 取得結果をキャッシュ(1 時間)."""
+    return fetch_wiki_info(wiki_title)
 
 PREFECTURE_NAMES: dict[str, str] = {
     "01": "北海道", "02": "青森県", "03": "岩手県", "04": "宮城県", "05": "秋田県",
@@ -49,6 +60,43 @@ def show_prefecture_detail(prefecture_code: str) -> None:
     df = pd.DataFrame(rows)
     st.dataframe(df, use_container_width=True, hide_index=True)
     st.caption("※ 予測対象外の指標(空気質/災害リスク/交通アクセス)は予測列を「—」表示しています。")
+
+    # ---- 市区町村セクション(写真 + 概要)----
+    _render_municipality_section(prefecture_code, name)
+
+
+def _render_municipality_section(prefecture_code: str, prefecture_name: str) -> None:
+    """主要 5 市区町村の写真 + 概要を表示."""
+    municipalities = get_municipalities_for(prefecture_code)
+    if not municipalities:
+        return
+
+    st.markdown("---")
+    st.markdown(f"### 🏙️ {prefecture_name} の主要な市区町村")
+    st.caption(
+        "各市区町村の代表的な街並み・概要を Wikipedia から取得。"
+        "長期居住の参考に「雰囲気」を掴めます。"
+    )
+
+    # 5 件を 1 行 5 列で
+    cols = st.columns(len(municipalities))
+    for col, m in zip(cols, municipalities):
+        with col:
+            with st.container(border=True):
+                info = _cached_wiki_info(m["wiki_title"])
+                if info and info.image_url:
+                    st.image(info.image_url, use_container_width=True)
+                else:
+                    st.markdown("📷 *(画像なし)*")
+                st.markdown(f"**{m['name']}**")
+                if info and info.extract:
+                    # 100 字に省略
+                    text = info.extract[:100] + ("…" if len(info.extract) > 100 else "")
+                    st.caption(text)
+                if info:
+                    st.markdown(f"[🔗 詳しく見る]({info.page_url})")
+
+    st.caption("出典: Wikipedia(CC-BY-SA)")
 
 
 def _format_value(indicator_id: str, val: float | None) -> str:
