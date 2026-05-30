@@ -13,6 +13,7 @@ from typing import Any, Literal
 
 import plotly.graph_objects as go
 
+from app.features.map_view.osm import CATEGORY_LABELS, POI
 from app.features.map_view.regions import MAJOR_CITIES, REGION_BOUNDS, medal_for_rank
 from app.shared.config import PROJECT_ROOT
 from app.shared.geo import prefecture_centroids
@@ -77,6 +78,7 @@ def render_choropleth(
     show_major_cities: bool = True,
     region_zoom: str = "全国",
     rich_hover: dict[str, dict[str, object]] | None = None,
+    pois: list[POI] | None = None,
 ) -> go.Figure:
     """都道府県コード → 値 の dict から Plotly Figure を作る.
 
@@ -164,6 +166,10 @@ def render_choropleth(
 
     if show_major_cities:
         _add_major_city_markers(fig)
+
+    # POI レイヤー(観光・温泉・神社仏閣などのスポット)
+    if pois:
+        _add_poi_layers(fig, pois)
 
     # 地域ジャンプ
     if region_zoom and region_zoom != "全国" and region_zoom in REGION_BOUNDS:
@@ -313,6 +319,50 @@ def _add_label_overlay(
             hoverinfo="skip",
             showlegend=False,
         )
+    )
+
+
+def _add_poi_layers(fig: go.Figure, pois: list[POI]) -> None:
+    """POI をカテゴリ別に色分けして地図に重ねる(凡例付き)."""
+    by_category: dict[str, list[POI]] = {}
+    for p in pois:
+        by_category.setdefault(p.category, []).append(p)
+    for category, items in by_category.items():
+        meta = CATEGORY_LABELS.get(category, ("📍", category, "#888"))
+        icon, label, color = meta
+        fig.add_trace(
+            go.Scattergeo(
+                lon=[p.lon for p in items],
+                lat=[p.lat for p in items],
+                text=[f"{icon} {p.name}" for p in items],
+                mode="markers",
+                marker={
+                    "size": 9,
+                    "color": color,
+                    "opacity": 0.85,
+                    "symbol": "circle",
+                    "line": {"width": 1.2, "color": "white"},
+                },
+                hovertemplate="<b>%{text}</b><extra></extra>",
+                name=f"{icon} {label}",
+                showlegend=True,
+                legendgroup="poi",
+            )
+        )
+    # 凡例の表示位置を地図右上に
+    fig.update_layout(
+        showlegend=True,
+        legend={
+            "orientation": "v",
+            "yanchor": "top",
+            "y": 0.98,
+            "xanchor": "left",
+            "x": 1.02,
+            "bgcolor": "rgba(255,255,255,0.9)",
+            "bordercolor": "#d8e0ea",
+            "borderwidth": 1,
+            "font": {"size": 11},
+        },
     )
 
 

@@ -18,12 +18,19 @@ import streamlit as st
 
 from app.features.map_view._cache import cached_ranking, cached_values_for
 from app.features.map_view.components.heatmap import AnnotationMode, render_choropleth
+from app.features.map_view.osm import (
+    CATEGORY_LABELS,
+    POI,
+    fetch_pois,
+    get_prefecture_bbox,
+)
 from app.features.map_view.ranking import (
     HIGHER_IS_BETTER,
     LOWER_IS_BETTER,
     stars_to_unicode,
 )
 from app.features.map_view.regions import REGION_BOUNDS, medal_for_rank
+from app.features.map_view.usecases.show_prefecture_detail import PREFECTURE_NAMES
 from app.features.map_view.usecases.switch_horizon import HORIZON_LABELS
 from app.features.map_view.usecases.switch_indicator import (
     INDICATOR_DEFINITIONS,
@@ -40,6 +47,20 @@ _ANNOTATION_OPTIONS: dict[str, AnnotationMode] = {
     "上位5+下位5 を引き出し線で表示": "extremes",
     "47都道府県すべて表示": "all",
 }
+
+# 非日常スポットのカテゴリチェックボックス順序
+_SPOT_CATEGORY_ORDER: tuple[str, ...] = (
+    "shrine_temple", "castle", "onsen", "viewpoint", "museum", "park", "waterfall", "attraction",
+)
+
+
+@st.cache_data(ttl=3600, show_spinner=False)
+def _cached_pois(pref_code: str, categories_key: tuple[str, ...]) -> list[POI]:
+    """OSM Overpass を 1 時間キャッシュ."""
+    bbox = get_prefecture_bbox(pref_code)
+    if not bbox:
+        return []
+    return fetch_pois(bbox, list(categories_key), limit=40)
 
 
 def _build_rich_hover(
@@ -83,7 +104,7 @@ def show_map(indicator_id: IndicatorId, horizon: Horizon) -> None:
     horizon_label = HORIZON_LABELS[horizon]
     is_lower_better = indicator_id in LOWER_IS_BETTER
 
-    # コントロールを 3 列に並べる(ラベル / 地域 / 主要都市)
+    # コントロール 1段目: ラベル / 地域 / 主要都市
     c1, c2, c3 = st.columns([2.2, 1.6, 1.2])
     with c1:
         chosen_label = st.radio(
@@ -95,7 +116,7 @@ def show_map(indicator_id: IndicatorId, horizon: Horizon) -> None:
         )
     with c2:
         chosen_region = st.selectbox(
-            "地域ジャンプ",
+            "🌐 地域ジャンプ(エリア絞り込み)",
             options=list(REGION_BOUNDS.keys()),
             index=0,
             key=f"region_zoom_{indicator_id}_{horizon}",
@@ -108,6 +129,49 @@ def show_map(indicator_id: IndicatorId, horizon: Horizon) -> None:
         )
     annotation_mode: AnnotationMode = _ANNOTATION_OPTIONS[chosen_label]
 
+    # コントロール 2段目: 非日常スポット表示 + 県絞り込み
+    s1, s2 = st.columns([1.4, 2.6])
+    with s1:
+        show_spots = st.checkbox(
+            "✨ 非日常スポットを地図に重ねる",
+            value=False,
+            key=f"show_spots_{indicator_id}_{horizon}",
+        )
+    with s2:
+        pref_options = ["全国(選択しない)"] + [
+            f"{code} {name}" for code, name in PREFECTURE_NAMES.items()
+        ]
+        chosen_pref = st.selectbox(
+            "🎯 都道府県を絞り込み(スポット詳細表示・地図ズーム)",
+            options=pref_options,
+            index=0,
+            key=f"map_pref_filter_{indicator_id}_{horizon}",
+        )
+    chosen_pref_code: str | None = None
+    if chosen_pref and not chosen_pref.startswith("全国"):
+        chosen_pref_code = chosen_pref.split(" ", 1)[0]
+
+    # スポットカテゴリ選択(チェック時のみ表示)
+    selected_categories: list[str] = []
+    if show_spots:
+        st.markdown("**🏷️ 表示するカテゴリ**")
+        cat_cols = st.columns(4)
+        defaults_on = {"shrine_temple", "castle", "onsen", "viewpoint"}
+        for i, cat in enumerate(_SPOT_CATEGORY_ORDER):
+            icon, label, _ = CATEGORY_LABELS.get(cat, ("📍", cat, ""))
+            with cat_cols[i % 4]:
+                if st.checkbox(
+                    f"{icon} {label}",
+                    value=(cat in defaults_on),
+                    key=f"spot_cat_{cat}_{indicator_id}_{horizon}",
+                ):
+                    selected_categories.append(cat)
+        if not chosen_pref_code:
+            st.info(
+                "💡 スポットを表示するには **都道府県を絞り込み** で 1 県を選んでください。"
+                "(全国一括は処理が重くなるため対応していません)"
+            )
+
     pack = cached_values_for(indicator_id, horizon)
     values = pack.values
     num_with_value = sum(1 for v in values.values() if v is not None)
@@ -115,16 +179,37 @@ def show_map(indicator_id: IndicatorId, horizon: Horizon) -> None:
 
     rich_hover = _build_rich_hover(indicator_id, horizon, values)
 
+    # POI 取得(絞り込み県があり、スポット表示 ON、カテゴリ選択時のみ)
+    pois: list[POI] = []
+    if show_spots and chosen_pref_code and selected_categories:
+        with st.spinner("非日常スポットを取得中…"):
+            pois = _cached_pois(chosen_pref_code, tuple(selected_categories))
+
+    # 県絞り込み時は地図ズーム(地域ジャンプより優先)
+    effective_zoom = chosen_region
+    if chosen_pref_code:
+        # bbox から地域ジャンプ範囲を構築
+        bbox = get_prefecture_bbox(chosen_pref_code, margin=0.55)
+        if bbox:
+            # REGION_BOUNDS は (lat_min, lat_max, lon_min, lon_max) 形式
+            REGION_BOUNDS[f"_focus_{chosen_pref_code}"] = (bbox[0], bbox[2], bbox[1], bbox[3])
+            effective_zoom = f"_focus_{chosen_pref_code}"
+
     fig = render_choropleth(
         values,
         indicator_label=f"{indicator_label}({horizon_label}) {INDICATOR_UNITS.get(indicator_id, '')}",
         annotation_mode=annotation_mode,
-        reverse_color=is_lower_better,  # 低い方が良い指標は色を反転して 緑=住みやすい に統一
+        reverse_color=is_lower_better,
         show_major_cities=show_cities,
-        region_zoom=chosen_region,
+        region_zoom=effective_zoom,
         rich_hover=rich_hover,
+        pois=pois if pois else None,
     )
     st.plotly_chart(fig, use_container_width=True)
+
+    # 「地域の魅力」セクション(POI 一覧)
+    if show_spots and chosen_pref_code and pois:
+        _render_spotlight_section(chosen_pref_code, pois)
 
     # 指標の意味を地図直下にも(地図を最初に見る人向け)
     d = INDICATOR_DEFINITIONS.get(indicator_id, {})
@@ -144,3 +229,45 @@ def show_map(indicator_id: IndicatorId, horizon: Horizon) -> None:
 
     if num_no_pred > 0:
         st.caption(f"⚠️ 予測対象外の都道府県: {num_no_pred}/47(灰色表示)")
+
+
+def _render_spotlight_section(pref_code: str, pois: list[POI]) -> None:
+    """『地域の魅力』セクション: 取得した POI をカテゴリ別カードで表示."""
+    pref_name = PREFECTURE_NAMES.get(pref_code, pref_code)
+    st.markdown("---")
+    st.markdown(f"### ✨ {pref_name} の地域の魅力({len(pois)} スポット)")
+    st.caption(
+        "OpenStreetMap から取得した非日常スポット。"
+        "カテゴリ別に整理して表示しています。クリックで地図上の対応マーカーが確認できます。"
+    )
+
+    # カテゴリ別グルーピング
+    by_cat: dict[str, list[POI]] = {}
+    for p in pois:
+        by_cat.setdefault(p.category, []).append(p)
+
+    # カテゴリの優先順序で表示
+    for cat in _SPOT_CATEGORY_ORDER + ("other",):
+        items = by_cat.get(cat)
+        if not items:
+            continue
+        icon, label, _ = CATEGORY_LABELS.get(cat, ("📍", cat, ""))
+        with st.expander(f"{icon} {label}({len(items)} 件)", expanded=(cat == "shrine_temple")):
+            # 3 列でカード表示、最大 12 件
+            display_items = items[:12]
+            cols = st.columns(3)
+            for i, p in enumerate(display_items):
+                with cols[i % 3]:
+                    gmaps = f"https://www.google.com/maps/search/?api=1&query={p.lat},{p.lon}"
+                    osm = (
+                        f"https://www.openstreetmap.org/?mlat={p.lat}&mlon={p.lon}"
+                        f"#map=15/{p.lat}/{p.lon}"
+                    )
+                    st.markdown(
+                        f"**{icon} {p.name}**  \n"
+                        f"📍 [Google Maps]({gmaps}) ｜ [OpenStreetMap]({osm})"
+                    )
+            if len(items) > 12:
+                st.caption(f"…他 {len(items) - 12} 件(地図上にマーカー表示中)")
+
+    st.caption("出典: © OpenStreetMap contributors(ODbL)")
