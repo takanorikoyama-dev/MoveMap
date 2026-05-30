@@ -26,6 +26,7 @@ from app.shared.logger import get_logger
 logger = get_logger(__name__)
 
 WIKI_API_URL = "https://ja.wikipedia.org/w/api.php"
+WIKIDATA_API_URL = "https://www.wikidata.org/wiki/Special:EntityData"
 USER_AGENT = "MoveMap/0.1 (https://github.com/takanorikoyama-dev/MoveMap; takanori.koyama@gree.net)"
 
 MUNICIPALITIES_SEED = PROJECT_ROOT / "seeds" / "municipalities.json"
@@ -57,6 +58,17 @@ class WikiSection:
 
 
 @dataclass(frozen=True, slots=True)
+class WikiStats:
+    """Wikidata から取得した市区町村の構造化統計データ."""
+    population: int | None = None  # 人口(P1082)
+    area_km2: float | None = None  # 面積 km²(P2046)
+    elevation_m: float | None = None  # 標高 m(P2044)
+    latitude: float | None = None
+    longitude: float | None = None
+    wikidata_id: str | None = None  # Q35765 など
+
+
+@dataclass(frozen=True, slots=True)
 class WikiInfo:
     """Wikipedia から取得した市区町村情報."""
     title: str
@@ -65,6 +77,7 @@ class WikiInfo:
     page_url: str  # Wikipedia ページの URL
     gallery_urls: tuple[str, ...] = ()  # 追加の画像 URL(写真ギャラリー用)
     sections: tuple[WikiSection, ...] = ()  # 観光・文化・街並み等のセクションリンク
+    stats: WikiStats | None = None  # Wikidata 統計データ
 
 
 @lru_cache(maxsize=1)
@@ -106,20 +119,21 @@ def fetch_wiki_info(
     if not wiki_title:
         return None
 
-    # 1) extract + pageimages(代表画像) + info + sections + images(全画像リスト)
+    # 1) extract + pageimages + info + sections + images + pageprops(wikibase_item)
     try:
         payload = get_json(
             WIKI_API_URL,
             params={
                 "action": "query",
                 "format": "json",
-                "prop": "extracts|pageimages|info|images",
+                "prop": "extracts|pageimages|info|images|pageprops",
                 "exintro": "1",
                 "explaintext": "1",
                 "exchars": str(extract_chars),
                 "pithumbsize": str(image_width),
                 "inprop": "url",
                 "imlimit": "50",
+                "ppprop": "wikibase_item",
                 "redirects": "1",
                 "titles": wiki_title,
             },
@@ -141,6 +155,7 @@ def fetch_wiki_info(
     thumb = page.get("thumbnail") or {}
     image_url = thumb.get("source") if isinstance(thumb, dict) else None
     page_url = str(page.get("fullurl") or f"https://ja.wikipedia.org/wiki/{title}")
+    wikidata_id = (page.get("pageprops") or {}).get("wikibase_item")
 
     # 2) ギャラリー候補(images からフィルタ)
     images = page.get("images") or []
@@ -192,6 +207,11 @@ def fetch_wiki_info(
     except HttpRetryExhausted:
         logger.debug(f"Wikipedia sections fetch failed: {wiki_title}")
 
+    # 4) Wikidata から人口・面積・座標(あれば)
+    stats: WikiStats | None = None
+    if wikidata_id:
+        stats = _fetch_wikidata_stats(str(wikidata_id))
+
     return WikiInfo(
         title=title,
         extract=extract,
@@ -199,7 +219,102 @@ def fetch_wiki_info(
         page_url=page_url,
         gallery_urls=tuple(gallery_urls),
         sections=tuple(sections[:8]),  # 上位 8 セクション
+        stats=stats,
     )
+
+
+def _fetch_wikidata_stats(qid: str) -> WikiStats | None:
+    """Wikidata Entity Data API で人口/面積/標高/座標を取得.
+
+    プロパティ ID:
+        P1082: 人口
+        P2046: 面積(km²)
+        P2044: 標高(m)
+        P625:  座標(latitude, longitude)
+    """
+    try:
+        payload = get_json(
+            f"{WIKIDATA_API_URL}/{qid}.json",
+            params={},
+            headers={"User-Agent": USER_AGENT},
+        )
+    except HttpRetryExhausted:
+        logger.debug(f"Wikidata fetch failed: {qid}")
+        return None
+
+    entities = payload.get("entities") or {}
+    entity = entities.get(qid) or {}
+    claims = entity.get("claims") or {}
+
+    population = _wikidata_latest_quantity(claims.get("P1082"))
+    area = _wikidata_latest_quantity(claims.get("P2046"))
+    elevation = _wikidata_latest_quantity(claims.get("P2044"))
+    lat, lon = _wikidata_coordinates(claims.get("P625"))
+
+    return WikiStats(
+        population=int(population) if population is not None else None,
+        area_km2=float(area) if area is not None else None,
+        elevation_m=float(elevation) if elevation is not None else None,
+        latitude=lat,
+        longitude=lon,
+        wikidata_id=qid,
+    )
+
+
+def _wikidata_latest_quantity(claims: list[dict[str, Any]] | None) -> float | None:
+    """複数の time-stamped 値から最新の数値を取り出す.
+
+    Wikidata は P1082(人口)等で複数の値(各年のスナップショット)を持つことがある.
+    qualifiers の P585(時点)が最も新しいものを採用.
+    """
+    if not claims or not isinstance(claims, list):
+        return None
+    best_time = ""
+    best_value: float | None = None
+    for c in claims:
+        if not isinstance(c, dict):
+            continue
+        mainsnak = c.get("mainsnak") or {}
+        datavalue = (mainsnak.get("datavalue") or {}).get("value") or {}
+        amount = datavalue.get("amount") if isinstance(datavalue, dict) else None
+        if amount is None:
+            continue
+        try:
+            value = float(str(amount).lstrip("+"))
+        except ValueError:
+            continue
+        # qualifier P585 (point in time)
+        time_str = ""
+        for q in (c.get("qualifiers") or {}).get("P585", []):
+            qv = (q.get("datavalue") or {}).get("value") or {}
+            t = qv.get("time") if isinstance(qv, dict) else None
+            if t:
+                time_str = str(t)
+                break
+        if best_value is None or time_str > best_time:
+            best_value = value
+            best_time = time_str
+    return best_value
+
+
+def _wikidata_coordinates(
+    claims: list[dict[str, Any]] | None,
+) -> tuple[float | None, float | None]:
+    """P625 から最初の座標を取り出す."""
+    if not claims or not isinstance(claims, list):
+        return None, None
+    for c in claims:
+        if not isinstance(c, dict):
+            continue
+        mainsnak = c.get("mainsnak") or {}
+        datavalue = (mainsnak.get("datavalue") or {}).get("value") or {}
+        if not isinstance(datavalue, dict):
+            continue
+        lat = datavalue.get("latitude")
+        lon = datavalue.get("longitude")
+        if isinstance(lat, (int, float)) and isinstance(lon, (int, float)):
+            return float(lat), float(lon)
+    return None, None
 
 
 def _is_excluded_image(fname: str) -> bool:
@@ -220,6 +335,7 @@ def _url_encode_filename(name: str) -> str:
 __all__ = [
     "WikiInfo",
     "WikiSection",
+    "WikiStats",
     "fetch_wiki_info",
     "get_municipalities_for",
     "load_municipalities",

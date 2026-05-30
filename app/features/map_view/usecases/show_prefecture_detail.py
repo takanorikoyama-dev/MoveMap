@@ -121,6 +121,14 @@ def _render_municipality_section(prefecture_code: str, prefecture_name: str) -> 
                     with gallery_cols[i % len(gallery_cols)]:
                         st.image(url, use_container_width=True)
 
+            # 統計データ(Wikidata から)
+            if info.stats:
+                _render_stats_panel(info.stats)
+
+            # 地図(OpenStreetMap iframe、Wikidata 座標があれば)
+            if info.stats and info.stats.latitude and info.stats.longitude:
+                _render_osm_map(info.stats.latitude, info.stats.longitude, info.title)
+
             # 観光・文化・街並みセクションリンク
             if info.sections:
                 st.markdown("**🎯 観光・文化・街並み・産業の情報**")
@@ -133,6 +141,56 @@ def _render_municipality_section(prefecture_code: str, prefecture_name: str) -> 
     st.caption(
         "出典: Wikipedia / Wikimedia Commons(CC-BY-SA)。"
         "写真はリンクのみで提供。再配布はしておりません。"
+    )
+
+
+def _render_stats_panel(stats) -> None:  # type: ignore[no-untyped-def]
+    """Wikidata 統計を 4 カラムのメトリクスで表示."""
+    st.markdown("**📊 基礎統計データ(Wikidata より)**")
+    cols = st.columns(4)
+    with cols[0]:
+        st.metric(
+            "人口",
+            f"{stats.population:,} 人" if stats.population else "—",
+        )
+    with cols[1]:
+        st.metric(
+            "面積",
+            f"{stats.area_km2:,.1f} km²" if stats.area_km2 else "—",
+        )
+    with cols[2]:
+        # 人口密度を算出
+        if stats.population and stats.area_km2 and stats.area_km2 > 0:
+            density = stats.population / stats.area_km2
+            st.metric("人口密度", f"{density:,.0f} 人/km²")
+        else:
+            st.metric("人口密度", "—")
+    with cols[3]:
+        st.metric(
+            "標高",
+            f"{stats.elevation_m:,.0f} m" if stats.elevation_m else "—",
+        )
+
+
+def _render_osm_map(lat: float, lon: float, title: str) -> None:
+    """OpenStreetMap の埋込マップ(マーカー付き)."""
+    st.markdown("**🗺️ 位置・地図**")
+    margin = 0.04  # ~4km 程度の表示範囲
+    bbox = f"{lon - margin},{lat - margin},{lon + margin},{lat + margin}"
+    osm_url = (
+        f"https://www.openstreetmap.org/export/embed.html"
+        f"?bbox={bbox}&layer=mapnik&marker={lat},{lon}"
+    )
+    html = (
+        f'<iframe width="100%" height="380" frameborder="0" scrolling="no" '
+        f'src="{osm_url}" style="border: 1px solid #d8e0ea; border-radius: 6px;"></iframe>'
+    )
+    st.markdown(html, unsafe_allow_html=True)
+    gsi_url = f"https://maps.gsi.go.jp/?ll={lat},{lon}&z=13&base=std"
+    st.markdown(
+        f"🌐 [{title} を OpenStreetMap で開く]"
+        f"(https://www.openstreetmap.org/?mlat={lat}&mlon={lon}#map=13/{lat}/{lon}) ｜ "
+        f"🗾 [国土地理院 地形図で見る]({gsi_url})"
     )
 
 
