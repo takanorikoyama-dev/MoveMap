@@ -7,7 +7,8 @@ from typing import Literal
 import plotly.graph_objects as go
 import streamlit as st
 
-from app.features.map_view.ranking import ALL_INDICATORS, compute_ranking, stars_to_unicode
+from app.features.map_view._cache import cached_ranking
+from app.features.map_view.ranking import ALL_INDICATORS, stars_to_unicode
 from app.features.map_view.regions import region_of
 from app.features.map_view.usecases.show_prefecture_detail import _format_value
 from app.features.map_view.usecases.switch_indicator import (
@@ -26,7 +27,7 @@ def show_comparison(horizon: Horizon = "current") -> None:
         " 値が外側に広いほど住みやすい。"
     )
 
-    ranks = compute_ranking(horizon=horizon)
+    ranks = cached_ranking(horizon=horizon)
     options = {f"{r.prefecture_code} {r.prefecture_name}": r for r in ranks}
     labels = list(options.keys())
 

@@ -21,11 +21,11 @@ from typing import Literal
 import pandas as pd
 import streamlit as st
 
+from app.features.map_view._cache import cached_ranking
 from app.features.map_view.ranking import (
     ALL_INDICATORS,
     HIGHER_IS_BETTER,
     LOWER_IS_BETTER,
-    compute_ranking,
     stars_to_unicode,
 )
 from app.features.map_view.regions import medal_for_rank, region_of
@@ -154,8 +154,8 @@ def show_ranking(horizon: Horizon = "current") -> None:
     # --- コントロール ---
     weights = _render_weight_sliders(horizon)
 
-    # --- ランキング計算(重み反映) ---
-    ranks = compute_ranking(horizon=horizon, weights=weights)
+    # --- ランキング計算(キャッシュ付き、重み反映) ---
+    ranks = cached_ranking(horizon=horizon, weights=weights)
     pref_codes_and_names = [(r.prefecture_code, r.prefecture_name) for r in ranks]
 
     # --- DataFrame 構築 ---

@@ -16,12 +16,11 @@ from typing import Literal
 
 import streamlit as st
 
+from app.features.map_view._cache import cached_ranking, cached_values_for
 from app.features.map_view.components.heatmap import AnnotationMode, render_choropleth
-from app.features.map_view.data_provider import values_for
 from app.features.map_view.ranking import (
     HIGHER_IS_BETTER,
     LOWER_IS_BETTER,
-    compute_ranking,
     stars_to_unicode,
 )
 from app.features.map_view.regions import REGION_BOUNDS, medal_for_rank
@@ -49,7 +48,7 @@ def _build_rich_hover(
     values: dict[str, float | None],
 ) -> dict[str, dict[str, object]]:
     """choropleth の customdata に渡す追加情報(総合偏差値・順位・★)を構築."""
-    ranks = compute_ranking(horizon=horizon)
+    ranks = cached_ranking(horizon=horizon)
     info: dict[str, dict[str, object]] = {}
     # 当該指標の値で並べた順位(住みやすさ方向)
     higher = indicator_id in HIGHER_IS_BETTER
@@ -109,7 +108,7 @@ def show_map(indicator_id: IndicatorId, horizon: Horizon) -> None:
         )
     annotation_mode: AnnotationMode = _ANNOTATION_OPTIONS[chosen_label]
 
-    pack = values_for(indicator_id, horizon)
+    pack = cached_values_for(indicator_id, horizon)
     values = pack.values
     num_with_value = sum(1 for v in values.values() if v is not None)
     num_no_pred = 47 - num_with_value

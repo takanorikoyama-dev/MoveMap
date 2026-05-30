@@ -11,7 +11,8 @@ from typing import Literal
 
 import streamlit as st
 
-from app.features.map_view.ranking import ALL_INDICATORS, compute_ranking, stars_to_unicode
+from app.features.map_view._cache import cached_ranking
+from app.features.map_view.ranking import ALL_INDICATORS, stars_to_unicode
 from app.features.map_view.regions import region_of
 from app.features.map_view.usecases.switch_indicator import (
     INDICATOR_ICONS,
@@ -284,7 +285,7 @@ def show_diagnosis(horizon: Horizon = "current") -> None:
 
     # 上位 3 県
     st.markdown("### 🏆 あなたへのおすすめ 3 県")
-    ranks = compute_ranking(horizon=horizon, weights=weights)
+    ranks = cached_ranking(horizon=horizon, weights=weights)
     top3 = [r for r in ranks if r.composite_score is not None][:3]
 
     if not top3:

@@ -9,7 +9,7 @@ import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
 
-from app.features.map_view.data_provider import latest_model_for
+from app.features.map_view._cache import cached_latest_model_for
 from app.features.map_view.dummy import PREDICTABLE_INDICATORS, dummy_value
 from app.features.map_view.usecases.switch_indicator import INDICATOR_LABELS
 
@@ -23,7 +23,7 @@ def show_model_detail(indicator_id: str) -> None:
     label = INDICATOR_LABELS[indicator_id]
     st.subheader(f"AI 予測モデル詳細: {label}")
 
-    info = latest_model_for(indicator_id)
+    info = cached_latest_model_for(indicator_id)
 
     # 取得元の透明性表示
     if info.availability.source == "db":

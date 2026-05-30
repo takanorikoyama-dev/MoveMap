@@ -8,7 +8,7 @@ from __future__ import annotations
 import pandas as pd
 import streamlit as st
 
-from app.features.map_view.data_provider import prefecture_full_table
+from app.features.map_view._cache import cached_prefecture_full_table
 from app.features.map_view.usecases.switch_horizon import HORIZON_LABELS
 from app.features.map_view.usecases.switch_indicator import INDICATOR_LABELS
 
@@ -35,7 +35,7 @@ def show_prefecture_detail(prefecture_code: str) -> None:
     name = PREFECTURE_NAMES.get(prefecture_code, prefecture_code)
     st.subheader(f"{name}({prefecture_code})詳細")
 
-    table = prefecture_full_table(prefecture_code)
+    table = cached_prefecture_full_table(prefecture_code)
 
     rows: list[dict[str, str]] = []
     for indicator_id, indicator_label in INDICATOR_LABELS.items():
