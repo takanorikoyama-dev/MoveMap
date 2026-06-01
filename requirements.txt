@@ -1,0 +1,14 @@
+# Streamlit Cloud 用の依存定義(DEC-016 mode C 公開向け).
+# pyproject.toml [project.dependencies] と同期させること.
+# dev 依存(pytest 等)は含めない — Cloud のビルド時間を短縮するため.
+
+streamlit>=1.32
+plotly>=5.20
+duckdb>=0.10
+pandas>=2.2
+httpx>=0.27
+tenacity>=8.2
+statsmodels>=0.14
+prophet>=1.1
+python-dotenv>=1.0
+truststore>=0.10.4

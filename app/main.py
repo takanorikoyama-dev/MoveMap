@@ -30,6 +30,7 @@ from app.features.map_view.usecases.switch_indicator import (
     labeled as indicator_labeled,
     switch_indicator,
 )
+from app.shared.bootstrap import ensure_db_initialized
 from app.shared.config import load_config
 from app.shared.ui_theme import (
     inject_ga4,
@@ -39,6 +40,9 @@ from app.shared.ui_theme import (
     render_mobile_hint,
     render_tab_guide,
 )
+
+# Streamlit Cloud のような ephemeral 環境で DB が無ければ自動初期化(冪等)
+ensure_db_initialized()
 
 st.set_page_config(
     page_title="MoveMap — 地方移住MAP",
