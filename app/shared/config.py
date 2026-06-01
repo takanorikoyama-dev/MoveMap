@@ -27,6 +27,8 @@ class Config:
     waqi_token: str | None = None
     # GA4 Measurement ID(G-XXXXXXXXXX 形式、設定時のみトラッキング有効)
     ga4_measurement_id: str | None = None
+    # Unsplash Access Key(都道府県ヒーロー画像取得用、未設定時は Wikimedia のみ)
+    unsplash_access_key: str | None = None
 
 
 def load_config() -> Config:
@@ -41,4 +43,5 @@ def load_config() -> Config:
         reinfolib_api_key=os.getenv("REINFOLIB_API_KEY") or None,
         waqi_token=os.getenv("WAQI_TOKEN") or None,
         ga4_measurement_id=os.getenv("GA4_MEASUREMENT_ID") or None,
+        unsplash_access_key=os.getenv("UNSPLASH_ACCESS_KEY") or None,
     )

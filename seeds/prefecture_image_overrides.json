@@ -1,0 +1,13 @@
+{
+  "_comment": "県別の Unsplash 検索クエリ上書き. デフォルト '{name_en} Japan' で不自然な画像が来る場合に使う.",
+  "_format": {
+    "code": {
+      "query": "Unsplash で使う検索クエリ(英語)",
+      "reason": "上書き理由(メモ)"
+    }
+  },
+  "01": {
+    "query": "Hokkaido nature landscape mountain",
+    "reason": "デフォルトクエリで自販機写真がトップに来るため、自然系に修正"
+  }
+}

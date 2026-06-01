@@ -22,6 +22,7 @@ import pandas as pd
 import streamlit as st
 
 from app.features.map_view._cache import cached_ranking
+from app.features.map_view.images import credit_line, get_thumb
 from app.features.map_view.ranking import (
     ALL_INDICATORS,
     HIGHER_IS_BETTER,
@@ -222,6 +223,9 @@ def show_ranking(horizon: Horizon = "current") -> None:
     n = len(df_filtered)
     st.caption(f"全 **{n} 県** を住みやすさスコア順で表示中")
 
+    # --- Top 3 ハイライト(画像付き、Apple カード風)---
+    _render_top3_hero(df_filtered)
+
     # --- 表示モード切替 ---
     view_mode = st.radio(
         "表示モード",
@@ -261,6 +265,37 @@ def show_ranking(horizon: Horizon = "current") -> None:
                 f"{row['★']} {row['都道府県']}({row['総合偏差値']})"
                 for _, row in bottom.iterrows()
             ))
+
+
+def _render_top3_hero(df: pd.DataFrame) -> None:
+    """ランキング上位 3 県をヒーロー画像付きで横並びに表示."""
+    top3 = df.head(3)
+    if top3.empty:
+        return
+
+    st.markdown("### 🏆 住みやすさトップ 3")
+    cols = st.columns(3, gap="medium")
+    for i, (_, row) in enumerate(top3.iterrows()):
+        with cols[i]:
+            code = str(row.get("_code", ""))
+            thumb = get_thumb(code)
+            if thumb:
+                st.image(thumb.url, use_container_width=True)
+                st.caption(credit_line(thumb))
+            rank_text = str(row.get("順位") or "")
+            stars = str(row.get("★") or "")
+            pref = str(row.get("都道府県") or "")
+            score = row.get("総合偏差値")
+            score_text = (
+                f"{score:.1f}" if isinstance(score, (int, float)) else "—"
+            )
+            st.markdown(
+                f"#### {rank_text} {pref}"
+            )
+            st.markdown(
+                f"{stars} ｜ 住みやすさスコア **{score_text}**"
+            )
+    st.markdown("---")
 
 
 def _render_table_view(df_value: pd.DataFrame, df_score: pd.DataFrame) -> None:

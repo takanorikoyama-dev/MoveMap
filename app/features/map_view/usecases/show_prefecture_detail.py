@@ -9,6 +9,7 @@ import pandas as pd
 import streamlit as st
 
 from app.features.map_view._cache import cached_prefecture_full_table
+from app.features.map_view.images import credit_line, get_hero
 from app.features.map_view.usecases.switch_horizon import HORIZON_LABELS
 from app.features.map_view.usecases.switch_indicator import INDICATOR_LABELS
 from app.features.map_view.wikipedia import (
@@ -45,6 +46,16 @@ def show_prefecture_detail(prefecture_code: str) -> None:
         prefecture_code: JIS X 0401 都道府県コード.
     """
     name = PREFECTURE_NAMES.get(prefecture_code, prefecture_code)
+
+    # ヒーロー画像(あれば最上部に大きく表示。INV-BIZ-008 でクレジットをキャプション表示)
+    hero = get_hero(prefecture_code)
+    if hero:
+        st.image(
+            hero.url,
+            use_container_width=True,
+            caption=credit_line(hero),
+        )
+
     st.subheader(f"{name}({prefecture_code})詳細")
 
     table = cached_prefecture_full_table(prefecture_code)

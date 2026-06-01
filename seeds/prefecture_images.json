@@ -1,0 +1,3023 @@
+{
+  "version": 1,
+  "generated_by": "scripts/fetch_prefecture_images.py",
+  "sources_used": [
+    "wikimedia",
+    "unsplash"
+  ],
+  "license_summary": {
+    "unsplash": "Unsplash License — 改変・商用 OK、クレジット推奨",
+    "wikimedia": "CC-BY-SA 4.0 — クレジット必須"
+  },
+  "prefectures": [
+    {
+      "code": "01",
+      "name_ja": "北海道",
+      "name_en": "Hokkaido",
+      "hero": {
+        "url": "https://images.unsplash.com/photo-1603435580027-f30889418372?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxIb2trYWlkbyUyMG5hdHVyZSUyMGxhbmRzY2FwZSUyMG1vdW50YWlufGVufDF8MHx8fDE3ODAyODkyNDZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "thumb_url": "https://images.unsplash.com/photo-1603435580027-f30889418372?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxIb2trYWlkbyUyMG5hdHVyZSUyMGxhbmRzY2FwZSUyMG1vdW50YWlufGVufDF8MHx8fDE3ODAyODkyNDZ8MA&ixlib=rb-4.1.0&q=80&w=400",
+        "source": "unsplash",
+        "photographer": "Yuri Li",
+        "photographer_url": "https://unsplash.com/@itshoobastank",
+        "license": "Unsplash License",
+        "license_url": "https://unsplash.com/license",
+        "description": "people walking on road near green grass field during daytime",
+        "source_url": "https://unsplash.com/photos/people-walking-on-road-near-green-grass-field-during-daytime-DLcM17P7L44",
+        "query_used": "Hokkaido nature landscape mountain"
+      },
+      "gallery": [
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/130922_Lake_Toya_Toyako_Hokkaido_Japan03s3.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/130922_Lake_Toya_Toyako_Hokkaido_Japan03s3.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%8C%97%E6%B5%B7%E9%81%93",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%8C%97%E6%B5%B7%E9%81%93"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/AinuSan.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/AinuSan.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%8C%97%E6%B5%B7%E9%81%93",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%8C%97%E6%B5%B7%E9%81%93"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Cityscapes_of_Hakodate_Hokkaido_pref_Japan01n.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Cityscapes_of_Hakodate_Hokkaido_pref_Japan01n.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%8C%97%E6%B5%B7%E9%81%93",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%8C%97%E6%B5%B7%E9%81%93"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Hakodate_Bugyosho_sideview.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Hakodate_Bugyosho_sideview.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%8C%97%E6%B5%B7%E9%81%93",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%8C%97%E6%B5%B7%E9%81%93"
+        }
+      ],
+      "status": "ok",
+      "_wiki_extract": "北海道（ほっかいどう）は、日本の北海道地方に位置する道。47都道府県の中で唯一の「道」であり、道庁所在地は札幌市である。行政区画の「北海道」を構成する最大の島自体も北海道と称されるが、区別するときには北海道本島とも称する。"
+    },
+    {
+      "code": "02",
+      "name_ja": "青森県",
+      "name_en": "Aomori",
+      "hero": {
+        "url": "https://images.unsplash.com/photo-1601452593256-0d8347cc044f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxBb21vcmklMjBKYXBhbnxlbnwxfDB8fHwxNzgwMjg4NTk0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "thumb_url": "https://images.unsplash.com/photo-1601452593256-0d8347cc044f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxBb21vcmklMjBKYXBhbnxlbnwxfDB8fHwxNzgwMjg4NTk0fDA&ixlib=rb-4.1.0&q=80&w=400",
+        "source": "unsplash",
+        "photographer": "Steven Chua",
+        "photographer_url": "https://unsplash.com/@stevenckc",
+        "license": "Unsplash License",
+        "license_url": "https://unsplash.com/license",
+        "description": "brown wooden house near green trees during daytime",
+        "source_url": "https://unsplash.com/photos/brown-wooden-house-near-green-trees-during-daytime-pjVWh5m2vik"
+      },
+      "gallery": [
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/09aomoripopulation_e-e.png?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/09aomoripopulation_e-e.png?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E9%9D%92%E6%A3%AE%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E9%9D%92%E6%A3%AE%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/140913_Sannai-Maruyama_site_Aomori_Japan01bs6bs6.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/140913_Sannai-Maruyama_site_Aomori_Japan01bs6bs6.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E9%9D%92%E6%A3%AE%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E9%9D%92%E6%A3%AE%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/An_apple_branch_with_Mount_Iwaki_in_the_background.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/An_apple_branch_with_Mount_Iwaki_in_the_background.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E9%9D%92%E6%A3%AE%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E9%9D%92%E6%A3%AE%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Aomori.png?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Aomori.png?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E9%9D%92%E6%A3%AE%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E9%9D%92%E6%A3%AE%E7%9C%8C"
+        }
+      ],
+      "status": "ok",
+      "_wiki_extract": "青森県（あおもりけん）は、日本の東北地方に位置する県である。県庁所在地は青森市。\n令制国の陸奥国（むつのくに、りくおうのくに）北部にあたる。"
+    },
+    {
+      "code": "03",
+      "name_ja": "岩手県",
+      "name_en": "Iwate",
+      "hero": {
+        "url": "https://images.unsplash.com/photo-1484995978482-cf913162930c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxJd2F0ZSUyMEphcGFufGVufDF8MHx8fDE3ODAyODg1OTh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "thumb_url": "https://images.unsplash.com/photo-1484995978482-cf913162930c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxJd2F0ZSUyMEphcGFufGVufDF8MHx8fDE3ODAyODg1OTh8MA&ixlib=rb-4.1.0&q=80&w=400",
+        "source": "unsplash",
+        "photographer": "Claudio Guglieri",
+        "photographer_url": "https://unsplash.com/@claudioguglieri",
+        "license": "Unsplash License",
+        "license_url": "https://unsplash.com/license",
+        "description": "person riding on black bicycle in road during daytime",
+        "source_url": "https://unsplash.com/photos/person-riding-on-black-bicycle-in-road-during-daytime-G6X3OZqIIm8"
+      },
+      "gallery": [
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/230728_Takadachi_Gikei-do_Hiraizumi_Iwate_pref_Japan13s3.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/230728_Takadachi_Gikei-do_Hiraizumi_Iwate_pref_Japan13s3.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%B2%A9%E6%89%8B%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%B2%A9%E6%89%8B%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Esashi-fujiharanosato.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Esashi-fujiharanosato.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%B2%A9%E6%89%8B%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%B2%A9%E6%89%8B%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Hachimann_numa_2008.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Hachimann_numa_2008.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%B2%A9%E6%89%8B%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%B2%A9%E6%89%8B%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Ipu.JPG?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Ipu.JPG?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%B2%A9%E6%89%8B%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%B2%A9%E6%89%8B%E7%9C%8C"
+        }
+      ],
+      "status": "ok",
+      "_wiki_extract": "岩手県（いわてけん）は、日本の東北地方に位置する県。県庁所在地は盛岡市。東北地方の北部（北東北）に所在し、北は青森県、西は秋田県、南は宮城県と境界を接している。\n面積は15,275.05km2で、日本の都道府県としては、北海道に次いで2番目に広い。県の人口およそ113万人のうち、8割以上は内陸部の北上盆地に集中し、沿岸部は平地が少なく小都市が点在する。北上盆地と沿岸部の他は、大半が山地や丘陵地であ"
+    },
+    {
+      "code": "04",
+      "name_ja": "宮城県",
+      "name_en": "Miyagi",
+      "hero": {
+        "url": "https://images.unsplash.com/photo-1685761898488-11a49863bc70?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxNaXlhZ2klMjBKYXBhbnxlbnwxfDB8fHwxNzgwMjg4NjAzfDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "thumb_url": "https://images.unsplash.com/photo-1685761898488-11a49863bc70?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxNaXlhZ2klMjBKYXBhbnxlbnwxfDB8fHwxNzgwMjg4NjAzfDA&ixlib=rb-4.1.0&q=80&w=400",
+        "source": "unsplash",
+        "photographer": "Nolla",
+        "photographer_url": "https://unsplash.com/@nolla_photos",
+        "license": "Unsplash License",
+        "license_url": "https://unsplash.com/license",
+        "description": "a green lake surrounded by mountains under a cloudy sky",
+        "source_url": "https://unsplash.com/photos/a-green-lake-surrounded-by-mountains-under-a-cloudy-sky-315gqiOCydU"
+      },
+      "gallery": [
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/20090719%E4%BB%99%E5%8F%B0%E5%B9%B3%E9%87%8E.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/20090719%E4%BB%99%E5%8F%B0%E5%B9%B3%E9%87%8E.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%AE%AE%E5%9F%8E%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%AE%AE%E5%9F%8E%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/20091011%E6%9D%BE%E5%B3%B6.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/20091011%E6%9D%BE%E5%B3%B6.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%AE%AE%E5%9F%8E%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%AE%AE%E5%9F%8E%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/211028_Sendai_Airport_Sendai_Miyagi_prefecture_Japan01bs.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/211028_Sendai_Airport_Sendai_Miyagi_prefecture_Japan01bs.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%AE%AE%E5%9F%8E%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%AE%AE%E5%9F%8E%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Building_of_Miyagi_Prefectural_Assembly.JPG?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Building_of_Miyagi_Prefectural_Assembly.JPG?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%AE%AE%E5%9F%8E%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%AE%AE%E5%9F%8E%E7%9C%8C"
+        }
+      ],
+      "status": "ok",
+      "_wiki_extract": "宮城県（みやぎけん）は、日本の東北地方に位置する県。県庁所在地は仙台市。県内人口は約225万人で（2023年9月1日の推計人口）、東北地方では最も人口が多い県である。\n人口約110万人の仙台市は東北地方の中心都市で、東北地方で唯一の政令指定都市及び100万都市である。仙台市は東北地方最大の仙台都市圏を形成し、宮城県民の67.9%に当たる154万人が仙台都市圏に居住する。"
+    },
+    {
+      "code": "05",
+      "name_ja": "秋田県",
+      "name_en": "Akita",
+      "hero": {
+        "url": "https://images.unsplash.com/photo-1777500394353-ffc9b0c593f7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxBa2l0YSUyMEphcGFufGVufDF8MHx8fDE3ODAyODg2MDd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "thumb_url": "https://images.unsplash.com/photo-1777500394353-ffc9b0c593f7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxBa2l0YSUyMEphcGFufGVufDF8MHx8fDE3ODAyODg2MDd8MA&ixlib=rb-4.1.0&q=80&w=400",
+        "source": "unsplash",
+        "photographer": "Trac Vu",
+        "photographer_url": "https://unsplash.com/@tracminhvu",
+        "license": "Unsplash License",
+        "license_url": "https://unsplash.com/license",
+        "description": "Modern building with traditional japanese architectural elements.",
+        "source_url": "https://unsplash.com/photos/modern-building-with-traditional-japanese-architectural-elements-nkOPu4nV9vI"
+      },
+      "gallery": [
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Akita_Prefectural_Government_Office_building_No.1_20180520n.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Akita_Prefectural_Government_Office_building_No.1_20180520n.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E7%A7%8B%E7%94%B0%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E7%A7%8B%E7%94%B0%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Gate_of_Aoyagi_Samurai_House_20161106b.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Gate_of_Aoyagi_Samurai_House_20161106b.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E7%A7%8B%E7%94%B0%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E7%A7%8B%E7%94%B0%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Lake_Towada_from_Ohanabe_2008.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Lake_Towada_from_Ohanabe_2008.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E7%A7%8B%E7%94%B0%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E7%A7%8B%E7%94%B0%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Sirakami_santi.JPG?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Sirakami_santi.JPG?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E7%A7%8B%E7%94%B0%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E7%A7%8B%E7%94%B0%E7%9C%8C"
+        }
+      ],
+      "status": "ok",
+      "_wiki_extract": "秋田県（あきたけん）は、日本の東北地方に位置する県。県庁所在地は秋田市。"
+    },
+    {
+      "code": "06",
+      "name_ja": "山形県",
+      "name_en": "Yamagata",
+      "hero": {
+        "url": "https://images.unsplash.com/photo-1641939015944-78d86da9bdda?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxZYW1hZ2F0YSUyMEphcGFufGVufDF8MHx8fDE3ODAyODg2MTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "thumb_url": "https://images.unsplash.com/photo-1641939015944-78d86da9bdda?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxZYW1hZ2F0YSUyMEphcGFufGVufDF8MHx8fDE3ODAyODg2MTB8MA&ixlib=rb-4.1.0&q=80&w=400",
+        "source": "unsplash",
+        "photographer": "Jack Bodine",
+        "photographer_url": "https://unsplash.com/@jackbodine",
+        "license": "Unsplash License",
+        "license_url": "https://unsplash.com/license",
+        "description": "a person on skis standing on top of a snow covered mountain",
+        "source_url": "https://unsplash.com/photos/a-person-on-skis-standing-on-top-of-a-snow-covered-mountain-ptgSeoHhl18"
+      },
+      "gallery": [
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/220428_Yamagata_Airport_Yamagata_Yamagata_pref_Japan03s3.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/220428_Yamagata_Airport_Yamagata_Yamagata_pref_Japan03s3.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%B1%B1%E5%BD%A2%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%B1%B1%E5%BD%A2%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/220428_Yamagata_Station_Yamagata_Yamagata_pref_Japan07s3.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/220428_Yamagata_Station_Yamagata_Yamagata_pref_Japan07s3.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%B1%B1%E5%BD%A2%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%B1%B1%E5%BD%A2%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/220430_Bunshokan_Yamagata_Yamagata_pref_Japan01s3.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/220430_Bunshokan_Yamagata_Yamagata_pref_Japan01s3.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%B1%B1%E5%BD%A2%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%B1%B1%E5%BD%A2%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Chu-ren-ji.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Chu-ren-ji.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%B1%B1%E5%BD%A2%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%B1%B1%E5%BD%A2%E7%9C%8C"
+        }
+      ],
+      "status": "ok",
+      "_wiki_extract": "山形県（やまがたけん）は、日本の東北地方に位置する県。県庁所在地は山形市。\n県名の「山形」は、『和名類聚抄』に今の山形市の南側を「山方（やまがた）郷」と言ったことに由来すると言われている。\n県域の西側は日本海に面する。"
+    },
+    {
+      "code": "07",
+      "name_ja": "福島県",
+      "name_en": "Fukushima",
+      "hero": {
+        "url": "https://images.unsplash.com/photo-1701971855527-07cdeafcd754?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxGdWt1c2hpbWElMjBKYXBhbnxlbnwxfDB8fHwxNzgwMjg4NjEyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "thumb_url": "https://images.unsplash.com/photo-1701971855527-07cdeafcd754?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxGdWt1c2hpbWElMjBKYXBhbnxlbnwxfDB8fHwxNzgwMjg4NjEyfDA&ixlib=rb-4.1.0&q=80&w=400",
+        "source": "unsplash",
+        "photographer": "Tuan P.",
+        "photographer_url": "https://unsplash.com/@tuan_p",
+        "license": "Unsplash License",
+        "license_url": "https://unsplash.com/license",
+        "description": "a view of a city with mountains in the background",
+        "source_url": "https://unsplash.com/photos/a-view-of-a-city-with-mountains-in-the-background--OKddMFpMFA"
+      },
+      "gallery": [
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/20090201%E7%A6%8F%E5%B3%B6%E7%9B%86%E5%9C%B0%E8%8D%92%E5%B7%9D%E6%B5%81%E5%9F%9F%E7%A9%BA%E6%92%AETagged.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/20090201%E7%A6%8F%E5%B3%B6%E7%9B%86%E5%9C%B0%E8%8D%92%E5%B7%9D%E6%B5%81%E5%9F%9F%E7%A9%BA%E6%92%AETagged.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E7%A6%8F%E5%B3%B6%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E7%A6%8F%E5%B3%B6%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/20091231%E5%A4%A7%E5%AE%89%E5%A0%B4%E5%8F%A4%E5%A2%B3%E7%BE%A41%E5%8F%B7%E5%A2%B3.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/20091231%E5%A4%A7%E5%AE%89%E5%A0%B4%E5%8F%A4%E5%A2%B3%E7%BE%A41%E5%8F%B7%E5%A2%B3.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E7%A6%8F%E5%B3%B6%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E7%A6%8F%E5%B3%B6%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Abukuma_Cave_03.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Abukuma_Cave_03.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E7%A6%8F%E5%B3%B6%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E7%A6%8F%E5%B3%B6%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/AdataraSan%26Tohokusen.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/AdataraSan%26Tohokusen.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E7%A6%8F%E5%B3%B6%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E7%A6%8F%E5%B3%B6%E7%9C%8C"
+        }
+      ],
+      "status": "ok",
+      "_wiki_extract": "福島県（ふくしまけん）は、日本の東北地方に位置する県。県庁所在地は福島市。面積は北海道、岩手県に次ぐ全国3位、都道府県別の人口は全国21位、人口密度は全国40位である（いずれも2020年10月1日時点の国勢調査による）。\n東北地方の中では宮城県に次いで人口が多く、1980年に宮城県に抜かれるまで、東北で最も人口が多い県であった。県内に政令指定都市は存在しないものの、人口順に郡山市、いわき市、福島市"
+    },
+    {
+      "code": "08",
+      "name_ja": "茨城県",
+      "name_en": "Ibaraki",
+      "hero": {
+        "url": "https://images.unsplash.com/photo-1507693595546-0512d61de389?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxJYmFyYWtpJTIwSmFwYW58ZW58MXwwfHx8MTc4MDI4ODYxNXww&ixlib=rb-4.1.0&q=80&w=1080",
+        "thumb_url": "https://images.unsplash.com/photo-1507693595546-0512d61de389?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxJYmFyYWtpJTIwSmFwYW58ZW58MXwwfHx8MTc4MDI4ODYxNXww&ixlib=rb-4.1.0&q=80&w=400",
+        "source": "unsplash",
+        "photographer": "Jezael Melgoza",
+        "photographer_url": "https://unsplash.com/@jezar",
+        "license": "Unsplash License",
+        "license_url": "https://unsplash.com/license",
+        "description": "two women walking between buildings",
+        "source_url": "https://unsplash.com/photos/two-women-walking-between-buildings-zFhNA1tKmKs"
+      },
+      "gallery": [
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/20100216_acaworld01.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/20100216_acaworld01.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E8%8C%A8%E5%9F%8E%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E8%8C%A8%E5%9F%8E%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Autumn_of_Fukuroda_Falls%2C_Daigo%2C_Ibaraki%3B_November_2016.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Autumn_of_Fukuroda_Falls%2C_Daigo%2C_Ibaraki%3B_November_2016.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E8%8C%A8%E5%9F%8E%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E8%8C%A8%E5%9F%8E%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Epochal_Tsukuba.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Epochal_Tsukuba.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E8%8C%A8%E5%9F%8E%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E8%8C%A8%E5%9F%8E%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Hasaki_Wind_Farm_02.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Hasaki_Wind_Farm_02.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E8%8C%A8%E5%9F%8E%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E8%8C%A8%E5%9F%8E%E7%9C%8C"
+        }
+      ],
+      "status": "ok",
+      "_wiki_extract": "茨城県（いばらきけん）は、日本の関東地方に位置する県。県庁所在地は水戸市。　\n首都圏を構成し、都道府県人口は全国11位、面積は全国24位である。"
+    },
+    {
+      "code": "09",
+      "name_ja": "栃木県",
+      "name_en": "Tochigi",
+      "hero": {
+        "url": "https://images.unsplash.com/photo-1528164344705-47542687000d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxUb2NoaWdpJTIwSmFwYW58ZW58MXwwfHx8MTc4MDI4ODYxOHww&ixlib=rb-4.1.0&q=80&w=1080",
+        "thumb_url": "https://images.unsplash.com/photo-1528164344705-47542687000d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxUb2NoaWdpJTIwSmFwYW58ZW58MXwwfHx8MTc4MDI4ODYxOHww&ixlib=rb-4.1.0&q=80&w=400",
+        "source": "unsplash",
+        "photographer": "Manuel Cosentino",
+        "photographer_url": "https://unsplash.com/@manucosen",
+        "license": "Unsplash License",
+        "license_url": "https://unsplash.com/license",
+        "description": "Mt. Fuji",
+        "source_url": "https://unsplash.com/photos/mt-fuji-n--CMLApjfI"
+      },
+      "gallery": [
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/20061213%E9%AB%98%E5%8E%9F%E5%B1%B1Tagged.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/20061213%E9%AB%98%E5%8E%9F%E5%B1%B1Tagged.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E6%A0%83%E6%9C%A8%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E6%A0%83%E6%9C%A8%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/20080330KinuGawa.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/20080330KinuGawa.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E6%A0%83%E6%9C%A8%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E6%A0%83%E6%9C%A8%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/20090421%E4%B8%8B%E4%BE%8D%E5%A1%9A%E5%8F%A4%E5%A2%B3.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/20090421%E4%B8%8B%E4%BE%8D%E5%A1%9A%E5%8F%A4%E5%A2%B3.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E6%A0%83%E6%9C%A8%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E6%A0%83%E6%9C%A8%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/EnnaKyuryo4Tagged.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/EnnaKyuryo4Tagged.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E6%A0%83%E6%9C%A8%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E6%A0%83%E6%9C%A8%E7%9C%8C"
+        }
+      ],
+      "status": "ok",
+      "_wiki_extract": "栃木県（とちぎけん）は、日本の関東地方に位置する県。県庁所在地は宇都宮市。\n旧国名は下野国（しもつけのくに）。 県北部に日光国立公園があり、国際観光都市として名高い日光や那須が知られる。"
+    },
+    {
+      "code": "10",
+      "name_ja": "群馬県",
+      "name_en": "Gunma",
+      "hero": {
+        "url": "https://images.unsplash.com/photo-1683721641847-88627032fd94?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxHdW5tYSUyMEphcGFufGVufDF8MHx8fDE3ODAyODg2MjF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "thumb_url": "https://images.unsplash.com/photo-1683721641847-88627032fd94?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxHdW5tYSUyMEphcGFufGVufDF8MHx8fDE3ODAyODg2MjF8MA&ixlib=rb-4.1.0&q=80&w=400",
+        "source": "unsplash",
+        "photographer": "Da-shika",
+        "photographer_url": "https://unsplash.com/@da_shika_photo",
+        "license": "Unsplash License",
+        "license_url": "https://unsplash.com/license",
+        "description": "a group of people standing on top of a waterfall",
+        "source_url": "https://unsplash.com/photos/a-group-of-people-standing-on-top-of-a-waterfall-Mq8zoakILQo"
+      },
+      "gallery": [
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/AEON_Mall_Ota.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/AEON_Mall_Ota.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E7%BE%A4%E9%A6%AC%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E7%BE%A4%E9%A6%AC%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/ASAMA_Volcano_Museum_2017-04.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/ASAMA_Volcano_Museum_2017-04.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E7%BE%A4%E9%A6%AC%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E7%BE%A4%E9%A6%AC%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Agatsumakeikoku.JPG?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Agatsumakeikoku.JPG?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E7%BE%A4%E9%A6%AC%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E7%BE%A4%E9%A6%AC%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Akagi-jinja_%28Fujimi%29_shoumen.JPG?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Akagi-jinja_%28Fujimi%29_shoumen.JPG?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E7%BE%A4%E9%A6%AC%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E7%BE%A4%E9%A6%AC%E7%9C%8C"
+        }
+      ],
+      "status": "ok",
+      "_wiki_extract": "群馬県（ぐんまけん）は、日本の関東地方に位置する県。県庁所在地は前橋市。\n旧国名は上野国（上州）。米麦栽培・養蚕・繊維工業などの伝統産業に加え、畜産・野菜栽培・機械工業が盛んで、県北西部は草津温泉などに代表される温泉・保養地である。利根川上流ダム群の豊かな水量は県内はもとより、東京都を始めとする関東の電力・上水道の供給源となっている。県南東部は都市化が進み、首都圏整備法の都市開発区域に指定され、北"
+    },
+    {
+      "code": "11",
+      "name_ja": "埼玉県",
+      "name_en": "Saitama",
+      "hero": {
+        "url": "https://images.unsplash.com/photo-1659190570975-d8af5b024917?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxTYWl0YW1hJTIwSmFwYW58ZW58MXwwfHx8MTc4MDI4ODYyNHww&ixlib=rb-4.1.0&q=80&w=1080",
+        "thumb_url": "https://images.unsplash.com/photo-1659190570975-d8af5b024917?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxTYWl0YW1hJTIwSmFwYW58ZW58MXwwfHx8MTc4MDI4ODYyNHww&ixlib=rb-4.1.0&q=80&w=400",
+        "source": "unsplash",
+        "photographer": "Xie lipton",
+        "photographer_url": "https://unsplash.com/@sanarara",
+        "license": "Unsplash License",
+        "license_url": "https://unsplash.com/license",
+        "description": "a group of people walking down a street with a building in the background",
+        "source_url": "https://unsplash.com/photos/a-group-of-people-walking-down-a-street-with-a-building-in-the-background-aVXkQAoOIQ8"
+      },
+      "gallery": [
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Forest_in_Okuchichibu_Mountains_04.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Forest_in_Okuchichibu_Mountains_04.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%9F%BC%E7%8E%89%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%9F%BC%E7%8E%89%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Jumangoku-Manju_01.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Jumangoku-Manju_01.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%9F%BC%E7%8E%89%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%9F%BC%E7%8E%89%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Kasukabe_hanadumi01.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Kasukabe_hanadumi01.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%9F%BC%E7%8E%89%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%9F%BC%E7%8E%89%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Large_format_camera_lens.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Large_format_camera_lens.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%9F%BC%E7%8E%89%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%9F%BC%E7%8E%89%E7%9C%8C"
+        }
+      ],
+      "status": "ok",
+      "_wiki_extract": "埼玉県（さいたまけん）は、日本の関東地方に位置する県。県庁所在地はさいたま市。"
+    },
+    {
+      "code": "12",
+      "name_ja": "千葉県",
+      "name_en": "Chiba",
+      "hero": {
+        "url": "https://images.unsplash.com/photo-1652963212851-bfc736ce2ff3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxDaGliYSUyMEphcGFufGVufDF8MHx8fDE3ODAyODg2Mjd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "thumb_url": "https://images.unsplash.com/photo-1652963212851-bfc736ce2ff3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxDaGliYSUyMEphcGFufGVufDF8MHx8fDE3ODAyODg2Mjd8MA&ixlib=rb-4.1.0&q=80&w=400",
+        "source": "unsplash",
+        "photographer": "wanderplans.com",
+        "photographer_url": "https://unsplash.com/@wanderplans",
+        "license": "Unsplash License",
+        "license_url": "https://unsplash.com/license",
+        "description": "a light house on a rocky outcropping in the ocean",
+        "source_url": "https://unsplash.com/photos/a-light-house-on-a-rocky-outcropping-in-the-ocean-bkx12IEJxrM"
+      },
+      "gallery": [
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/B%C5%8Ds%C5%8D_Peninsula_by_Sentinel-2%2C_2018-10-30.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/B%C5%8Ds%C5%8D_Peninsula_by_Sentinel-2%2C_2018-10-30.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%8D%83%E8%91%89%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%8D%83%E8%91%89%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/ChibaInternationalGeneralSwimmingCenter20130127.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/ChibaInternationalGeneralSwimmingCenter20130127.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%8D%83%E8%91%89%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%8D%83%E8%91%89%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/ChibaMarineStadium_Aurolaribbon.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/ChibaMarineStadium_Aurolaribbon.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%8D%83%E8%91%89%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%8D%83%E8%91%89%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Chiba_Prefectural_Athletic_Stadium_2.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Chiba_Prefectural_Athletic_Stadium_2.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%8D%83%E8%91%89%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%8D%83%E8%91%89%E7%9C%8C"
+        }
+      ],
+      "status": "ok",
+      "_wiki_extract": "千葉県（ちばけん）は、日本の関東地方に位置する県。県庁所在地は千葉市。\n首都圏を構成し、都道府県人口・人口密度は第6位、県の財政力指数は全国第4位（2022年度）、面積は第28位、県内総生産は7位（2021年度）の規模である。"
+    },
+    {
+      "code": "13",
+      "name_ja": "東京都",
+      "name_en": "Tokyo",
+      "hero": {
+        "url": "https://images.unsplash.com/photo-1545569341-9eb8b30979d9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxUb2t5byUyMEphcGFufGVufDF8MHx8fDE3ODAyODg2MzB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "thumb_url": "https://images.unsplash.com/photo-1545569341-9eb8b30979d9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxUb2t5byUyMEphcGFufGVufDF8MHx8fDE3ODAyODg2MzB8MA&ixlib=rb-4.1.0&q=80&w=400",
+        "source": "unsplash",
+        "photographer": "Su San Lee",
+        "photographer_url": "https://unsplash.com/@blackodc",
+        "license": "Unsplash License",
+        "license_url": "https://unsplash.com/license",
+        "description": "pagoda surrounded by trees",
+        "source_url": "https://unsplash.com/photos/pagoda-surrounded-by-trees-E_eWwM29wfU"
+      },
+      "gallery": [
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/2018_Shibuya_Crossing.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/2018_Shibuya_Crossing.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E6%9D%B1%E4%BA%AC%E9%83%BD",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E6%9D%B1%E4%BA%AC%E9%83%BD"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Bank_of_Japan_2010.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Bank_of_Japan_2010.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E6%9D%B1%E4%BA%AC%E9%83%BD",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E6%9D%B1%E4%BA%AC%E9%83%BD"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Building_of_Tokyo_Metropolitan_Assembly_2_7_Desember_2003.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Building_of_Tokyo_Metropolitan_Assembly_2_7_Desember_2003.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E6%9D%B1%E4%BA%AC%E9%83%BD",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E6%9D%B1%E4%BA%AC%E9%83%BD"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Edo-Tokyo_Museum.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Edo-Tokyo_Museum.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E6%9D%B1%E4%BA%AC%E9%83%BD",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E6%9D%B1%E4%BA%AC%E9%83%BD"
+        }
+      ],
+      "status": "ok",
+      "_wiki_extract": "東京都（とうきょうと、（英: Tokyo Metropolis）は、日本の関東地方に位置する都。都庁所在地は新宿区、条例上の位置づけは新宿区西新宿二丁目。詳細は、東京都庁および東京都庁舎を参照。\n東京都は区部（特別区23区）、多摩地域（26市と西多摩郡3町1村）および島嶼部（2町7村）からなる。\n地理的には東京都の主要部は、関東南西部にあって東西に細長い都域を有し、東部は東京湾に面する。西部は雲取"
+    },
+    {
+      "code": "14",
+      "name_ja": "神奈川県",
+      "name_en": "Kanagawa",
+      "hero": {
+        "url": "https://images.unsplash.com/photo-1706516468502-8ad0490daa4b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxLYW5hZ2F3YSUyMEphcGFufGVufDF8MHx8fDE3ODAyODg2MzV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "thumb_url": "https://images.unsplash.com/photo-1706516468502-8ad0490daa4b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxLYW5hZ2F3YSUyMEphcGFufGVufDF8MHx8fDE3ODAyODg2MzV8MA&ixlib=rb-4.1.0&q=80&w=400",
+        "source": "unsplash",
+        "photographer": "Roméo A.",
+        "photographer_url": "https://unsplash.com/@gronemo",
+        "license": "Unsplash License",
+        "license_url": "https://unsplash.com/license",
+        "description": "a person with an umbrella walking up a set of stairs",
+        "source_url": "https://unsplash.com/photos/a-person-with-an-umbrella-walking-up-a-set-of-stairs-6Xhzaz0jp0w"
+      },
+      "gallery": [
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/180404M-0005.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/180404M-0005.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/2024_Kanagawa_Prefectural_Government_Office_%281%29.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/2024_Kanagawa_Prefectural_Government_Office_%281%29.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Aikawa_Solar_Power_Plant_05.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Aikawa_Solar_Power_Plant_05.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Ashigara_Mountains_06.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Ashigara_Mountains_06.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C"
+        }
+      ],
+      "status": "ok",
+      "_wiki_extract": "神奈川県（かながわけん）は、日本の関東地方に位置する県。県庁所在地は横浜市。都道府県別の人口では東京都に次いで第2位、昼間人口及び人口密度は東京都、大阪府に次ぐ第3位、県内総生産は東京都、大阪府、愛知県に次いで第4位となっている。\n県内の市町村数は33存在する（19市13町1村）。県内の政令指定都市は全国で唯一の3市あり（横浜市・川崎市・相模原市）、中核市は横須賀市の1市、施行時特例市は小田原市・"
+    },
+    {
+      "code": "15",
+      "name_ja": "新潟県",
+      "name_en": "Niigata",
+      "hero": {
+        "url": "https://images.unsplash.com/photo-1694117592999-693ebe7fa0e6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxOaWlnYXRhJTIwSmFwYW58ZW58MXwwfHx8MTc4MDI4ODYzOHww&ixlib=rb-4.1.0&q=80&w=1080",
+        "thumb_url": "https://images.unsplash.com/photo-1694117592999-693ebe7fa0e6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxOaWlnYXRhJTIwSmFwYW58ZW58MXwwfHx8MTc4MDI4ODYzOHww&ixlib=rb-4.1.0&q=80&w=400",
+        "source": "unsplash",
+        "photographer": "Pourya Gohari",
+        "photographer_url": "https://unsplash.com/@_pourya_",
+        "license": "Unsplash License",
+        "license_url": "https://unsplash.com/license",
+        "description": "a large body of water next to a pier",
+        "source_url": "https://unsplash.com/photos/a-large-body-of-water-next-to-a-pier-ozxLpkaeBe8"
+      },
+      "gallery": [
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/160716_Old_Niigata_Customs_Government_Building_Niigata_Japan01n.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/160716_Old_Niigata_Customs_Government_Building_Niigata_Japan01n.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E6%96%B0%E6%BD%9F%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E6%96%B0%E6%BD%9F%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/160717_Tsukioka_Onsen_Shibata_Niigata_pref_Japan12s3.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/160717_Tsukioka_Onsen_Shibata_Niigata_pref_Japan12s3.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E6%96%B0%E6%BD%9F%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E6%96%B0%E6%BD%9F%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Air_raid-Nagaoka.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Air_raid-Nagaoka.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E6%96%B0%E6%BD%9F%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E6%96%B0%E6%BD%9F%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Akakura_Onsen_Ski_Area.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Akakura_Onsen_Ski_Area.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E6%96%B0%E6%BD%9F%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E6%96%B0%E6%BD%9F%E7%9C%8C"
+        }
+      ],
+      "status": "ok",
+      "_wiki_extract": "新潟県（にいがたけん）は、日本の中部地方（甲信越地方・北陸地方）に位置する県。県庁所在地は新潟市。令制国の越後国と佐渡国に相当する。"
+    },
+    {
+      "code": "16",
+      "name_ja": "富山県",
+      "name_en": "Toyama",
+      "hero": {
+        "url": "https://images.unsplash.com/photo-1725399635252-8cbb5b7562b7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxUb3lhbWElMjBKYXBhbnxlbnwxfDB8fHwxNzgwMjg4NjQzfDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "thumb_url": "https://images.unsplash.com/photo-1725399635252-8cbb5b7562b7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxUb3lhbWElMjBKYXBhbnxlbnwxfDB8fHwxNzgwMjg4NjQzfDA&ixlib=rb-4.1.0&q=80&w=400",
+        "source": "unsplash",
+        "photographer": "Daniel Beauchamp",
+        "photographer_url": "https://unsplash.com/@dannywithlove",
+        "license": "Unsplash License",
+        "license_url": "https://unsplash.com/license",
+        "description": "A group of people that are standing in the street",
+        "source_url": "https://unsplash.com/photos/a-group-of-people-that-are-standing-in-the-street-Tni6wa9rtsI"
+      },
+      "gallery": [
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/1_Minatoirifunech%C5%8D%2C_Toyama-shi%2C_Toyama-ken_930-0805%2C_Japan_-_panoramio_%2860%29.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/1_Minatoirifunech%C5%8D%2C_Toyama-shi%2C_Toyama-ken_930-0805%2C_Japan_-_panoramio_%2860%29.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%AF%8C%E5%B1%B1%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%AF%8C%E5%B1%B1%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/ALPS_EXPRESS_montage_001.png?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/ALPS_EXPRESS_montage_001.png?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%AF%8C%E5%B1%B1%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%AF%8C%E5%B1%B1%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Firebombing_leaflet.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Firebombing_leaflet.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%AF%8C%E5%B1%B1%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%AF%8C%E5%B1%B1%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Himi-line-amaharashi.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Himi-line-amaharashi.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%AF%8C%E5%B1%B1%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%AF%8C%E5%B1%B1%E7%9C%8C"
+        }
+      ],
+      "status": "ok",
+      "_wiki_extract": "富山県（とやまけん）は、日本の中部地方（北陸地方）に位置する県。県庁所在地は富山市 。\n中部地方の日本海側、新潟県を含めた北陸地方のほぼ中央にある。"
+    },
+    {
+      "code": "17",
+      "name_ja": "石川県",
+      "name_en": "Ishikawa",
+      "hero": {
+        "url": "https://images.unsplash.com/photo-1591095309226-6cb423285fcd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxJc2hpa2F3YSUyMEphcGFufGVufDF8MHx8fDE3ODAyODg2NDZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "thumb_url": "https://images.unsplash.com/photo-1591095309226-6cb423285fcd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxJc2hpa2F3YSUyMEphcGFufGVufDF8MHx8fDE3ODAyODg2NDZ8MA&ixlib=rb-4.1.0&q=80&w=400",
+        "source": "unsplash",
+        "photographer": "Shino Nakamura",
+        "photographer_url": "https://unsplash.com/@shinonk",
+        "license": "Unsplash License",
+        "license_url": "https://unsplash.com/license",
+        "description": "gray concrete statue of a man",
+        "source_url": "https://unsplash.com/photos/gray-concrete-statue-of-a-man-fGxNMIXXy0M"
+      },
+      "gallery": [
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/131109_Kanazawa_Castle_Kanazawa_Ishikawa_pref_Japan01s5.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/131109_Kanazawa_Castle_Kanazawa_Ishikawa_pref_Japan01s5.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E7%9F%B3%E5%B7%9D%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E7%9F%B3%E5%B7%9D%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/20080916KomatsuAirport.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/20080916KomatsuAirport.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E7%9F%B3%E5%B7%9D%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E7%9F%B3%E5%B7%9D%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/20090621%E9%87%91%E6%B2%A2%E5%B9%B3%E9%87%8E%E7%99%BD%E5%B1%B1%E5%B8%82%E5%91%A8%E8%BE%BA.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/20090621%E9%87%91%E6%B2%A2%E5%B9%B3%E9%87%8E%E7%99%BD%E5%B1%B1%E5%B8%82%E5%91%A8%E8%BE%BA.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E7%9F%B3%E5%B7%9D%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E7%9F%B3%E5%B7%9D%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/21st_Century_Museum_of_Contemporary_Art%2C_Kanazawa011.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/21st_Century_Museum_of_Contemporary_Art%2C_Kanazawa011.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E7%9F%B3%E5%B7%9D%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E7%9F%B3%E5%B7%9D%E7%9C%8C"
+        }
+      ],
+      "status": "ok",
+      "_wiki_extract": "石川県（いしかわけん）は、日本の中部地方（北陸地方）に位置する県。県庁所在地は金沢市。\n本州の中央部、日本海側の北陸地方に位置する。県域は令制国の加賀国と能登国に当たるが、1876年から1881年までは越前国（現在の福井県嶺北）も含んでいた。"
+    },
+    {
+      "code": "18",
+      "name_ja": "福井県",
+      "name_en": "Fukui",
+      "hero": {
+        "url": "https://images.unsplash.com/photo-1722035193444-54e198dcd2fc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxGdWt1aSUyMEphcGFufGVufDF8MHx8fDE3ODAyODg2NDl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "thumb_url": "https://images.unsplash.com/photo-1722035193444-54e198dcd2fc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxGdWt1aSUyMEphcGFufGVufDF8MHx8fDE3ODAyODg2NDl8MA&ixlib=rb-4.1.0&q=80&w=400",
+        "source": "unsplash",
+        "photographer": "Rafael Otaki",
+        "photographer_url": "https://unsplash.com/@otaki",
+        "license": "Unsplash License",
+        "license_url": "https://unsplash.com/license",
+        "description": "A pond surrounded by a lush green forest",
+        "source_url": "https://unsplash.com/photos/a-pond-surrounded-by-a-lush-green-forest-Uj3gnbOkRe4"
+      },
+      "gallery": [
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/150228_Kehi-matsubara_Tsuruga_Fukui_prefecture_Japan02s3.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/150228_Kehi-matsubara_Tsuruga_Fukui_prefecture_Japan02s3.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E7%A6%8F%E4%BA%95%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E7%A6%8F%E4%BA%95%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/150725_Obama-Nishigumi_Obama_Fukui_pref_Japan01n.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/150725_Obama-Nishigumi_Obama_Fukui_pref_Japan01n.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E7%A6%8F%E4%BA%95%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E7%A6%8F%E4%BA%95%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/2017_3_20_Fukui_Dinosaur_Museum_1.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/2017_3_20_Fukui_Dinosaur_Museum_1.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E7%A6%8F%E4%BA%95%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E7%A6%8F%E4%BA%95%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Echizen_umeura.JPG?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Echizen_umeura.JPG?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E7%A6%8F%E4%BA%95%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E7%A6%8F%E4%BA%95%E7%9C%8C"
+        }
+      ],
+      "status": "ok",
+      "_wiki_extract": "福井県（ふくいけん）は、日本の中部地方（北陸地方）に位置する県。行政管轄区分において近畿地方に包括される場合もある。令制国の越前国と若狭国に相当する。県庁所在地は福井市。\n北陸地方の最西端に位置しており、同地方で最も人口が少ない県である。"
+    },
+    {
+      "code": "19",
+      "name_ja": "山梨県",
+      "name_en": "Yamanashi",
+      "hero": {
+        "url": "https://images.unsplash.com/photo-1672739618798-174b3e18c926?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxZYW1hbmFzaGklMjBKYXBhbnxlbnwxfDB8fHwxNzgwMjg4NjUzfDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "thumb_url": "https://images.unsplash.com/photo-1672739618798-174b3e18c926?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxZYW1hbmFzaGklMjBKYXBhbnxlbnwxfDB8fHwxNzgwMjg4NjUzfDA&ixlib=rb-4.1.0&q=80&w=400",
+        "source": "unsplash",
+        "photographer": "Edmund Lou",
+        "photographer_url": "https://unsplash.com/@edmundlou",
+        "license": "Unsplash License",
+        "license_url": "https://unsplash.com/license",
+        "description": "a tall pagoda with a mountain in the background",
+        "source_url": "https://unsplash.com/photos/a-tall-pagoda-with-a-mountain-in-the-background-Ec_uzdTpVp0"
+      },
+      "gallery": [
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/150719_Seisenryo_Hokuto_Yamanashi_pref_Japan01s3.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/150719_Seisenryo_Hokuto_Yamanashi_pref_Japan01s3.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%B1%B1%E6%A2%A8%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%B1%B1%E6%A2%A8%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Ashiyasu_20120915155728.JPG?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Ashiyasu_20120915155728.JPG?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%B1%B1%E6%A2%A8%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%B1%B1%E6%A2%A8%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Daizen-ji-4a.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Daizen-ji-4a.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%B1%B1%E6%A2%A8%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%B1%B1%E6%A2%A8%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/EnzanStkita.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/EnzanStkita.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%B1%B1%E6%A2%A8%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%B1%B1%E6%A2%A8%E7%9C%8C"
+        }
+      ],
+      "status": "ok",
+      "_wiki_extract": "山梨県（やまなしけん）は、日本の中部地方（甲信越地方）に位置する県。県庁所在地は甲府市（こうふし）。\n隣接する関東地方とともに首都圏整備法における首都圏の一角を成す。令制国の甲斐国（別称:甲州）に相当する。"
+    },
+    {
+      "code": "20",
+      "name_ja": "長野県",
+      "name_en": "Nagano",
+      "hero": {
+        "url": "https://images.unsplash.com/photo-1504109586057-7a2ae83d1338?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxOYWdhbm8lMjBKYXBhbnxlbnwxfDB8fHwxNzgwMjg4NjU2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "thumb_url": "https://images.unsplash.com/photo-1504109586057-7a2ae83d1338?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxOYWdhbm8lMjBKYXBhbnxlbnwxfDB8fHwxNzgwMjg4NjU2fDA&ixlib=rb-4.1.0&q=80&w=400",
+        "source": "unsplash",
+        "photographer": "Nicki Eliza Schinow",
+        "photographer_url": "https://unsplash.com/@nicki_schinow",
+        "license": "Unsplash License",
+        "license_url": "https://unsplash.com/license",
+        "description": "red shrine in body of water",
+        "source_url": "https://unsplash.com/photos/red-shrine-in-body-of-water-BjJP2TN8WoI"
+      },
+      "gallery": [
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/130607_Kamisuwa_Onsen_Suwa_Japan01n.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/130607_Kamisuwa_Onsen_Suwa_Japan01n.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E9%95%B7%E9%87%8E%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E9%95%B7%E9%87%8E%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/130608_Matsumoto_Castle_Matsumoto_Nagano_pref_Japan02bs4.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/130608_Matsumoto_Castle_Matsumoto_Nagano_pref_Japan02bs4.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E9%95%B7%E9%87%8E%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E9%95%B7%E9%87%8E%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/150920_Mt_Yake-dake_Kamikochi_Japan01n.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/150920_Mt_Yake-dake_Kamikochi_Japan01n.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E9%95%B7%E9%87%8E%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E9%95%B7%E9%87%8E%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/160501_Zenkoji_Nagano_Japan06s3.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/160501_Zenkoji_Nagano_Japan06s3.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E9%95%B7%E9%87%8E%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E9%95%B7%E9%87%8E%E7%9C%8C"
+        }
+      ],
+      "status": "ok",
+      "_wiki_extract": "長野県（ながのけん）は、日本の中部地方（甲信越地方）に位置する県。県庁所在地は長野市。\n令制国名の信濃国にちなみ、信州とも呼ばれている。海に面していない内陸県であり、日本アルプスを始め大規模な山岳地があるため可住地面積率は低い。\nキャッチフレーズはしあわせ信州。"
+    },
+    {
+      "code": "21",
+      "name_ja": "岐阜県",
+      "name_en": "Gifu",
+      "hero": {
+        "url": "https://images.unsplash.com/photo-1565052281108-3bbec919c299?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxHaWZ1JTIwSmFwYW58ZW58MXwwfHx8MTc4MDI4ODY2MXww&ixlib=rb-4.1.0&q=80&w=1080",
+        "thumb_url": "https://images.unsplash.com/photo-1565052281108-3bbec919c299?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxHaWZ1JTIwSmFwYW58ZW58MXwwfHx8MTc4MDI4ODY2MXww&ixlib=rb-4.1.0&q=80&w=400",
+        "source": "unsplash",
+        "photographer": "Rap Dela Rea",
+        "photographer_url": "https://unsplash.com/@rapdelarea",
+        "license": "Unsplash License",
+        "license_url": "https://unsplash.com/license",
+        "description": "empty pathway",
+        "source_url": "https://unsplash.com/photos/empty-pathway-NgMqApxnf_8"
+      },
+      "gallery": [
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Akechi-Type100-101_2025-HM.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Akechi-Type100-101_2025-HM.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%B2%90%E9%98%9C%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%B2%90%E9%98%9C%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Ferris_wheel_and_Gifu_World_Fresh_Water_Aquarium.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Ferris_wheel_and_Gifu_World_Fresh_Water_Aquarium.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%B2%90%E9%98%9C%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%B2%90%E9%98%9C%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Flower_Festival_Commemorative_Park02.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Flower_Festival_Commemorative_Park02.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%B2%90%E9%98%9C%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%B2%90%E9%98%9C%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Gero_spa_hunsentou_rotenburo.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Gero_spa_hunsentou_rotenburo.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%B2%90%E9%98%9C%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%B2%90%E9%98%9C%E7%9C%8C"
+        }
+      ],
+      "status": "ok",
+      "_wiki_extract": "岐阜県（ぎふけん）は、日本の中部地方（東海地方）に位置する県。県庁所在地は岐阜市。"
+    },
+    {
+      "code": "22",
+      "name_ja": "静岡県",
+      "name_en": "Shizuoka",
+      "hero": {
+        "url": "https://images.unsplash.com/photo-1708446637293-13b8dddbc97b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxTaGl6dW9rYSUyMEphcGFufGVufDF8MHx8fDE3ODAyODg2NjZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "thumb_url": "https://images.unsplash.com/photo-1708446637293-13b8dddbc97b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxTaGl6dW9rYSUyMEphcGFufGVufDF8MHx8fDE3ODAyODg2NjZ8MA&ixlib=rb-4.1.0&q=80&w=400",
+        "source": "unsplash",
+        "photographer": "Nopparuj Lamaikul",
+        "photographer_url": "https://unsplash.com/@center999",
+        "license": "Unsplash License",
+        "license_url": "https://unsplash.com/license",
+        "description": "a mountain with a snow capped peak in the distance",
+        "source_url": "https://unsplash.com/photos/a-mountain-with-a-snow-capped-peak-in-the-distance-8TM4cW3x7Gw"
+      },
+      "gallery": [
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/181122_Atami_Onsen_Shizuoka_pref_Japan03s.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/181122_Atami_Onsen_Shizuoka_pref_Japan03s.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E9%9D%99%E5%B2%A1%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E9%9D%99%E5%B2%A1%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Aerial_view_of_Mount_Fuji_and_Shimizu_Port_20190324.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Aerial_view_of_Mount_Fuji_and_Shimizu_Port_20190324.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E9%9D%99%E5%B2%A1%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E9%9D%99%E5%B2%A1%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Araisekisho.JPG?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Araisekisho.JPG?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E9%9D%99%E5%B2%A1%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E9%9D%99%E5%B2%A1%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Atami_20170211-1.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Atami_20170211-1.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E9%9D%99%E5%B2%A1%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E9%9D%99%E5%B2%A1%E7%9C%8C"
+        }
+      ],
+      "status": "ok",
+      "_wiki_extract": "静岡県（しずおかけん 英語: Shizuoka）は、日本の中部地方（東海地方）に位置する県。県庁所在地は静岡市（しずおかし）　。"
+    },
+    {
+      "code": "23",
+      "name_ja": "愛知県",
+      "name_en": "Aichi",
+      "hero": {
+        "url": "https://images.unsplash.com/photo-1627207745595-786dc3ee41c5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxBaWNoaSUyMEphcGFufGVufDF8MHx8fDE3ODAyODg2NzB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "thumb_url": "https://images.unsplash.com/photo-1627207745595-786dc3ee41c5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxBaWNoaSUyMEphcGFufGVufDF8MHx8fDE3ODAyODg2NzB8MA&ixlib=rb-4.1.0&q=80&w=400",
+        "source": "unsplash",
+        "photographer": "Roméo A.",
+        "photographer_url": "https://unsplash.com/@gronemo",
+        "license": "Unsplash License",
+        "license_url": "https://unsplash.com/license",
+        "description": "aerial view of city buildings during daytime",
+        "source_url": "https://unsplash.com/photos/aerial-view-of-city-buildings-during-daytime-1WSSL4_VXAI"
+      },
+      "gallery": [
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/160321_Toyohashi_Station_Toyohashi_Aichi_pref_Japan13n.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/160321_Toyohashi_Station_Toyohashi_Aichi_pref_Japan13n.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E6%84%9B%E7%9F%A5%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E6%84%9B%E7%9F%A5%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/20090124Toyotetsu_T1001.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/20090124Toyotetsu_T1001.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E6%84%9B%E7%9F%A5%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E6%84%9B%E7%9F%A5%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/2016_Japan_Nagoya_81_%2833038233234%29.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/2016_Japan_Nagoya_81_%2833038233234%29.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E6%84%9B%E7%9F%A5%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E6%84%9B%E7%9F%A5%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Aichi-pu.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Aichi-pu.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E6%84%9B%E7%9F%A5%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E6%84%9B%E7%9F%A5%E7%9C%8C"
+        }
+      ],
+      "status": "ok",
+      "_wiki_extract": "愛知県（あいちけん）は、日本の中部地方（東海地方）に位置する県。県庁所在地は名古屋市。"
+    },
+    {
+      "code": "24",
+      "name_ja": "三重県",
+      "name_en": "Mie",
+      "hero": {
+        "url": "https://images.unsplash.com/photo-1609333728948-8faa8fffdca1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxNaWUlMjBKYXBhbnxlbnwxfDB8fHwxNzgwMjg4NjcyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "thumb_url": "https://images.unsplash.com/photo-1609333728948-8faa8fffdca1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxNaWUlMjBKYXBhbnxlbnwxfDB8fHwxNzgwMjg4NjcyfDA&ixlib=rb-4.1.0&q=80&w=400",
+        "source": "unsplash",
+        "photographer": "Shino Nakamura",
+        "photographer_url": "https://unsplash.com/@shinonk",
+        "license": "Unsplash License",
+        "license_url": "https://unsplash.com/license",
+        "description": "brown wooden dock on body of water during daytime",
+        "source_url": "https://unsplash.com/photos/brown-wooden-dock-on-body-of-water-during-daytime-BfEFI1m9feM"
+      },
+      "gallery": [
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/140412-1713_Ueno_Park%2C_Iga_-_panoramio.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/140412-1713_Ueno_Park%2C_Iga_-_panoramio.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E4%B8%89%E9%87%8D%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E4%B8%89%E9%87%8D%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/2011_WTCC_Race_of_Japan_%28Race_2%29.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/2011_WTCC_Race_of_Japan_%28Race_2%29.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E4%B8%89%E9%87%8D%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E4%B8%89%E9%87%8D%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Gozaisho03.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Gozaisho03.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E4%B8%89%E9%87%8D%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E4%B8%89%E9%87%8D%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Higashi-Meihan_Expressway01.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Higashi-Meihan_Expressway01.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E4%B8%89%E9%87%8D%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E4%B8%89%E9%87%8D%E7%9C%8C"
+        }
+      ],
+      "status": "ok",
+      "_wiki_extract": "三重県（みえけん）は、日本の近畿地方（東海地方）に位置する県。県庁所在地は津市。\n県内で最多の人口を有する市は四日市市で、同県内で唯一施行時特例市と保健所政令市に指定されている。また、津市と四日市市は共に、県内の二大都市として中枢中核都市に指定されている。\n江戸時代から、お伊勢参り（お蔭参り）の名で知られる伊勢神宮を擁する地域として発展した。令制国では、伊勢国・志摩国・伊賀国の全域と紀伊国（当初は"
+    },
+    {
+      "code": "25",
+      "name_ja": "滋賀県",
+      "name_en": "Shiga",
+      "hero": {
+        "url": "https://images.unsplash.com/photo-1599484677470-710323bf9afd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxTaGlnYSUyMEphcGFufGVufDF8MHx8fDE3ODAyODg2NzV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "thumb_url": "https://images.unsplash.com/photo-1599484677470-710323bf9afd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxTaGlnYSUyMEphcGFufGVufDF8MHx8fDE3ODAyODg2NzV8MA&ixlib=rb-4.1.0&q=80&w=400",
+        "source": "unsplash",
+        "photographer": "Gio Almonte",
+        "photographer_url": "https://unsplash.com/@gpenguin",
+        "license": "Unsplash License",
+        "license_url": "https://unsplash.com/license",
+        "description": "red and brown temple under gray sky",
+        "source_url": "https://unsplash.com/photos/red-and-brown-temple-under-gray-sky-8gxxSZUHrEA"
+      },
+      "gallery": [
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/20091015%E7%90%B5%E7%90%B6%E6%B9%96.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/20091015%E7%90%B5%E7%90%B6%E6%B9%96.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E6%BB%8B%E8%B3%80%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E6%BB%8B%E8%B3%80%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Akakonnyaku.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Akakonnyaku.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E6%BB%8B%E8%B3%80%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E6%BB%8B%E8%B3%80%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Azuchi.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Azuchi.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E6%BB%8B%E8%B3%80%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E6%BB%8B%E8%B3%80%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Biwako_bridge1.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Biwako_bridge1.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E6%BB%8B%E8%B3%80%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E6%BB%8B%E8%B3%80%E7%9C%8C"
+        }
+      ],
+      "status": "ok",
+      "_wiki_extract": "滋賀県（しがけん）は、日本の近畿地方に位置する県。県庁所在地は大津市。県の中心には日本最大の湖である琵琶湖があり、面積の約６分の1を占めている。"
+    },
+    {
+      "code": "26",
+      "name_ja": "京都府",
+      "name_en": "Kyoto",
+      "hero": {
+        "url": "https://images.unsplash.com/photo-1545569341-9eb8b30979d9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxLeW90byUyMEphcGFufGVufDF8MHx8fDE3ODAyODg2ODB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "thumb_url": "https://images.unsplash.com/photo-1545569341-9eb8b30979d9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxLeW90byUyMEphcGFufGVufDF8MHx8fDE3ODAyODg2ODB8MA&ixlib=rb-4.1.0&q=80&w=400",
+        "source": "unsplash",
+        "photographer": "Su San Lee",
+        "photographer_url": "https://unsplash.com/@blackodc",
+        "license": "Unsplash License",
+        "license_url": "https://unsplash.com/license",
+        "description": "pagoda surrounded by trees",
+        "source_url": "https://unsplash.com/photos/pagoda-surrounded-by-trees-E_eWwM29wfU"
+      },
+      "gallery": [
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/131130_Nagaoka-tenmangu_Nagaokakyo_Kyoto_pref_Japan10s3.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/131130_Nagaoka-tenmangu_Nagaokakyo_Kyoto_pref_Japan10s3.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E4%BA%AC%E9%83%BD%E5%BA%9C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E4%BA%AC%E9%83%BD%E5%BA%9C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Burgturm_Fukuchiyama.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Burgturm_Fukuchiyama.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E4%BA%AC%E9%83%BD%E5%BA%9C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E4%BA%AC%E9%83%BD%E5%BA%9C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Byodoin_Phoenix_Hall_Uji_2009.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Byodoin_Phoenix_Hall_Uji_2009.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E4%BA%AC%E9%83%BD%E5%BA%9C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E4%BA%AC%E9%83%BD%E5%BA%9C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Expressway_map_around_Kyoto_City_2021.png?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Expressway_map_around_Kyoto_City_2021.png?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E4%BA%AC%E9%83%BD%E5%BA%9C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E4%BA%AC%E9%83%BD%E5%BA%9C"
+        }
+      ],
+      "status": "ok",
+      "_wiki_extract": "京都府（きょうとふ）は、日本の近畿地方に位置する府。府庁所在地は京都市。"
+    },
+    {
+      "code": "27",
+      "name_ja": "大阪府",
+      "name_en": "Osaka",
+      "hero": {
+        "url": "https://images.unsplash.com/photo-1589452271712-64b8a66c7b71?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxPc2FrYSUyMEphcGFufGVufDF8MHx8fDE3ODAyODg2ODR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "thumb_url": "https://images.unsplash.com/photo-1589452271712-64b8a66c7b71?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxPc2FrYSUyMEphcGFufGVufDF8MHx8fDE3ODAyODg2ODR8MA&ixlib=rb-4.1.0&q=80&w=400",
+        "source": "unsplash",
+        "photographer": "Nomadic Julien",
+        "photographer_url": "https://unsplash.com/@nomadicjulien",
+        "license": "Unsplash License",
+        "license_url": "https://unsplash.com/license",
+        "description": "people walking on street during daytime",
+        "source_url": "https://unsplash.com/photos/people-walking-on-street-during-daytime-uBfK5i6j1B8"
+      },
+      "gallery": [
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/051223_Kumata-jinja_Osaka_Japan02bs45.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/051223_Kumata-jinja_Osaka_Japan02bs45.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%A4%A7%E9%98%AA%E5%BA%9C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%A4%A7%E9%98%AA%E5%BA%9C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/2018_Umeda_Sky_Building.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/2018_Umeda_Sky_Building.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%A4%A7%E9%98%AA%E5%BA%9C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%A4%A7%E9%98%AA%E5%BA%9C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Asahi_Broadcasting_Corporation_headquarters_in_201909_001.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Asahi_Broadcasting_Corporation_headquarters_in_201909_001.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%A4%A7%E9%98%AA%E5%BA%9C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%A4%A7%E9%98%AA%E5%BA%9C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Autumn_in_Mido-suji_Osaka02n.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Autumn_in_Mido-suji_Osaka02n.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%A4%A7%E9%98%AA%E5%BA%9C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%A4%A7%E9%98%AA%E5%BA%9C"
+        }
+      ],
+      "status": "ok",
+      "_wiki_extract": "大阪府（おおさかふ）は、日本の近畿地方に位置する府。府庁所在地は大阪市。近畿圏の経済・交通の中心であり、国内二位の経済規模を有する。古代には難波京が置かれ、中世には自由都市であった堺や平野が台頭した。大坂城が置かれた安土桃山時代以降は水の都である大坂の都心（上町と船場）を中心に繁栄を続けている。\n都市中枢機能を持つ大阪市を中心に世界有数の大都市圏（大阪大都市圏、阪神大都市圏、京阪神大都市圏）を形成"
+    },
+    {
+      "code": "28",
+      "name_ja": "兵庫県",
+      "name_en": "Hyogo",
+      "hero": {
+        "url": "https://images.unsplash.com/photo-1608984623454-8ff80385081f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxIeW9nbyUyMEphcGFufGVufDF8MHx8fDE3ODAyODg2ODZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "thumb_url": "https://images.unsplash.com/photo-1608984623454-8ff80385081f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxIeW9nbyUyMEphcGFufGVufDF8MHx8fDE3ODAyODg2ODZ8MA&ixlib=rb-4.1.0&q=80&w=400",
+        "source": "unsplash",
+        "photographer": "Roméo A.",
+        "photographer_url": "https://unsplash.com/@gronemo",
+        "license": "Unsplash License",
+        "license_url": "https://unsplash.com/license",
+        "description": "people walking on sidewalk during sunset",
+        "source_url": "https://unsplash.com/photos/people-walking-on-sidewalk-during-sunset-HfQrg0hN3Xc"
+      },
+      "gallery": [
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/080516_Izushi_Toyooka_Hyogo_pref_Japan01bs5.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/080516_Izushi_Toyooka_Hyogo_pref_Japan01bs5.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%85%B5%E5%BA%AB%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%85%B5%E5%BA%AB%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/150808_Takedao_Onsen_Takarazuka_Hyogo_pref_Japan42s3.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/150808_Takedao_Onsen_Takarazuka_Hyogo_pref_Japan42s3.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%85%B5%E5%BA%AB%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%85%B5%E5%BA%AB%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/AKNGP01s3200.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/AKNGP01s3200.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%85%B5%E5%BA%AB%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%85%B5%E5%BA%AB%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Akashi_Bridge.JPG?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Akashi_Bridge.JPG?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%85%B5%E5%BA%AB%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%85%B5%E5%BA%AB%E7%9C%8C"
+        }
+      ],
+      "status": "ok",
+      "_wiki_extract": "兵庫県（ひょうごけん）は、日本の近畿地方に位置する県である。県庁所在地は神戸市。"
+    },
+    {
+      "code": "29",
+      "name_ja": "奈良県",
+      "name_en": "Nara",
+      "hero": {
+        "url": "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxOYXJhJTIwSmFwYW58ZW58MXwwfHx8MTc4MDI4ODY5MXww&ixlib=rb-4.1.0&q=80&w=1080",
+        "thumb_url": "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxOYXJhJTIwSmFwYW58ZW58MXwwfHx8MTc4MDI4ODY5MXww&ixlib=rb-4.1.0&q=80&w=400",
+        "source": "unsplash",
+        "photographer": "Sorasak",
+        "photographer_url": "https://unsplash.com/@boontohhgraphy",
+        "license": "Unsplash License",
+        "license_url": "https://unsplash.com/license",
+        "description": "two women in purple and pink kimono standing on street",
+        "source_url": "https://unsplash.com/photos/two-women-in-purple-and-pink-kimono-standing-on-street-_UIN-pFfJ7c"
+      },
+      "gallery": [
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/181103_Heijo_Palace_Daigokuden_Nara_Japan02bs.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/181103_Heijo_Palace_Daigokuden_Nara_Japan02bs.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%A5%88%E8%89%AF%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%A5%88%E8%89%AF%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Asuka_Itabuki_no_Miya_2.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Asuka_Itabuki_no_Miya_2.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%A5%88%E8%89%AF%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%A5%88%E8%89%AF%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Cherry_blossoms_at_Yoshinoyama_10.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Cherry_blossoms_at_Yoshinoyama_10.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%A5%88%E8%89%AF%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%A5%88%E8%89%AF%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Daibutsu_of_Todaiji_3.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Daibutsu_of_Todaiji_3.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%A5%88%E8%89%AF%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%A5%88%E8%89%AF%E7%9C%8C"
+        }
+      ],
+      "status": "ok",
+      "_wiki_extract": "奈良県（ならけん）は、日本の近畿地方に位置する県。県庁所在地は奈良市。\n紀伊半島内陸部にあり、令制国の大和国の領域を占め、北西部の盆地部を除けば険しい山々がそびえており、人口の偏りが大きい。都道府県面積は全国で8番目に狭く、内陸8県では最も狭い。"
+    },
+    {
+      "code": "30",
+      "name_ja": "和歌山県",
+      "name_en": "Wakayama",
+      "hero": {
+        "url": "https://images.unsplash.com/photo-1614913501059-9fb836fe1769?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxXYWtheWFtYSUyMEphcGFufGVufDF8MHx8fDE3ODAyODg2OTR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "thumb_url": "https://images.unsplash.com/photo-1614913501059-9fb836fe1769?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxXYWtheWFtYSUyMEphcGFufGVufDF8MHx8fDE3ODAyODg2OTR8MA&ixlib=rb-4.1.0&q=80&w=400",
+        "source": "unsplash",
+        "photographer": "Susann Schuster",
+        "photographer_url": "https://unsplash.com/@susannschuster",
+        "license": "Unsplash License",
+        "license_url": "https://unsplash.com/license",
+        "description": "brown and white temple surrounded by green trees during daytime",
+        "source_url": "https://unsplash.com/photos/brown-and-white-temple-surrounded-by-green-trees-during-daytime-YFUTzI9lY5Q"
+      },
+      "gallery": [
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/121013_The_museum_of_modern_art%2C_wakayama01s3.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/121013_The_museum_of_modern_art%2C_wakayama01s3.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%92%8C%E6%AD%8C%E5%B1%B1%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%92%8C%E6%AD%8C%E5%B1%B1%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Danjogaran_Koyasan12n3200.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Danjogaran_Koyasan12n3200.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%92%8C%E6%AD%8C%E5%B1%B1%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%92%8C%E6%AD%8C%E5%B1%B1%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Kongosanmaiin_Tahoto.JPG?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Kongosanmaiin_Tahoto.JPG?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%92%8C%E6%AD%8C%E5%B1%B1%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%92%8C%E6%AD%8C%E5%B1%B1%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Minabe-Bairin_Minabe_Wakayama04n3200.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Minabe-Bairin_Minabe_Wakayama04n3200.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%92%8C%E6%AD%8C%E5%B1%B1%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%92%8C%E6%AD%8C%E5%B1%B1%E7%9C%8C"
+        }
+      ],
+      "status": "ok",
+      "_wiki_extract": "和歌山県（わかやまけん）は、日本の近畿地方に位置する県。県庁所在地は和歌山市。\n日本最大の半島である紀伊半島の南西側に位置し、県南部には大規模な山地を有する。"
+    },
+    {
+      "code": "31",
+      "name_ja": "鳥取県",
+      "name_en": "Tottori",
+      "hero": {
+        "url": "https://images.unsplash.com/photo-1635902918331-10e4952b3920?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxUb3R0b3JpJTIwSmFwYW58ZW58MXwwfHx8MTc4MDI4ODY5OHww&ixlib=rb-4.1.0&q=80&w=1080",
+        "thumb_url": "https://images.unsplash.com/photo-1635902918331-10e4952b3920?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxUb3R0b3JpJTIwSmFwYW58ZW58MXwwfHx8MTc4MDI4ODY5OHww&ixlib=rb-4.1.0&q=80&w=400",
+        "source": "unsplash",
+        "photographer": "Shino Nakamura",
+        "photographer_url": "https://unsplash.com/@shinonk",
+        "license": "Unsplash License",
+        "license_url": "https://unsplash.com/license",
+        "description": "a sandy beach with waves coming in from the ocean",
+        "source_url": "https://unsplash.com/photos/a-sandy-beach-with-waves-coming-in-from-the-ocean-WSrsdZu13Xs"
+      },
+      "gallery": [
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Chizu_Express-HOT7000DC.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Chizu_Express-HOT7000DC.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E9%B3%A5%E5%8F%96%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E9%B3%A5%E5%8F%96%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Daisen_highest_peak.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Daisen_highest_peak.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E9%B3%A5%E5%8F%96%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E9%B3%A5%E5%8F%96%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Japan_Tottori_MitokuSan_Nageiredo_DSC01248.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Japan_Tottori_MitokuSan_Nageiredo_DSC01248.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E9%B3%A5%E5%8F%96%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E9%B3%A5%E5%8F%96%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Kurayoshi_Utsubuki-Tamagawa46n4592.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Kurayoshi_Utsubuki-Tamagawa46n4592.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E9%B3%A5%E5%8F%96%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E9%B3%A5%E5%8F%96%E7%9C%8C"
+        }
+      ],
+      "status": "ok",
+      "_wiki_extract": "鳥取県（とっとりけん）は、日本の中国地方（山陰地方）にある県である。県庁所在地および最大都市は鳥取市。\n日本海側にあり、山陰地方の東側を占める。面積は約3,507平方キロメートル と全国で7番目に小さく、人口は約52万人  と都道府県別で最も少ない。基礎自治体は4市14町1村 で、市の数も最も少ない。\nこれまで同県では観光客の誘致や知名度の向上を目的として蟹取県（かにとりけん）や星取県（ほしとりけ"
+    },
+    {
+      "code": "32",
+      "name_ja": "島根県",
+      "name_en": "Shimane",
+      "hero": {
+        "url": "https://images.unsplash.com/photo-1526481280693-3bfa7568e0f3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxTaGltYW5lJTIwSmFwYW58ZW58MXwwfHx8MTc4MDI4ODcwM3ww&ixlib=rb-4.1.0&q=80&w=1080",
+        "thumb_url": "https://images.unsplash.com/photo-1526481280693-3bfa7568e0f3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxTaGltYW5lJTIwSmFwYW58ZW58MXwwfHx8MTc4MDI4ODcwM3ww&ixlib=rb-4.1.0&q=80&w=400",
+        "source": "unsplash",
+        "photographer": "David Edelstein",
+        "photographer_url": "https://unsplash.com/@jlhopes",
+        "license": "Unsplash License",
+        "license_url": "https://unsplash.com/license",
+        "description": "Mount Fuji, Japan",
+        "source_url": "https://unsplash.com/photos/mount-fuji-japan-N4DbvTUDikw"
+      },
+      "gallery": [
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Izumo_okinoshima.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Izumo_okinoshima.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%B3%B6%E6%A0%B9%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%B3%B6%E6%A0%B9%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Matengai_Cliff_at_Kuniga_coast%2C_Nishinoshima.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Matengai_Cliff_at_Kuniga_coast%2C_Nishinoshima.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%B3%B6%E6%A0%B9%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%B3%B6%E6%A0%B9%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Matsue_castle01bs4592.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Matsue_castle01bs4592.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%B3%B6%E6%A0%B9%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%B3%B6%E6%A0%B9%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Matsue_riot_incident.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Matsue_riot_incident.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%B3%B6%E6%A0%B9%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%B3%B6%E6%A0%B9%E7%9C%8C"
+        }
+      ],
+      "status": "ok",
+      "_wiki_extract": "島根県（しまねけん）は、日本の中国地方（山陰地方）にある県。県庁所在地および最大都市は松江市。\n本州西部に位置し、山陰地方の西側を占める。離島の隠岐諸島や竹島なども含む。\n旧令制国における出雲国・石見国・隠岐国の3国に相当する。現在でも県内の地域分類として出雲地方・石見地方・隠岐地方の3区分が用いられることがある。"
+    },
+    {
+      "code": "33",
+      "name_ja": "岡山県",
+      "name_en": "Okayama",
+      "hero": {
+        "url": "https://images.unsplash.com/photo-1657674614491-2aa7311c44fd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxPa2F5YW1hJTIwSmFwYW58ZW58MXwwfHx8MTc4MDI4ODcwOHww&ixlib=rb-4.1.0&q=80&w=1080",
+        "thumb_url": "https://images.unsplash.com/photo-1657674614491-2aa7311c44fd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxPa2F5YW1hJTIwSmFwYW58ZW58MXwwfHx8MTc4MDI4ODcwOHww&ixlib=rb-4.1.0&q=80&w=400",
+        "source": "unsplash",
+        "photographer": "Kit Ko",
+        "photographer_url": "https://unsplash.com/@kokit1202",
+        "license": "Unsplash License",
+        "license_url": "https://unsplash.com/license",
+        "description": "a person riding a bicycle down a narrow street",
+        "source_url": "https://unsplash.com/photos/a-person-riding-a-bicycle-down-a-narrow-street-OlYoy_dweFk"
+      },
+      "gallery": [
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/080727_At_Kurashiki_Bikan_historical_quarter_Kurashiki_Okayama_pref_Japan01s3.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/080727_At_Kurashiki_Bikan_historical_quarter_Kurashiki_Okayama_pref_Japan01s3.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%B2%A1%E5%B1%B1%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%B2%A1%E5%B1%B1%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/080727_Ohara_Museum_of_Art_Kurashiki_Okayama_pref_Japan02s3.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/080727_Ohara_Museum_of_Art_Kurashiki_Okayama_pref_Japan02s3.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%B2%A1%E5%B1%B1%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%B2%A1%E5%B1%B1%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/160320_Yakage-juku_Yakage_Okayama_pref_Japan05n.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/160320_Yakage-juku_Yakage_Okayama_pref_Japan05n.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%B2%A1%E5%B1%B1%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%B2%A1%E5%B1%B1%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/211203_Yurinso_Villa_Kurashiki_Okayama_pref_Japan02s3.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/211203_Yurinso_Villa_Kurashiki_Okayama_pref_Japan02s3.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%B2%A1%E5%B1%B1%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%B2%A1%E5%B1%B1%E7%9C%8C"
+        }
+      ],
+      "status": "ok",
+      "_wiki_extract": "岡山県（おかやまけん）は、日本の中国地方（山陽地方）にある県。県庁所在地は岡山市。"
+    },
+    {
+      "code": "34",
+      "name_ja": "広島県",
+      "name_en": "Hiroshima",
+      "hero": {
+        "url": "https://images.unsplash.com/photo-1504109586057-7a2ae83d1338?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxIaXJvc2hpbWElMjBKYXBhbnxlbnwxfDB8fHwxNzgwMjg4NzEwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "thumb_url": "https://images.unsplash.com/photo-1504109586057-7a2ae83d1338?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxIaXJvc2hpbWElMjBKYXBhbnxlbnwxfDB8fHwxNzgwMjg4NzEwfDA&ixlib=rb-4.1.0&q=80&w=400",
+        "source": "unsplash",
+        "photographer": "Nicki Eliza Schinow",
+        "photographer_url": "https://unsplash.com/@nicki_schinow",
+        "license": "Unsplash License",
+        "license_url": "https://unsplash.com/license",
+        "description": "red shrine in body of water",
+        "source_url": "https://unsplash.com/photos/red-shrine-in-body-of-water-BjJP2TN8WoI"
+      },
+      "gallery": [
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Alley-Karasukojima.JPG?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Alley-Karasukojima.JPG?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%BA%83%E5%B3%B6%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%BA%83%E5%B3%B6%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/HIROSHIMA_FM_BROADCASTING_20201012.JPG?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/HIROSHIMA_FM_BROADCASTING_20201012.JPG?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%BA%83%E5%B3%B6%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%BA%83%E5%B3%B6%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Hiroshima_Home_Television_20201212-1.JPG?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Hiroshima_Home_Television_20201212-1.JPG?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%BA%83%E5%B3%B6%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%BA%83%E5%B3%B6%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Hiroshima_Peace_Memorial_2008_02.JPG?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Hiroshima_Peace_Memorial_2008_02.JPG?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%BA%83%E5%B3%B6%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%BA%83%E5%B3%B6%E7%9C%8C"
+        }
+      ],
+      "status": "ok",
+      "_wiki_extract": "広島県（ひろしまけん、旧字体: 廣島縣）は、日本の中国地方（山陽地方）に位置する県。県庁所在地は広島市。\n山陽地方の中央部に位置しており、南側は瀬戸内海に面している。県の人口は約271万人で、中四国地方で最多である。面積8,478.16km2は全国11位で、中四国最大。人口密度は香川県に次ぐ第2位。広島都市圏・福山都市圏と県内に二つの都市圏を持ち、中国地方の中心的役割を担う県である。"
+    },
+    {
+      "code": "35",
+      "name_ja": "山口県",
+      "name_en": "Yamaguchi",
+      "hero": {
+        "url": "https://images.unsplash.com/photo-1572342217289-515d17d14ef5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxZYW1hZ3VjaGklMjBKYXBhbnxlbnwxfDB8fHwxNzgwMjg4NzE0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "thumb_url": "https://images.unsplash.com/photo-1572342217289-515d17d14ef5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxZYW1hZ3VjaGklMjBKYXBhbnxlbnwxfDB8fHwxNzgwMjg4NzE0fDA&ixlib=rb-4.1.0&q=80&w=400",
+        "source": "unsplash",
+        "photographer": "Nakaharu Line",
+        "photographer_url": "https://unsplash.com/@rissun_line",
+        "license": "Unsplash License",
+        "license_url": "https://unsplash.com/license",
+        "description": "two storey building beside trees",
+        "source_url": "https://unsplash.com/photos/two-storey-building-beside-trees-ZHZHqWk_1Hs"
+      },
+      "gallery": [
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/20100724_Iwakuni_5235.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/20100724_Iwakuni_5235.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%B1%B1%E5%8F%A3%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%B1%B1%E5%8F%A3%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Akama_jingu_maingate.JPG?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Akama_jingu_maingate.JPG?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%B1%B1%E5%8F%A3%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%B1%B1%E5%8F%A3%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Large_format_camera_lens.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Large_format_camera_lens.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%B1%B1%E5%8F%A3%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%B1%B1%E5%8F%A3%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/MCI-iwakuni1.JPG?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/MCI-iwakuni1.JPG?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%B1%B1%E5%8F%A3%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%B1%B1%E5%8F%A3%E7%9C%8C"
+        }
+      ],
+      "status": "ok",
+      "_wiki_extract": "山口県（やまぐちけん）は、日本の中国地方に位置する県。県庁所在地は山口市。"
+    },
+    {
+      "code": "36",
+      "name_ja": "徳島県",
+      "name_en": "Tokushima",
+      "hero": {
+        "url": "https://images.unsplash.com/photo-1754335073684-74d418954dd2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxUb2t1c2hpbWElMjBKYXBhbnxlbnwxfDB8fHwxNzgwMjg4NzE4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "thumb_url": "https://images.unsplash.com/photo-1754335073684-74d418954dd2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxUb2t1c2hpbWElMjBKYXBhbnxlbnwxfDB8fHwxNzgwMjg4NzE4fDA&ixlib=rb-4.1.0&q=80&w=400",
+        "source": "unsplash",
+        "photographer": "Tuan P.",
+        "photographer_url": "https://unsplash.com/@tuan_p",
+        "license": "Unsplash License",
+        "license_url": "https://unsplash.com/license",
+        "description": "An aerial view of a city meets the ocean.",
+        "source_url": "https://unsplash.com/photos/an-aerial-view-of-a-city-meets-the-ocean-K55r5DH-kw0"
+      },
+      "gallery": [
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Awa-odori_2008_Tokushima.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Awa-odori_2008_Tokushima.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%BE%B3%E5%B3%B6%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%BE%B3%E5%B3%B6%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Awa_no_dotyuu_20220822_1.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Awa_no_dotyuu_20220822_1.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%BE%B3%E5%B3%B6%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%BE%B3%E5%B3%B6%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/File.%E5%BE%B3%E5%B3%B6%E7%9C%8C_%E4%BA%BA%E5%8F%A3%E5%A2%97%E5%8A%A0%E7%8E%87.png?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/File.%E5%BE%B3%E5%B3%B6%E7%9C%8C_%E4%BA%BA%E5%8F%A3%E5%A2%97%E5%8A%A0%E7%8E%87.png?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%BE%B3%E5%B3%B6%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%BE%B3%E5%B3%B6%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Large_format_camera_lens.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Large_format_camera_lens.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%BE%B3%E5%B3%B6%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%BE%B3%E5%B3%B6%E7%9C%8C"
+        }
+      ],
+      "status": "ok",
+      "_wiki_extract": "徳島県（とくしまけん）は、日本の四国地方に位置する県。県庁所在地は徳島市。"
+    },
+    {
+      "code": "37",
+      "name_ja": "香川県",
+      "name_en": "Kagawa",
+      "hero": {
+        "url": "https://images.unsplash.com/photo-1484995978482-cf913162930c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxLYWdhd2ElMjBKYXBhbnxlbnwxfDB8fHwxNzgwMjg4NzIxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "thumb_url": "https://images.unsplash.com/photo-1484995978482-cf913162930c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxLYWdhd2ElMjBKYXBhbnxlbnwxfDB8fHwxNzgwMjg4NzIxfDA&ixlib=rb-4.1.0&q=80&w=400",
+        "source": "unsplash",
+        "photographer": "Claudio Guglieri",
+        "photographer_url": "https://unsplash.com/@claudioguglieri",
+        "license": "Unsplash License",
+        "license_url": "https://unsplash.com/license",
+        "description": "person riding on black bicycle in road during daytime",
+        "source_url": "https://unsplash.com/photos/person-riding-on-black-bicycle-in-road-during-daytime-G6X3OZqIIm8"
+      },
+      "gallery": [
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/150505_Benesse_House_Museum_Naoshima_Kagawa_pref_Japan01b3s5.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/150505_Benesse_House_Museum_Naoshima_Kagawa_pref_Japan01b3s5.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E9%A6%99%E5%B7%9D%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E9%A6%99%E5%B7%9D%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/201211Kankakei_Shodoshima_Kagawa_pref_Japan07st.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/201211Kankakei_Shodoshima_Kagawa_pref_Japan07st.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E9%A6%99%E5%B7%9D%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E9%A6%99%E5%B7%9D%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/AsahiSeimei-AigoGaisha_Building.JPG?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/AsahiSeimei-AigoGaisha_Building.JPG?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E9%A6%99%E5%B7%9D%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E9%A6%99%E5%B7%9D%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Ferries_on_the_Utaka_line.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Ferries_on_the_Utaka_line.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E9%A6%99%E5%B7%9D%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E9%A6%99%E5%B7%9D%E7%9C%8C"
+        }
+      ],
+      "status": "ok",
+      "_wiki_extract": "香川県（かがわけん）は、日本の四国地方に位置する県。県庁所在地は高松市。\n令制国の讃岐国に当たる。県名は旧讃岐国のほぼ中央に存在し、かつて高松が属していた古代以来の郡である香川郡から採られた。面積は47都道府県で一番小さく、1945年～72年にかけてアメリカの統治下であった沖縄県を除くと最も遅く成立した県である。都市の利便性と豊かな自然が調和した生活環境を持つ。"
+    },
+    {
+      "code": "38",
+      "name_ja": "愛媛県",
+      "name_en": "Ehime",
+      "hero": {
+        "url": "https://images.unsplash.com/photo-1484995978482-cf913162930c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxFaGltZSUyMEphcGFufGVufDF8MHx8fDE3ODAyODg3MjR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "thumb_url": "https://images.unsplash.com/photo-1484995978482-cf913162930c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxFaGltZSUyMEphcGFufGVufDF8MHx8fDE3ODAyODg3MjR8MA&ixlib=rb-4.1.0&q=80&w=400",
+        "source": "unsplash",
+        "photographer": "Claudio Guglieri",
+        "photographer_url": "https://unsplash.com/@claudioguglieri",
+        "license": "Unsplash License",
+        "license_url": "https://unsplash.com/license",
+        "description": "person riding on black bicycle in road during daytime",
+        "source_url": "https://unsplash.com/photos/person-riding-on-black-bicycle-in-road-during-daytime-G6X3OZqIIm8"
+      },
+      "gallery": [
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Chuyo_Regional_Office_Ehime_Prefecture_20250416_%281%29.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Chuyo_Regional_Office_Ehime_Prefecture_20250416_%281%29.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E6%84%9B%E5%AA%9B%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E6%84%9B%E5%AA%9B%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Constitutional_Democratic_Party_of_Japan_Ehime_Prefectural_Branch_20240625.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Constitutional_Democratic_Party_of_Japan_Ehime_Prefectural_Branch_20240625.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E6%84%9B%E5%AA%9B%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E6%84%9B%E5%AA%9B%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Dogo_Hot_Spring1%28Matsuyama_City%29.JPG?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Dogo_Hot_Spring1%28Matsuyama_City%29.JPG?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E6%84%9B%E5%AA%9B%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E6%84%9B%E5%AA%9B%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Dogo_Onsen_Station1%28Matsuyama_City%29.JPG?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Dogo_Onsen_Station1%28Matsuyama_City%29.JPG?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E6%84%9B%E5%AA%9B%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E6%84%9B%E5%AA%9B%E7%9C%8C"
+        }
+      ],
+      "status": "ok",
+      "_wiki_extract": "愛媛県（えひめけん、旧字体: 愛媛󠄁縣）は、日本の四国地方に位置する県。四国地方では最も人口が多い県。県庁所在地は中核市指定の松山市。都市の規模は、いずれも計量特定市指定の今治市・新居浜市の両市が続く。令制国の伊予国に当たる。\n人口・面積・人口密度・可住地面積率・可住地面積・可住地人口密度はいずれも山口県のそれに近い。"
+    },
+    {
+      "code": "39",
+      "name_ja": "高知県",
+      "name_en": "Kochi",
+      "hero": {
+        "url": "https://images.unsplash.com/photo-1624517608242-72f3138818dd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxLb2NoaSUyMEphcGFufGVufDF8MHx8fDE3ODAyODg3Mjl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "thumb_url": "https://images.unsplash.com/photo-1624517608242-72f3138818dd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxLb2NoaSUyMEphcGFufGVufDF8MHx8fDE3ODAyODg3Mjl8MA&ixlib=rb-4.1.0&q=80&w=400",
+        "source": "unsplash",
+        "photographer": "Tayawee Supan",
+        "photographer_url": "https://unsplash.com/@banktayawee",
+        "license": "Unsplash License",
+        "license_url": "https://unsplash.com/license",
+        "description": "water fountain in the middle of the city",
+        "source_url": "https://unsplash.com/photos/water-fountain-in-the-middle-of-the-city-pG1eimMssLc"
+      },
+      "gallery": [
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/080228_Kagami_River_Kochi_Japan01bs.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/080228_Kagami_River_Kochi_Japan01bs.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E9%AB%98%E7%9F%A5%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E9%AB%98%E7%9F%A5%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/080229_Obiyamachi_Street_Kochi_Kochi_pref_Japan01s.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/080229_Obiyamachi_Street_Kochi_Kochi_pref_Japan01s.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E9%AB%98%E7%9F%A5%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E9%AB%98%E7%9F%A5%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/AEON_mall_kochi.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/AEON_mall_kochi.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E9%AB%98%E7%9F%A5%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E9%AB%98%E7%9F%A5%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Cape-Muroto-20100526.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Cape-Muroto-20100526.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E9%AB%98%E7%9F%A5%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E9%AB%98%E7%9F%A5%E7%9C%8C"
+        }
+      ],
+      "status": "ok",
+      "_wiki_extract": "高知県（こうちけん）は、日本の四国地方に位置する県。県庁所在地は高知市。"
+    },
+    {
+      "code": "40",
+      "name_ja": "福岡県",
+      "name_en": "Fukuoka",
+      "hero": {
+        "url": "https://images.unsplash.com/photo-1670418463036-ae557223ad02?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxGdWt1b2thJTIwSmFwYW58ZW58MXwwfHx8MTc4MDI4ODczNHww&ixlib=rb-4.1.0&q=80&w=1080",
+        "thumb_url": "https://images.unsplash.com/photo-1670418463036-ae557223ad02?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxGdWt1b2thJTIwSmFwYW58ZW58MXwwfHx8MTc4MDI4ODczNHww&ixlib=rb-4.1.0&q=80&w=400",
+        "source": "unsplash",
+        "photographer": "Nichika Sakurai",
+        "photographer_url": "https://unsplash.com/@nichiyoshi",
+        "license": "Unsplash License",
+        "license_url": "https://unsplash.com/license",
+        "description": "a bridge over water with buildings in the background",
+        "source_url": "https://unsplash.com/photos/a-bridge-over-water-with-buildings-in-the-background-r1t37wHV0Ss"
+      },
+      "gallery": [
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/140721_Former_Moji_Customs_Kitakyushu_Japan03bs5.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/140721_Former_Moji_Customs_Kitakyushu_Japan03bs5.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E7%A6%8F%E5%B2%A1%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E7%A6%8F%E5%B2%A1%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Botayama_at_Iizuka_City_in_1950s.JPG?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Botayama_at_Iizuka_City_in_1950s.JPG?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E7%A6%8F%E5%B2%A1%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E7%A6%8F%E5%B2%A1%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/FBS_newbuilding.JPG?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/FBS_newbuilding.JPG?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E7%A6%8F%E5%B2%A1%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E7%A6%8F%E5%B2%A1%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Fukuoka_Prefectural_Government_Building_2018.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Fukuoka_Prefectural_Government_Building_2018.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E7%A6%8F%E5%B2%A1%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E7%A6%8F%E5%B2%A1%E7%9C%8C"
+        }
+      ],
+      "status": "ok",
+      "_wiki_extract": "福岡県（ふくおかけん）は、日本の九州地方に位置する県。県庁所在地は福岡市。\n九州地方北部に位置し、九州地方の県では最も人口が多い。県庁所在地の福岡市は、九州地方最多の人口を擁する市であり、西日本 においても大阪市に次ぐ人口を擁する。福岡市と北九州市の2つの政令指定都市を抱え、いわゆる三大都市圏以外では人口密度が1,000人/km2を超える唯一の県である。全国では人口は兵庫県に次ぐ8位、面積は千葉県"
+    },
+    {
+      "code": "41",
+      "name_ja": "佐賀県",
+      "name_en": "Saga",
+      "hero": {
+        "url": "https://images.unsplash.com/photo-1480796927426-f609979314bd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxTYWdhJTIwSmFwYW58ZW58MXwwfHx8MTc4MDI4ODczN3ww&ixlib=rb-4.1.0&q=80&w=1080",
+        "thumb_url": "https://images.unsplash.com/photo-1480796927426-f609979314bd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxTYWdhJTIwSmFwYW58ZW58MXwwfHx8MTc4MDI4ODczN3ww&ixlib=rb-4.1.0&q=80&w=400",
+        "source": "unsplash",
+        "photographer": "Clay Banks",
+        "photographer_url": "https://unsplash.com/@claybanks",
+        "license": "Unsplash License",
+        "license_url": "https://unsplash.com/license",
+        "description": "three bicycles parked in front of building",
+        "source_url": "https://unsplash.com/photos/three-bicycles-parked-in-front-of-building-hwLAI5lRhdM"
+      },
+      "gallery": [
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Ariake_sea_nori_poles.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Ariake_sea_nori_poles.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E4%BD%90%E8%B3%80%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E4%BD%90%E8%B3%80%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Arita_tokichi_200804.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Arita_tokichi_200804.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E4%BD%90%E8%B3%80%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E4%BD%90%E8%B3%80%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Fishing_village_Kariya_Genkai_Saga_Japan_up20060427.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Fishing_village_Kariya_Genkai_Saga_Japan_up20060427.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E4%BD%90%E8%B3%80%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E4%BD%90%E8%B3%80%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Flocks_of_waterfowls_in_Higashiyoka-higata_2018-02-03.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Flocks_of_waterfowls_in_Higashiyoka-higata_2018-02-03.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E4%BD%90%E8%B3%80%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E4%BD%90%E8%B3%80%E7%9C%8C"
+        }
+      ],
+      "status": "ok",
+      "_wiki_extract": "佐賀県（さがけん）は、日本の九州地方に位置する県。県庁所在地は佐賀市。\nお茶や唐津・伊万里・有田などの古くからの陶磁器の産地として有名で、玄界灘と有明海の2つの海に接する。令制国の肥前国東部に相当する。明治の府県制成立の際、同国は佐賀県と長崎県の2県として分立した。九州地方の中では最も面積、経済規模が小さい県である。一方、人口密度は全国で16番目に高く、広島県や宮城県よりも高い。"
+    },
+    {
+      "code": "42",
+      "name_ja": "長崎県",
+      "name_en": "Nagasaki",
+      "hero": {
+        "url": "https://images.unsplash.com/photo-1624517608488-05c8419ec931?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxOYWdhc2FraSUyMEphcGFufGVufDF8MHx8fDE3ODAyODg3NDB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "thumb_url": "https://images.unsplash.com/photo-1624517608488-05c8419ec931?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxOYWdhc2FraSUyMEphcGFufGVufDF8MHx8fDE3ODAyODg3NDB8MA&ixlib=rb-4.1.0&q=80&w=400",
+        "source": "unsplash",
+        "photographer": "Tayawee Supan",
+        "photographer_url": "https://unsplash.com/@banktayawee",
+        "license": "Unsplash License",
+        "license_url": "https://unsplash.com/license",
+        "description": "man riding horse statue during daytime",
+        "source_url": "https://unsplash.com/photos/man-riding-horse-statue-during-daytime-OA7pHiZwda0"
+      },
+      "gallery": [
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Fugendake_02_Pyroplastic_flow_area.JPG?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Fugendake_02_Pyroplastic_flow_area.JPG?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E9%95%B7%E5%B4%8E%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E9%95%B7%E5%B4%8E%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Huis_Ten_Bosch_-_01.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Huis_Ten_Bosch_-_01.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E9%95%B7%E5%B4%8E%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E9%95%B7%E5%B4%8E%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Nagasaki-geo-stub.png?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Nagasaki-geo-stub.png?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E9%95%B7%E5%B4%8E%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E9%95%B7%E5%B4%8E%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Nagasaki_Prefectural_Government_Office_building.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Nagasaki_Prefectural_Government_Office_building.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E9%95%B7%E5%B4%8E%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E9%95%B7%E5%B4%8E%E7%9C%8C"
+        }
+      ],
+      "status": "ok",
+      "_wiki_extract": "長崎県（ながさきけん）は、日本の九州地方に位置する県。県庁所在地は長崎市。\n五島列島、壱岐島、対馬など数多くの島嶼を含み、47都道府県中最も島が多いことで知られる。また、多島であるうえにリアス式海岸を多く擁することから海岸線の長さは47都道府県中第2位となっている（※「地形」節にて詳説）。"
+    },
+    {
+      "code": "43",
+      "name_ja": "熊本県",
+      "name_en": "Kumamoto",
+      "hero": {
+        "url": "https://images.unsplash.com/photo-1583937940470-b4b04ad42cf8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxLdW1hbW90byUyMEphcGFufGVufDF8MHx8fDE3ODAyODg3NDR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "thumb_url": "https://images.unsplash.com/photo-1583937940470-b4b04ad42cf8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxLdW1hbW90byUyMEphcGFufGVufDF8MHx8fDE3ODAyODg3NDR8MA&ixlib=rb-4.1.0&q=80&w=400",
+        "source": "unsplash",
+        "photographer": "Victor He",
+        "photographer_url": "https://unsplash.com/@victorhwn725",
+        "license": "Unsplash License",
+        "license_url": "https://unsplash.com/license",
+        "description": "brown wooden doors with green and yellow floral wall art",
+        "source_url": "https://unsplash.com/photos/brown-wooden-doors-with-green-and-yellow-floral-wall-art-UJh7xpxcpGo"
+      },
+      "gallery": [
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/2018.06.21-%E8%93%AE%E8%8F%AF%E9%99%A2%E8%AA%95%E7%94%9F%E5%AF%BA%E6%9C%AC%E9%99%A2%E3%81%AE%E5%A4%9A%E5%AE%9D%E5%A1%94%E3%83%BB%E4%BA%94%E9%87%8D%E5%A1%94%E3%83%BB%E6%9C%AC%E5%A0%82.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/2018.06.21-%E8%93%AE%E8%8F%AF%E9%99%A2%E8%AA%95%E7%94%9F%E5%AF%BA%E6%9C%AC%E9%99%A2%E3%81%AE%E5%A4%9A%E5%AE%9D%E5%A1%94%E3%83%BB%E4%BA%94%E9%87%8D%E5%A1%94%E3%83%BB%E6%9C%AC%E5%A0%82.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E7%86%8A%E6%9C%AC%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E7%86%8A%E6%9C%AC%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Aso_Miyaji_Monzen-cho.JPG?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Aso_Miyaji_Monzen-cho.JPG?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E7%86%8A%E6%9C%AC%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E7%86%8A%E6%9C%AC%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Five-story_pagoda_and_Niomon_of_Rengein_Tanjo-ji_Okunoin.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Five-story_pagoda_and_Niomon_of_Rengein_Tanjo-ji_Okunoin.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E7%86%8A%E6%9C%AC%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E7%86%8A%E6%9C%AC%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Greenland-Kanransha.JPG?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Greenland-Kanransha.JPG?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E7%86%8A%E6%9C%AC%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E7%86%8A%E6%9C%AC%E7%9C%8C"
+        }
+      ],
+      "status": "ok",
+      "_wiki_extract": "熊本県（くまもとけん）は、日本の九州地方に位置する県。県庁所在地は熊本市。\n令制国の肥後国に当たる。有明海、八代海（不知火海）、東シナ海に面している。人口は九州で福岡県に次ぐ第2位。"
+    },
+    {
+      "code": "44",
+      "name_ja": "大分県",
+      "name_en": "Oita",
+      "hero": {
+        "url": "https://images.unsplash.com/photo-1526481280693-3bfa7568e0f3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxPaXRhJTIwSmFwYW58ZW58MXwwfHx8MTc4MDI4ODc0OHww&ixlib=rb-4.1.0&q=80&w=1080",
+        "thumb_url": "https://images.unsplash.com/photo-1526481280693-3bfa7568e0f3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxPaXRhJTIwSmFwYW58ZW58MXwwfHx8MTc4MDI4ODc0OHww&ixlib=rb-4.1.0&q=80&w=400",
+        "source": "unsplash",
+        "photographer": "David Edelstein",
+        "photographer_url": "https://unsplash.com/@jlhopes",
+        "license": "Unsplash License",
+        "license_url": "https://unsplash.com/license",
+        "description": "Mount Fuji, Japan",
+        "source_url": "https://unsplash.com/photos/mount-fuji-japan-N4DbvTUDikw"
+      },
+      "gallery": [
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/1931_Map_of_Oita_Prefecture.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/1931_Map_of_Oita_Prefecture.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%A4%A7%E5%88%86%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%A4%A7%E5%88%86%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Beppu_Chinoike-jigoku01n4272.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Beppu_Chinoike-jigoku01n4272.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%A4%A7%E5%88%86%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%A4%A7%E5%88%86%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Handakogen.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Handakogen.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%A4%A7%E5%88%86%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%A4%A7%E5%88%86%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Kokonoe_Dream_Big_Suspension_Bridge_Oita%2CJAPAN.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Kokonoe_Dream_Big_Suspension_Bridge_Oita%2CJAPAN.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%A4%A7%E5%88%86%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%A4%A7%E5%88%86%E7%9C%8C"
+        }
+      ],
+      "status": "ok",
+      "_wiki_extract": "大分県（おおいたけん）は、日本の九州地方に位置する県。県庁所在地は大分市。\n全国的に知名度が高い別府温泉や由布院温泉をはじめとする多くの温泉を有し、源泉数（4,445か所）、湧出量（279,253リットル/分）ともに日本一であり 、「日本一のおんせん県おおいた」をキャッチフレーズに温泉をアピールしている。"
+    },
+    {
+      "code": "45",
+      "name_ja": "宮崎県",
+      "name_en": "Miyazaki",
+      "hero": {
+        "url": "https://images.unsplash.com/photo-1526481280693-3bfa7568e0f3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxNaXlhemFraSUyMEphcGFufGVufDF8MHx8fDE3ODAyODg3NTJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "thumb_url": "https://images.unsplash.com/photo-1526481280693-3bfa7568e0f3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxNaXlhemFraSUyMEphcGFufGVufDF8MHx8fDE3ODAyODg3NTJ8MA&ixlib=rb-4.1.0&q=80&w=400",
+        "source": "unsplash",
+        "photographer": "David Edelstein",
+        "photographer_url": "https://unsplash.com/@jlhopes",
+        "license": "Unsplash License",
+        "license_url": "https://unsplash.com/license",
+        "description": "Mount Fuji, Japan",
+        "source_url": "https://unsplash.com/photos/mount-fuji-japan-N4DbvTUDikw"
+      },
+      "gallery": [
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Cable_Media_Waiwai_Hyuga_2009.JPG?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Cable_Media_Waiwai_Hyuga_2009.JPG?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%AE%AE%E5%B4%8E%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%AE%AE%E5%B4%8E%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Cable_Media_Waiwai_Nobeoka_2010.JPG?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Cable_Media_Waiwai_Nobeoka_2010.JPG?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%AE%AE%E5%B4%8E%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%AE%AE%E5%B4%8E%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Central_Nobeoka_from_MtAtago_200807.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Central_Nobeoka_from_MtAtago_200807.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%AE%AE%E5%B4%8E%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%AE%AE%E5%B4%8E%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Chicken_with_tartar_sauce.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Chicken_with_tartar_sauce.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E5%AE%AE%E5%B4%8E%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E5%AE%AE%E5%B4%8E%E7%9C%8C"
+        }
+      ],
+      "status": "ok",
+      "_wiki_extract": "宮崎県（みやざきけん）は、日本の九州地方に位置する県。県庁所在地は宮崎市。"
+    },
+    {
+      "code": "46",
+      "name_ja": "鹿児島県",
+      "name_en": "Kagoshima",
+      "hero": {
+        "url": "https://images.unsplash.com/photo-1704686508379-8ee92cad45f6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxLYWdvc2hpbWElMjBKYXBhbnxlbnwxfDB8fHwxNzgwMjg4NzU2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "thumb_url": "https://images.unsplash.com/photo-1704686508379-8ee92cad45f6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxLYWdvc2hpbWElMjBKYXBhbnxlbnwxfDB8fHwxNzgwMjg4NzU2fDA&ixlib=rb-4.1.0&q=80&w=400",
+        "source": "unsplash",
+        "photographer": "Geoff Oliver",
+        "photographer_url": "https://unsplash.com/@satsuma9",
+        "license": "Unsplash License",
+        "license_url": "https://unsplash.com/license",
+        "description": "a view of a city with a mountain in the background",
+        "source_url": "https://unsplash.com/photos/a-view-of-a-city-with-a-mountain-in-the-background-Cttv-HVt3FI"
+      },
+      "gallery": [
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/H2A11001.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/H2A11001.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E9%B9%BF%E5%85%90%E5%B3%B6%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E9%B9%BF%E5%85%90%E5%B3%B6%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Ibusuki.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Ibusuki.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E9%B9%BF%E5%85%90%E5%B3%B6%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E9%B9%BF%E5%85%90%E5%B3%B6%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Imutaike.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Imutaike.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E9%B9%BF%E5%85%90%E5%B3%B6%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E9%B9%BF%E5%85%90%E5%B3%B6%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Jomon_Sugi_03.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Jomon_Sugi_03.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E9%B9%BF%E5%85%90%E5%B3%B6%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E9%B9%BF%E5%85%90%E5%B3%B6%E7%9C%8C"
+        }
+      ],
+      "status": "ok",
+      "_wiki_extract": "鹿児島県（かごしまけん）は、日本の九州地方に位置する県。県庁所在地は鹿児島市。\n薩摩半島・大隅半島の二つの半島と多くの離島を有する。"
+    },
+    {
+      "code": "47",
+      "name_ja": "沖縄県",
+      "name_en": "Okinawa",
+      "hero": {
+        "url": "https://images.unsplash.com/photo-1647336963732-7446b9da7a6f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxPa2luYXdhJTIwSmFwYW58ZW58MXwwfHx8MTc4MDI4ODc1OXww&ixlib=rb-4.1.0&q=80&w=1080",
+        "thumb_url": "https://images.unsplash.com/photo-1647336963732-7446b9da7a6f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxPa2luYXdhJTIwSmFwYW58ZW58MXwwfHx8MTc4MDI4ODc1OXww&ixlib=rb-4.1.0&q=80&w=400",
+        "source": "unsplash",
+        "photographer": "Roméo A.",
+        "photographer_url": "https://unsplash.com/@gronemo",
+        "license": "Unsplash License",
+        "license_url": "https://unsplash.com/license",
+        "description": "a city street lined with palm trees and shops",
+        "source_url": "https://unsplash.com/photos/a-city-street-lined-with-palm-trees-and-shops-RHd0VtC0bLw"
+      },
+      "gallery": [
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/01%E3%83%9E%E3%83%AA%E3%83%A8%E3%83%89%E3%81%AE%E7%80%A7IMG_3858.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/01%E3%83%9E%E3%83%AA%E3%83%A8%E3%83%89%E3%81%AE%E7%80%A7IMG_3858.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E6%B2%96%E7%B8%84%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E6%B2%96%E7%B8%84%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/DFS_GALLERIA_OKINAWA01.JPG?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/DFS_GALLERIA_OKINAWA01.JPG?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E6%B2%96%E7%B8%84%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E6%B2%96%E7%B8%84%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Extents_of_the_islands_and_the_archipelagos_in_the_southwest_of_Japan.png?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Extents_of_the_islands_and_the_archipelagos_in_the_southwest_of_Japan.png?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E6%B2%96%E7%B8%84%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E6%B2%96%E7%B8%84%E7%9C%8C"
+        },
+        {
+          "url": "https://commons.wikimedia.org/wiki/Special:FilePath/G%C5%8Dy%C4%81_Chanpur%C5%AB.jpg?width=1200",
+          "thumb_url": "https://commons.wikimedia.org/wiki/Special:FilePath/G%C5%8Dy%C4%81_Chanpur%C5%AB.jpg?width=1200",
+          "source": "wikimedia",
+          "photographer": "Wikimedia Commons contributor",
+          "photographer_url": "https://ja.wikipedia.org/wiki/%E6%B2%96%E7%B8%84%E7%9C%8C",
+          "license": "CC-BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "description": "",
+          "source_url": "https://ja.wikipedia.org/wiki/%E6%B2%96%E7%B8%84%E7%9C%8C"
+        }
+      ],
+      "status": "ok",
+      "_wiki_extract": "沖縄県（おきなわけん、旧字体: 沖繩縣、英語: Okinawa Prefecture）は、日本の九州・沖縄地方に位置する県。県庁所在地は那覇市。旧琉球国。"
+    }
+  ]
+}

@@ -8,6 +8,7 @@ import plotly.graph_objects as go
 import streamlit as st
 
 from app.features.map_view._cache import cached_ranking
+from app.features.map_view.images import credit_line, get_thumb
 from app.features.map_view.ranking import ALL_INDICATORS, stars_to_unicode
 from app.features.map_view.regions import region_of
 from app.features.map_view.usecases.show_prefecture_detail import _format_value
@@ -48,6 +49,23 @@ def show_comparison(horizon: Horizon = "current") -> None:
         )
 
     a, b = options[a_label], options[b_label]
+
+    # ヒーロー画像横並び(Apple カード風)
+    img_a = get_thumb(a.prefecture_code)
+    img_b = get_thumb(b.prefecture_code)
+    if img_a or img_b:
+        ic1, ic2 = st.columns(2, gap="medium")
+        with ic1:
+            st.markdown(f"#### {a.prefecture_code} {a.prefecture_name}")
+            if img_a:
+                st.image(img_a.url, use_container_width=True)
+                st.caption(credit_line(img_a))
+        with ic2:
+            st.markdown(f"#### {b.prefecture_code} {b.prefecture_name}")
+            if img_b:
+                st.image(img_b.url, use_container_width=True)
+                st.caption(credit_line(img_b))
+        st.markdown("---")
 
     # レーダーチャート(偏差値 30〜70 を半径に)
     categories = [
