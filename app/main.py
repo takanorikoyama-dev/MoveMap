@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import streamlit as st
 
+from app.features.compliance.cookie_consent import render_consent_banner
 from app.features.compliance.disclaimer import render as render_disclaimer
 from app.features.compliance.footer import render as render_footer
 from app.features.compliance.show_data_sources import show_data_sources
@@ -53,8 +54,10 @@ st.set_page_config(
 
 # グローバル CSS(可読性 + 印刷モード)を最初に注入
 inject_global_css()
-# GA4 トラッキング(Measurement ID が .env に設定されているときだけ有効化)
-inject_ga4(load_config().ga4_measurement_id)
+# Cookie 同意バナー(INV-BIZ-007、GA4 設定時のみ表示) + GA4 注入(同意済みのときのみ)
+_ga4_id = load_config().ga4_measurement_id
+if render_consent_banner(_ga4_id):
+    inject_ga4(_ga4_id)
 
 st.title("MoveMap — 地方移住MAP")
 render_hero()

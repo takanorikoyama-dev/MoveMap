@@ -105,6 +105,22 @@ def test_inv_biz_008_footer_invoked_in_main() -> None:
     assert "render_footer" in text, "INV-BIZ-008 違反: app/main.py に render_footer 呼出なし"
 
 
+def test_inv_biz_007_consent_gate_in_main() -> None:
+    """INV-BIZ-007(DEC-016 派生): app/main.py で同意バナーが GA4 をゲートしている."""
+    main = APP_ROOT / "main.py"
+    text = main.read_text(encoding="utf-8")
+    assert "render_consent_banner" in text, (
+        "INV-BIZ-007 違反: app/main.py に render_consent_banner 呼出なし"
+    )
+    # GA4 inject は同意バナーの後段で行われていること(順序チェック)
+    consent_idx = text.find("render_consent_banner")
+    ga4_idx = text.find("inject_ga4(")
+    assert consent_idx >= 0 and ga4_idx >= 0
+    assert consent_idx < ga4_idx, (
+        "INV-BIZ-007 違反: inject_ga4 が render_consent_banner より先に呼ばれている"
+    )
+
+
 def test_inv_biz_006_disclaimer_includes_advice_disclaimers() -> None:
     """INV-BIZ-006(DEC-016 派生): 免責文に投資/不動産/移住の助言ではない明示."""
     disclaimer = APP_ROOT / "features" / "compliance" / "disclaimer.py"
