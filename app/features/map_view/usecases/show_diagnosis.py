@@ -56,12 +56,14 @@ AVOID_OPTIONS: list[tuple[str, str]] = [
     ("expensive", "💸 物価・生活費が高い地域"),
     ("medical", "🏥 病院・医療機関が遠い地域"),
     ("transport", "🚉 公共交通が不便な地域"),
+    ("unsafe", "🛡️ 治安への不安がある地域"),
 ]
 PRIORITY_OPTIONS: list[tuple[str, str]] = [
     ("clean_air", "🌬️ 空気がきれい"),
     ("future_active", "👶 将来も活気がある(人口・出生数)"),
     ("good_access", "🚆 都心や空港に行きやすい"),
     ("low_cost", "💰 生活コストが安い"),
+    ("safe", "🛡️ 治安が良く安心して暮らせる"),
 ]
 
 
@@ -80,6 +82,7 @@ def _compute_weights(answers: DiagnosisAnswers) -> dict[IndicatorId, float]:
         weights["birth_count"] += 30
         weights["disaster_risk"] += 30
         weights["air_quality"] += 25
+        weights["public_safety"] += 25  # 子育て世帯は治安重視
     elif answers.family == "solo":
         weights["transport_access"] += 30
         weights["price_index"] += 15
@@ -90,6 +93,7 @@ def _compute_weights(answers: DiagnosisAnswers) -> dict[IndicatorId, float]:
     elif answers.family == "multi_gen":
         weights["disaster_risk"] += 30
         weights["transport_access"] += 20
+        weights["public_safety"] += 15  # 高齢者同居家庭は治安も意識
 
     # 働き方
     if answers.work_style == "retired":
@@ -133,6 +137,8 @@ def _compute_weights(answers: DiagnosisAnswers) -> dict[IndicatorId, float]:
         weights["birth_count"] += 10  # 医療機関は人口集積と相関
     if "transport" in answers.avoid:
         weights["transport_access"] += 30
+    if "unsafe" in answers.avoid:
+        weights["public_safety"] += 35  # 治安への不安を避けたい → 治安重視
 
     # 優先項目
     if "clean_air" in answers.priorities:
@@ -144,6 +150,8 @@ def _compute_weights(answers: DiagnosisAnswers) -> dict[IndicatorId, float]:
     if "low_cost" in answers.priorities:
         weights["price_index"] += 20
         weights["rent_index"] += 20
+    if "safe" in answers.priorities:
+        weights["public_safety"] += 35  # 治安が良い地域を最優先
 
     # 上限 100、最小は 0
     return {ind: max(0.0, min(100.0, w)) for ind, w in weights.items()}

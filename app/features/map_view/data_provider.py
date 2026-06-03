@@ -286,46 +286,57 @@ def values_for(indicator_id: str, horizon: Horizon) -> ValueWithMeta:
             """,
             [indicator_id, years],
         ).fetchall()
-        if not rows:
-            return ValueWithMeta(
-                values=dummy_values_for(indicator_id, horizon),
-                availability=DataAvailability(source="dummy", note=f"predicted_values に {indicator_id}/{horizon} のデータなし"),
-            )
-
+        # predicted_values が完全に空でも、予測対象指標は現在値 × 県別年率で補完できる
+        # サンプル DB 等(run_batch.py 未実行)の初期状態でも UI に値を出すための救済策
         result: dict[str, float | None] = {code: None for code in PREF_CODES}
         latest = None
         no_prediction_codes: list[str] = []
+        filled_codes: set[str] = set()
         for code, value, quality, predicted_at in rows:
             if quality == "no_prediction":
                 result[code] = None
                 no_prediction_codes.append(code)
-            else:
-                result[code] = float(value) if value is not None else None
+            elif value is not None:
+                result[code] = float(value)
+                filled_codes.add(code)
             if predicted_at is not None and (latest is None or predicted_at > latest):
                 latest = predicted_at
 
-        # ML モデルが no_prediction を出した予測値を、現在値 × 仮定年率 で補完
-        # (履歴データ不足で ARIMA/Prophet が機能しない場合の救済策)
+        # フォールバック対象 = (a) no_prediction セル + (b) predicted_values 行なしセル
+        fallback_codes = [
+            code for code in PREF_CODES
+            if code not in filled_codes and result[code] is None
+        ]
         note = None
-        if no_prediction_codes and indicator_id in _SIMPLE_FORECAST_RATES:
+        if fallback_codes and indicator_id in _SIMPLE_FORECAST_RATES:
             current_rows = con.execute(
                 """
                 SELECT prefecture_code, value
                 FROM current_values
                 WHERE indicator_id = $1 AND prefecture_code = ANY($2)
                 """,
-                [indicator_id, no_prediction_codes],
+                [indicator_id, fallback_codes],
             ).fetchall()
             current_lookup = {c: float(v) for c, v in current_rows if v is not None}
             filled = 0
-            for code in no_prediction_codes:
+            for code in fallback_codes:
                 if code in current_lookup:
                     result[code] = _simple_extrapolate(
                         indicator_id, current_lookup[code], years, pref_code=code
                     )
                     filled += 1
             if filled > 0:
-                note = f"AI予測精度不足 {filled} 件を現在値 × 県別簡易年率で補完(三大都市圏/地方中核/地方郡部で別)"
+                note = (
+                    f"現在値 × 県別簡易年率で {filled} 件を補完"
+                    "(predicted_values 不足を救済、三大都市圏/地方中核/地方郡部で別)"
+                )
+
+        # 何も埋まらなかった場合のみ dummy にフォールバック(完全な無データ)
+        if all(v is None for v in result.values()):
+            return ValueWithMeta(
+                values=dummy_values_for(indicator_id, horizon),
+                availability=DataAvailability(source="dummy", note=f"predicted_values + current_values 共に {indicator_id} のデータなし"),
+            )
 
         return ValueWithMeta(
             values=result,
@@ -414,7 +425,10 @@ def values_for_all_indicators(
                 else:
                     result[ind][code] = float(value)
 
-        # 予測対象: predicted_values から取得、no_prediction は簡易外挿で補完
+        # 予測対象: predicted_values から取得、不足分は簡易外挿で補完
+        # フォールバック対象:
+        #   (a) quality_status='no_prediction' のセル
+        #   (b) predicted_values にそもそも行が無いセル(サンプル DB 等の初期状態)
         if predictable_ids:
             rows = con.execute(
                 """
@@ -424,36 +438,46 @@ def values_for_all_indicators(
                 """,
                 [predictable_ids, years],
             ).fetchall()
-            no_prediction_by_ind: dict[str, list[str]] = {ind: [] for ind in predictable_ids}
+            # predicted_values からセットしたセルを記録
+            filled_by_ind: dict[str, set[str]] = {ind: set() for ind in predictable_ids}
             for ind, code, value, quality in rows:
                 if ind not in result or code not in result[ind]:
                     continue
                 if quality == "no_prediction":
-                    no_prediction_by_ind[ind].append(code)
-                elif value is not None:
+                    # (a) フォールバック対象 — filled_by_ind には入れない
+                    continue
+                if value is not None:
                     result[ind][code] = float(value)
+                    filled_by_ind[ind].add(code)
 
-            # 簡易外挿のための現在値取得
-            no_pred_ids_to_fill = [
-                ind for ind in predictable_ids
-                if ind in _SIMPLE_FORECAST_RATES and no_prediction_by_ind[ind]
-            ]
-            if no_pred_ids_to_fill:
+            # (a) + (b) 両方をまとめてフォールバック対象にする
+            needs_fallback: dict[str, list[str]] = {}
+            for ind in predictable_ids:
+                if ind not in _SIMPLE_FORECAST_RATES:
+                    continue
+                missing_codes = [
+                    code for code in PREF_CODES
+                    if code not in filled_by_ind[ind] and result[ind].get(code) is None
+                ]
+                if missing_codes:
+                    needs_fallback[ind] = missing_codes
+
+            if needs_fallback:
                 current_rows = con.execute(
                     """
                     SELECT indicator_id, prefecture_code, value
                     FROM current_values
                     WHERE indicator_id = ANY($1)
                     """,
-                    [no_pred_ids_to_fill],
+                    [list(needs_fallback.keys())],
                 ).fetchall()
                 current_lookup: dict[str, dict[str, float]] = {}
                 for ind, code, value in current_rows:
                     if value is None:
                         continue
                     current_lookup.setdefault(ind, {})[code] = float(value)
-                for ind in no_pred_ids_to_fill:
-                    for code in no_prediction_by_ind[ind]:
+                for ind, codes in needs_fallback.items():
+                    for code in codes:
                         cv = current_lookup.get(ind, {}).get(code)
                         if cv is not None:
                             result[ind][code] = _simple_extrapolate(

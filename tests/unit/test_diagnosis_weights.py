@@ -26,8 +26,8 @@ def test_weights_are_within_0_to_100() -> None:
     cases = [
         _ans(),
         _ans(family="family", work_style="local_job", rent_budget="low",
-             avoid=("disaster", "expensive", "medical", "transport"),
-             priorities=("clean_air", "future_active", "good_access", "low_cost")),
+             avoid=("disaster", "expensive", "medical", "transport", "unsafe"),
+             priorities=("clean_air", "future_active", "good_access", "low_cost", "safe")),
         _ans(family="solo", work_style="remote", rent_budget="vip"),
         _ans(family="multi_gen", work_style="startup"),
     ]
@@ -35,6 +35,27 @@ def test_weights_are_within_0_to_100() -> None:
         weights = _compute_weights(ans)
         for ind, w in weights.items():
             assert 0.0 <= w <= 100.0, f"{ind}={w} out of range for {ans}"
+
+
+def test_unsafe_avoidance_boosts_public_safety_weight() -> None:
+    """避けたい=治安への不安 を選ぶと public_safety の重みが上がる."""
+    base = _compute_weights(_ans())
+    with_avoid = _compute_weights(_ans(avoid=("unsafe",)))
+    assert with_avoid["public_safety"] > base["public_safety"]
+
+
+def test_safe_priority_boosts_public_safety_weight() -> None:
+    """重視=治安が良い を選ぶと public_safety の重みが上がる."""
+    base = _compute_weights(_ans())
+    with_safe = _compute_weights(_ans(priorities=("safe",)))
+    assert with_safe["public_safety"] > base["public_safety"]
+
+
+def test_family_emphasizes_public_safety_too() -> None:
+    """子育てファミリーは治安重視(public_safety がアップ)."""
+    couple = _compute_weights(_ans(family="couple"))
+    family = _compute_weights(_ans(family="family"))
+    assert family["public_safety"] > couple["public_safety"]
 
 
 def test_disaster_avoidance_boosts_disaster_risk_weight() -> None:

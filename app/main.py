@@ -1,10 +1,11 @@
 """Streamlit エントリポイント.
 
-UI/UX 設計(2026-05-20 強化):
-    - 50-60 代向けに基本フォント大、行間広め、ボタンタップ領域確保
-    - ヒーローバナーで「何ができるアプリか」を即座に伝達
-    - 各タブ冒頭にステップガイド(このタブで何ができるか/次に何を見るか)
-    - 印刷モード切替(サイドバー隠し、A4 1 枚に収まるレイアウト)
+UI 設計(2026-06-02 大幅刷新):
+    - サイドバー廃止、全画面ワイドビジュアル
+    - ホーム = ヒーロー(4 枚自動横スライド、海と自然テーマ)+ 6 セクションバナー
+    - 各セクションは state-based でクリック後に切替
+    - 各セクション画面に「← ホームに戻る」ボタン
+    - 既存タブ構成(診断/地図/順位/比較/詳細/AI根拠)は、バナークリック型導線に変更
 """
 
 from __future__ import annotations
@@ -15,7 +16,6 @@ from app.features.compliance.cookie_consent import render_consent_banner
 from app.features.compliance.disclaimer import render as render_disclaimer
 from app.features.compliance.footer import render as render_footer
 from app.features.compliance.show_data_sources import show_data_sources
-from app.features.map_view.components.status_panel import render_status_panel
 from app.features.map_view.usecases.show_comparison import show_comparison
 from app.features.map_view.usecases.show_diagnosis import show_diagnosis
 from app.features.map_view.usecases.show_map import show_map
@@ -25,166 +25,205 @@ from app.features.map_view.usecases.show_prefecture_detail import (
     show_prefecture_detail,
 )
 from app.features.map_view.usecases.show_ranking import show_ranking
-from app.features.map_view.usecases.switch_horizon import HORIZON_LABELS, switch_horizon
+from app.features.map_view.usecases.switch_horizon import HORIZON_LABELS
 from app.features.map_view.usecases.switch_indicator import (
     INDICATOR_LABELS,
     labeled as indicator_labeled,
-    switch_indicator,
 )
 from app.shared.bootstrap import ensure_db_initialized
 from app.shared.config import load_config
 from app.shared.ui_theme import (
+    SECTION_KEYS,
     inject_ga4,
     inject_global_css,
-    render_current_band,
+    render_back_to_home_button,
     render_hero,
-    render_mobile_hint,
-    render_tab_guide,
+    render_section_banners,
 )
 
-# Streamlit Cloud のような ephemeral 環境で DB が無ければ自動初期化(冪等)
+# ephemeral 環境(Streamlit Cloud)で DB が無ければ自動初期化
 ensure_db_initialized()
 
 st.set_page_config(
     page_title="MoveMap — 地方移住MAP",
     page_icon="🗾",
     layout="wide",
-    initial_sidebar_state="expanded",
+    initial_sidebar_state="collapsed",
 )
 
-# グローバル CSS(可読性 + 印刷モード)を最初に注入
+# グローバル CSS(サイドバー非表示 + ヒーロー + バナー定義含む)
 inject_global_css()
-# Cookie 同意バナー(INV-BIZ-007、GA4 設定時のみ表示) + GA4 注入(同意済みのときのみ)
+
+# Cookie 同意バナー(INV-BIZ-007、GA4 設定時のみ) + GA4 注入(同意済みのみ)
 _ga4_id = load_config().ga4_measurement_id
 if render_consent_banner(_ga4_id):
     inject_ga4(_ga4_id)
 
-st.title("MoveMap — 地方移住MAP")
-render_hero()
-render_mobile_hint()
-render_disclaimer()
 
-# --- URL query → セッション初期値 反映(共有用) ---
-_qp = st.query_params
-if "indicator" in _qp and "selected_indicator_label" not in st.session_state:
-    qid = _qp.get("indicator")
-    qlabel = INDICATOR_LABELS.get(qid)  # type: ignore[arg-type]
-    if qlabel:
-        # サイドバーラジオは絵文字付きラベルになっているため、組み立て直す
-        from app.features.map_view.usecases.switch_indicator import labeled as _labeled
-        st.session_state["selected_indicator_label"] = _labeled(qid)  # type: ignore[arg-type]
-if "horizon" in _qp and "selected_horizon_label" not in st.session_state:
-    qh = _qp.get("horizon")
-    qhlabel = HORIZON_LABELS.get(qh)  # type: ignore[arg-type]
-    if qhlabel:
-        st.session_state["selected_horizon_label"] = qhlabel
+# ====================================================
+# View Router(session_state 主導、URL は補助同期)
+# ====================================================
+_VALID_VIEWS = ("home",) + SECTION_KEYS
 
-indicator_id = switch_indicator()
-horizon = switch_horizon()
+# URL クエリ ?view=KEY を毎回 session_state に同期.
+# ・?view=KEY (valid)            → KEY をアクティブに
+# ・?view 不在 or 無効            → home(クリーン URL "/" を home として扱う)
+# `<a href='?view=KEY'>` や `<a href='/'>` のような外部リンク遷移にも追従する.
+_qp_view = st.query_params.get("view")
+_target_view = _qp_view if _qp_view in _VALID_VIEWS else "home"
+if st.session_state.get("active_view") != _target_view:
+    st.session_state["active_view"] = _target_view
 
-# 選択を URL に反映(再アクセス時に同じ状態を復元できる)
-st.query_params["indicator"] = indicator_id
-st.query_params["horizon"] = horizon
 
-st.sidebar.markdown("---")
-st.sidebar.caption(
-    f"選択中: **{indicator_labeled(indicator_id)}** / **{HORIZON_LABELS[horizon]}**"
-)
-st.sidebar.caption(
-    "🔗 このページの URL をコピーすれば、同じ選択状態で開けます(指標・年次が URL に反映)"
-)
+def _active_view() -> str:
+    """現在表示中のビュー名."""
+    return st.session_state.get("active_view", "home")
 
-# 画面上部に「現在の選択」を大きく表示(スマホでサイドバーが隠れていても何を見ているか分かる)
-render_current_band(indicator_labeled(indicator_id), HORIZON_LABELS[horizon])
 
-# 印刷モードトグル(サイドバー下部)
-st.sidebar.markdown("---")
-print_mode = st.sidebar.checkbox(
-    "🖨️ 印刷用ビュー",
-    value=False,
-    key="print_mode",
-    help="チェックするとサイドバー/タブを隠した印刷向けレイアウトになります。ブラウザの印刷(Ctrl+P)と併用してください。",
-)
-if print_mode:
+def _navigate(view: str) -> None:
+    """view を変更してリラン.
+
+    Streamlit の query_params 単独だと環境によっては反映が遅れるため、
+    session_state を真の状態源にし、URL は補助同期だけ行う.
+    ホーム遷移時は次回描画でブラウザを最上部へスクロールさせるフラグを立てる.
+    """
+    if view == "home":
+        st.session_state["_scroll_to_top_pending"] = True
+    st.session_state["active_view"] = view
+    try:
+        st.query_params["view"] = view
+    except Exception:  # noqa: BLE001
+        pass  # URL 同期失敗してもアプリは動作する
+    st.rerun()
+
+
+def _scroll_to_top_js() -> None:
+    """ブラウザを最上部にスクロール(ヒーロー位置まで戻す).
+
+    Streamlit は st.rerun() でスクロール位置を保持するため、
+    ホーム遷移直後だけ JS でリセットする.
+    """
     st.markdown(
-        """
-        <style>
-        [data-testid="stSidebar"] { display: none !important; }
-        button[data-baseweb="tab"] { display: none !important; }
-        [data-testid="stTabs"] [data-baseweb="tab-list"] { display: none !important; }
-        .stApp { background: white !important; }
-        </style>
-        """,
+        """<script>
+        (function(){
+          const scroll = () => {
+            window.scrollTo({top:0, left:0, behavior:'instant'});
+            if (document.documentElement) document.documentElement.scrollTop = 0;
+            if (document.body) document.body.scrollTop = 0;
+            if (window.parent && window.parent !== window) {
+              try { window.parent.scrollTo({top:0, left:0, behavior:'instant'}); } catch(e){}
+              try { window.parent.document.documentElement.scrollTop = 0; } catch(e){}
+              try { window.parent.document.body.scrollTop = 0; } catch(e){}
+            }
+          };
+          scroll();
+          setTimeout(scroll, 50);
+          setTimeout(scroll, 200);
+        })();
+        </script>""",
         unsafe_allow_html=True,
     )
 
-# データ状態パネル(運用透明性)
-render_status_panel()
 
-tab_diagnosis, tab_map, tab_ranking, tab_compare, tab_detail, tab_model = st.tabs(
-    ["🎯 診断", "🗾 地図", "🏆 順位", "⚔️ 比較", "📍 詳細", "🤖 AI根拠"]
-)
+# ====================================================
+# ホーム画面
+# ====================================================
+if _active_view() == "home":
+    # 直前にセクションから「ホームに戻る」をクリックした直後のみ最上部へ
+    if st.session_state.pop("_scroll_to_top_pending", False):
+        _scroll_to_top_js()
+    render_hero()
+    st.markdown("### コンテンツ")
+    st.caption("見たいコンテンツを選んでください。各バナー下のボタンで該当画面へ移動します。")
+    chosen = render_section_banners()
+    if chosen:
+        _navigate(chosen)
 
-with tab_diagnosis:
-    render_tab_guide(
-        "<strong>このタブから始めるのがおすすめです。</strong> "
-        "5 つの簡単な質問に答えるだけで、あなたに合う <strong>移住先 3 県</strong> をご提案します。"
-        "<br>診断結果は「🏆 ランキング」タブの重み付けスライダーにも自動反映されます。"
-    )
-    show_diagnosis(horizon)
+    # ホーム下部に免責(INV-BIZ-005/006)
+    st.markdown("---")
+    render_disclaimer()
+    st.markdown("---")
+    show_data_sources(None)
 
-with tab_map:
-    render_tab_guide(
-        "<strong>このタブでできること:</strong> "
-        f"選んだ観点(現在: {indicator_labeled(indicator_id)})で 47 都道府県を地図上に色分け表示します。"
-        "緑が濃いほど住みやすい県です。"
-        "<br><strong>次のおすすめ:</strong> 「🏆 ランキング」タブで重み付けして自分の優先度に合った順位を見る → "
-        "「⚔️ 2県比較」タブで気になる 2 県を並べてレーダーで比較。"
-    )
-    show_map(indicator_id, horizon)
+# ====================================================
+# 各セクション画面
+# ====================================================
+else:
+    # TOPページボタン(st.button + session_state 強制リセット方式).
+    # link_button や <a href> 系は環境依存で動かないことがあるため、
+    # 確実に動作する Streamlit ボタン + 内部 state 更新で実装.
+    if render_back_to_home_button():
+        # query_params 全消去で URL を "/" に
+        for _k in list(st.query_params.keys()):
+            try:
+                del st.query_params[_k]
+            except Exception:  # noqa: BLE001
+                pass
+        # session_state を強制的にホームに
+        st.session_state["active_view"] = "home"
+        st.session_state["_scroll_to_top_pending"] = True
+        st.rerun()
+    st.markdown("---")
 
-with tab_ranking:
-    render_tab_guide(
-        "<strong>このタブでできること:</strong> "
-        "7 つの観点をあなたの優先度で重み付けし、47 都道府県を住みやすさ総合スコア順に並べます。"
-        "<br><strong>使い方:</strong> ⚖️ スライダー → 重要視する観点ほど大きく、興味がない観点は 0 に。"
-        "📌 ピン留めで気になる県を上部に固定、📥 CSV ダウンロードで家族と共有できます。"
-    )
-    show_ranking(horizon)
+    view = _active_view()
 
-with tab_compare:
-    render_tab_guide(
-        "<strong>このタブでできること:</strong> "
-        "都道府県を 2 つ選んで、7 観点の偏差値プロファイルをレーダーチャートで重ね表示します。"
-        "外側に広いほど住みやすい県です。"
-    )
-    show_comparison(horizon)
+    # 診断 — indicator/horizon に依存しない
+    if view == "diagnosis":
+        show_diagnosis("current")
 
-with tab_detail:
-    render_tab_guide(
-        "<strong>このタブでできること:</strong> "
-        "1 都道府県を選んで、7 観点の最新値+ AI 予測(3 年後/5 年後/10 年後)をまとめて確認できます。"
-    )
-    pref_options = [f"{code} {name}" for code, name in PREFECTURE_NAMES.items()]
-    chosen = st.selectbox(
-        "都道府県を選択",
-        options=pref_options,
-        index=12,  # default: 東京都
-        key="selected_prefecture",
-    )
-    chosen_code = chosen.split(" ", 1)[0]
-    show_prefecture_detail(chosen_code)
+    # 地図 / 順位 / 比較 / 詳細 / AI根拠 — indicator/horizon が必要
+    else:
+        # インライン indicator + horizon セレクタ
+        c1, c2 = st.columns(2)
+        with c1:
+            indicator_label = st.selectbox(
+                "観点",
+                options=[indicator_labeled(i) for i in INDICATOR_LABELS.keys()],
+                index=0,
+                key="inline_indicator_label",
+            )
+            indicator_id = next(
+                (k for k in INDICATOR_LABELS if indicator_labeled(k) == indicator_label),
+                "price_index",
+            )
+        with c2:
+            horizon_label = st.selectbox(
+                "時点",
+                options=list(HORIZON_LABELS.values()),
+                index=0,
+                key="inline_horizon_label",
+            )
+            horizon = next(
+                (k for k, v in HORIZON_LABELS.items() if v == horizon_label),
+                "current",
+            )
+        st.markdown("---")
 
-with tab_model:
-    render_tab_guide(
-        "<strong>このタブでできること:</strong> "
-        "AI 予測モデル(ARIMA + Prophet)の精度(R²)や学習データの透明性を確認できます。"
-        "予測値を判断材料にする前にここを見ると安心です。"
-    )
-    show_model_detail(indicator_id)
+        if view == "map":
+            show_map(indicator_id, horizon)
+        elif view == "ranking":
+            show_ranking(horizon)
+        elif view == "compare":
+            show_comparison(horizon)
+        elif view == "detail":
+            pref_options = [f"{code} {name}" for code, name in PREFECTURE_NAMES.items()]
+            chosen_pref = st.selectbox(
+                "都道府県を選択",
+                options=pref_options,
+                index=12,  # 東京都
+                key="selected_prefecture",
+            )
+            chosen_code = chosen_pref.split(" ", 1)[0]
+            show_prefecture_detail(chosen_code)
+        elif view == "model":
+            show_model_detail(indicator_id)
 
-st.markdown("---")
-show_data_sources(None)
+    # 各セクション画面下にも免責 + ソース
+    st.markdown("---")
+    render_disclaimer()
+    st.markdown("---")
+    show_data_sources(None)
+
 
 # 法務リンクフッター(INV-BIZ-008、DEC-016 派生)
 render_footer()

@@ -47,20 +47,28 @@ def test_app_shows_disclaimer_banner() -> None:
 
 
 def test_app_renders_three_tabs() -> None:
-    """MAP / 都道府県詳細 / モデル根拠 の 3 タブ構成."""
+    """MoveMap ブランドが画面に表示される(ヒーロー内、2026-06-02 デザイン刷新)."""
     at = _new_app()
     at.run()
-    # streamlit テスト API では tabs は title でなく内部要素を持つ
-    # ここでは「副題的に main 要素にプレースホルダがある」のみ簡易検証
-    # 詳細はインタラクションテストで(将来)
-    titles = [el.value for el in at.title]
-    assert any("MoveMap" in t for t in titles)
+    # st.title は廃止し、ブランド表示はヒーローの HTML 内に統合された.
+    # ヒーロー HTML(movemap-hero クラス + MoveMap ブランドマーク)が
+    # markdown 要素として注入されていることを確認.
+    md_texts = " ".join(el.value for el in at.markdown if hasattr(el, "value"))
+    assert "movemap-hero" in md_texts or "MoveMap" in md_texts
 
 
-def test_app_sidebar_has_indicator_and_horizon_radios() -> None:
-    """サイドバーに 指標 / 年次 の radio が 2 つ存在."""
+def test_app_home_view_has_section_banners() -> None:
+    """ホーム画面に 6 つのセクション入口ボタンが存在.
+
+    2026-06-02: 視覚バナーは HTML、クリック処理は st.button(信頼性のため).
+    """
     at = _new_app()
     at.run()
-    sidebar_radios = at.sidebar.radio
-    # 指標 + 年次 = 2(他に追加 radio がなければ)
-    assert len(sidebar_radios) >= 2
+    button_keys = {b.key for b in at.button if hasattr(b, "key") and b.key}
+    expected_keys = {
+        f"home_open_{k}"
+        for k in ("diagnosis", "map", "ranking", "compare", "detail", "model")
+    }
+    assert expected_keys.issubset(button_keys), (
+        f"バナーボタンが揃っていない: 期待 {expected_keys} / 実際 {button_keys}"
+    )

@@ -20,10 +20,11 @@ logger = get_logger(__name__)
 
 PREDICTABLE_INDICATORS = ("price_index", "land_price", "rent_index", "birth_count")
 INDICATOR_BASE_VALUES: dict[str, float] = {
-    "price_index": 100.0,
-    "land_price": 250_000.0,
-    "rent_index": 100.0,
-    "birth_count": 7.0,
+    # 各指標を「実 API 取得時の単位」と揃える(display 側の /10000 スケーリングと整合).
+    "price_index": 100.0,        # 物価指数(無次元、全国 100 基準)
+    "land_price": 250_000.0,     # 地価(円/㎡、display で /10000 → 万円/㎡)
+    "rent_index": 80_000.0,      # 賃料(円/月、display で /10000 → 万円/月、東京 ~9 万 / 鹿児島 ~4 万 を意識)
+    "birth_count": 70_000.0,     # 出生数(人/年、display で /10000 → 万人/年、全国合計 70 万人前後)
 }
 SYNTHETIC_MONTHS = 24
 
