@@ -45,14 +45,75 @@ from app.shared.ui_theme import (
 ensure_db_initialized()
 
 st.set_page_config(
-    page_title="MoveMap — 地方移住MAP",
+    # SEO 強化:検索クエリ「地方移住 比較」「47 都道府県 診断」等にヒットさせる
+    page_title="地方移住MAP|47都道府県を9指標で比較・診断 - MoveMap",
     page_icon="🗾",
     layout="wide",
     initial_sidebar_state="collapsed",
+    menu_items={
+        "About": (
+            "MoveMap は、全国 47 都道府県を「物価・地価・賃料・出生数・空気質・"
+            "災害リスク・交通アクセス・治安・人口流入」の 9 観点で比較できる"
+            "地方移住検討ツールです。"
+            "ARIMA / Prophet による 3 / 5 / 10 年後の予測も表示。"
+            "個人制作のポートフォリオ作品(DEC-016)。"
+        ),
+    },
 )
 
 # グローバル CSS(サイドバー非表示 + ヒーロー + バナー定義含む)
 inject_global_css()
+
+# SEO 用 meta タグを <head> 風に挿入(Streamlit は body に置かれるが、
+# Google は body 内の meta も認識する場合がある。LP 側の本格 SEO は
+# 別途 GitHub Pages 等で対応予定)
+st.markdown(
+    """
+    <meta name="description" content="全国 47 都道府県を 9 指標(物価・地価・賃料・出生・空気質・災害・交通・治安・人口流入)で比較・診断できる地方移住検討ツール。ARIMA/Prophet による 3/5/10 年後の予測付き。個人制作のポートフォリオ作品。">
+    <meta name="keywords" content="地方移住,47都道府県,移住先,比較,診断,データ,可視化,シミュレーション,物価,地価,治安,空気質,災害リスク,予測,Streamlit">
+    <meta name="author" content="神山隆憲">
+    <meta name="robots" content="index, follow">
+    <meta name="format-detection" content="telephone=no">
+    <meta property="og:title" content="地方移住MAP|47都道府県を9指標で比較・診断 - MoveMap">
+    <meta property="og:description" content="全国 47 都道府県を 9 指標で比較・診断できる地方移住検討ツール。データドリブンで移住先を選ぶ。">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ja_JP">
+    <meta property="og:site_name" content="MoveMap">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="地方移住MAP|47都道府県を9指標で比較・診断">
+    <meta name="twitter:description" content="全国 47 都道府県を 9 指標で比較・診断できる地方移住検討ツール。">
+    """,
+    unsafe_allow_html=True,
+)
+
+# JSON-LD 構造化データ(SEO + リッチカード)
+st.markdown(
+    """
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "MoveMap",
+      "alternateName": "地方移住MAP",
+      "description": "全国 47 都道府県を 9 指標(物価・地価・賃料・出生・空気質・災害・交通・治安・人口流入)で比較・診断できる地方移住検討ツール",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web Browser",
+      "url": "https://movemap.streamlit.app/",
+      "inLanguage": "ja",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "JPY"
+      },
+      "creator": {
+        "@type": "Person",
+        "name": "神山隆憲"
+      }
+    }
+    </script>
+    """,
+    unsafe_allow_html=True,
+)
 
 # Cookie 同意バナー(INV-BIZ-007、GA4 設定時のみ) + GA4 注入(同意済みのみ)
 _ga4_id = load_config().ga4_measurement_id

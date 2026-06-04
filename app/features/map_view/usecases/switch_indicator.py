@@ -60,7 +60,7 @@ INDICATOR_UNITS: dict[IndicatorId, str] = {
     "air_quality": "(指数)",
     "disaster_risk": "(0-5)",
     "transport_access": "(0-5)",
-    "public_safety": "(件数)",
+    "public_safety": "(件/千人)",
     "net_migration": "(率‰)",
 }
 
@@ -111,12 +111,12 @@ INDICATOR_DEFINITIONS: dict[IndicatorId, dict[str, str]] = {
     },
     "public_safety": {
         "what": (
-            "刑法犯認知件数(2016年 / 都道府県別の **絶対値**)。"
-            " ⚠️ **現バージョンは絶対値のため、人口の多い東京/大阪などは数値が大きくなる傾向**。"
-            "次回更新で人口千人率に正規化予定。"
+            "刑法犯認知件数 / 人口千人(**千人率**、件/千人)。"
+            "県別認知件数を県人口で正規化することで、人口規模の差を取り除いた純粋な治安指標として比較可能。"
+            "全国平均は概ね 5〜10 件/千人。"
         ),
-        "interpret": "↓ 低いほど犯罪発生数が少ない(ただし絶対値のため都市規模の影響を含む)。",
-        "source": "e-Stat 警察庁犯罪統計 0003194949 cat01=100(認知件数 / 都道府県別)",
+        "interpret": "↓ 低いほど人口規模に対する犯罪発生数が少ない(=治安が良い)。",
+        "source": "e-Stat 警察庁犯罪統計 0003194949(認知件数)÷ 住民基本台帳人口(2020年国勢調査)",
     },
     "net_migration": {
         "what": (

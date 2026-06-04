@@ -46,6 +46,8 @@ _DISPLAY_SCALE: dict[str, tuple[float, str]] = {
     "air_quality": (1.0, "{:.0f}"),
     "disaster_risk": (1.0, "{:.2f}"),
     "transport_access": (1.0, "{:.2f}"),
+    "public_safety": (1.0, "{:.1f}"),     # 件/千人(正規化済、整数倍なしの 1 桁小数)
+    "net_migration": (1.0, "{:.2f}"),     # ‰
 }
 
 Horizon = Literal["current", "3y", "5y", "10y"]

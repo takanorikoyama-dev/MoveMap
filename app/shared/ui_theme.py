@@ -608,16 +608,26 @@ _HERO_SLIDES_LOOP = _HERO_SLIDES + [_HERO_SLIDES[0]]
 _HERO_CREDIT_HTML = 'Photos: <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a>'
 
 
+_HERO_SLIDE_LABELS = [
+    "千葉県の海岸と灯台 — 海と自然のある暮らし",
+    "鳥取砂丘 — 雄大な日本の海景",
+    "静岡県の富士山 — 日本の象徴的な山",
+    "福井県の池と森 — 静かな自然と暮らし",
+]
+
+
 def _build_hero_iframe_html() -> str:
     """`components.html` で描画する完結ヒーロー(iframe 内で JS 実行).
 
     Streamlit の st.markdown 内では <script> が実行されないため、
     iframe 描画が必須. 内部に独立 CSS + JS を持ち、本ファイル外の
-    グローバル CSS には依存しない.
+    グローバル CSS には依存しない. SEO/アクセシビリティ:各スライドに
+    role="img" + aria-label を付与.
     """
     slides_html = "".join(
-        f'<div class="slide" style="background-image: url(\'{url}\');"></div>'
-        for url in _HERO_SLIDES_LOOP
+        f'<div class="slide" role="img" aria-label="{_HERO_SLIDE_LABELS[i % len(_HERO_SLIDE_LABELS)]}" '
+        f'style="background-image: url(\'{url}\');"></div>'
+        for i, url in enumerate(_HERO_SLIDES_LOOP)
     )
     n_unique = len(_HERO_SLIDES)
     dots_html = "".join(

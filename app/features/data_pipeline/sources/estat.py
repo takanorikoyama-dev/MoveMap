@@ -37,8 +37,11 @@ INDICATOR_TO_STATS_PARAMS: dict[str, dict[str, str]] = {
     "price_index": {"statsDataId": "0003441258", "cdCat01": "00010"},
     "birth_count": {"statsDataId": "0003412062"},
     # 治安: 警察庁犯罪統計、cat01=100(認知件数). 2015-2016 年度.
-    # 値は絶対件数. UI 表示時に人口で割って千人率化することも可能だが、
-    # 現状はそのまま絶対件数として upsert(住みやすさ偏差値は相対比較なので動作する).
+    # 2026-06-03 以降は UI/seed 側で「件/千人(千人率)」として扱う.
+    # 実 API 取得時は本アダプタが絶対件数を返すため、normalize_data.py 側で
+    # 県人口(`seeds/prefecture_population.json` 等)で除算 × 1000 が必要(TODO).
+    # 当面の synthetic mode では seed.py が直接 NON_PREDICTABLE_RANGES から
+    # 千人率レンジ(全国平均約 5〜10 件/千人)で生成する.
     "public_safety": {"statsDataId": "0003194949", "cdCat01": "100"},
     # 人口流入: 住民基本台帳人口移動報告、tab=27(転入超過率), cat02=0(性別:総数).
     "net_migration": {"statsDataId": "0003443098", "cdTab": "27", "cdCat02": "0"},

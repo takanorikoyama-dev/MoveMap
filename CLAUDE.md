@@ -4,9 +4,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project context
 
-MoveMap is a personal-use tool that lets users (mainly Japanese 50-60s pre-retirement) compare all 47 prefectures across 7 indicators, with ARIMA/Prophet AI forecasts at 3/5/10-year horizons. Streamlit UI + DuckDB + monthly batch ETL from 6 public Japanese data sources. The tool is **personal/individual use only** (DEC-005) — no auth, no multi-tenant code paths.
+MoveMap is a tool that lets users (originally targeted at Japanese 50-60s pre-retirement, now broadened for portfolio use) compare all 47 prefectures across **9 indicators**, with ARIMA/Prophet AI forecasts at 3/5/10-year horizons. Streamlit UI + DuckDB + monthly batch ETL from 6 public Japanese data sources.
 
-Disclaimer (`INV-BIZ-005`) MUST always be visible on the MAP screens. Don't refactor it away.
+**DEC-016 (2026-05-30)** supersedes DEC-005: mode C (auth-less full public launch for portfolio purposes) is now permitted. Code remains auth-free. No commercial extension is planned. See `outputs/decisions/DEC-016.md`, `outputs/legal/`, and INV-BIZ-006/007/008 in `outputs/baseline.md`.
+
+Disclaimer (`INV-BIZ-005`) MUST always be visible on the MAP screens. Don't refactor it away. Also: investment/real-estate/migration-advice disclaimer (`INV-BIZ-006`), legal-link footer (`INV-BIZ-008`), and Cookie consent (`INV-BIZ-007`, conditional on analytics) are all enforced in `app/features/compliance/`.
 
 ## Common commands
 
@@ -109,8 +111,8 @@ Notable:
 
 ### Indicators
 
-- **7 indicators total**: `price_index`, `land_price`, `rent_index`, `birth_count`, `air_quality`, `disaster_risk`, `transport_access`.
-- **Only 4 are predictable** (`is_predictable=true`): the first four. The remaining three are static lookups. Don't predict on non-predictable indicators (**INV-DATA-004**). The frozenset `PREDICTABLE_INDICATORS` in `app/features/map_view/dummy.py` is the canonical list for UI; seeds/indicators.csv is the canonical DB.
+- **9 indicators total**: `price_index`, `land_price`, `rent_index`, `birth_count`, `air_quality`, `disaster_risk`, `transport_access`, `public_safety`, `net_migration`. (`public_safety` and `net_migration` added 2026-05-26.)
+- **Only 4 are predictable** (`is_predictable=true`): the first four. The remaining five (`air_quality` / `disaster_risk` / `transport_access` / `public_safety` / `net_migration`) are static lookups. Don't predict on non-predictable indicators (**INV-DATA-004**). For non-predictable indicators at future horizons, `data_provider._simple_extrapolate()` applies scenario-based extrapolation (per-prefecture trend modifiers for metro / regional-hub / rural groupings). The frozenset `PREDICTABLE_INDICATORS` in `app/features/map_view/dummy.py` is the canonical list for UI; `seeds/indicators.csv` is the canonical DB.
 
 ## Operating modes
 

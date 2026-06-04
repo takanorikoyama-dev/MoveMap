@@ -47,13 +47,14 @@ def show_prefecture_detail(prefecture_code: str) -> None:
     """
     name = PREFECTURE_NAMES.get(prefecture_code, prefecture_code)
 
-    # ヒーロー画像(あれば最上部に大きく表示。INV-BIZ-008 でクレジットをキャプション表示)
+    # ヒーロー画像(あれば最上部に大きく表示)
+    # キャプションに「県名 移住 風景 + クレジット」を入れて SEO + INV-BIZ-008 両対応
     hero = get_hero(prefecture_code)
     if hero:
         st.image(
             hero.url,
             use_container_width=True,
-            caption=credit_line(hero),
+            caption=f"{name}の風景 — {credit_line(hero)}",
         )
 
     st.subheader(f"{name}({prefecture_code})詳細")
@@ -306,7 +307,7 @@ def _format_value(indicator_id: str, val: float | None) -> str:
     if indicator_id == "air_quality":
         return f"{int(round(val))}"
     if indicator_id == "public_safety":
-        return f"{int(round(val)):,} 件"
+        return f"{val:.1f} 件/千人"
     if indicator_id == "net_migration":
         return f"{val:+.2f}‰"
     return f"{val:.2f}"

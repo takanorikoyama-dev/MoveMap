@@ -140,9 +140,11 @@ def seed_synthetic_history(con, months: int = SYNTHETIC_MONTHS) -> int:  # type:
 
 # 予測対象外指標の合成値レンジ(現在値用、demo モードで使用)
 NON_PREDICTABLE_RANGES: dict[str, float] = {
-    "air_quality": 12.0,      # PM2.5 μg/m³ の典型値
-    "disaster_risk": 3.0,     # 1〜5 スコア中央
-    "transport_access": 3.5,  # 1〜5 スコア中央
+    "air_quality": 12.0,        # PM2.5 μg/m³ の典型値
+    "disaster_risk": 3.0,       # 1〜5 スコア中央
+    "transport_access": 3.5,    # 1〜5 スコア中央
+    "public_safety": 7.0,       # 刑法犯認知件数 / 人口千人(全国平均約 5〜10/千人)
+    "net_migration": 0.0,       # 転入超過率(‰)。0 周辺で県別オフセット ±数 ‰
 }
 
 
