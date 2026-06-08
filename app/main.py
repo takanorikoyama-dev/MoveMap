@@ -71,7 +71,7 @@ st.markdown(
     """
     <meta name="description" content="全国 47 都道府県を 9 指標(物価・地価・賃料・出生・空気質・災害・交通・治安・人口流入)で比較・診断できる地方移住検討ツール。ARIMA/Prophet による 3/5/10 年後の予測付き。個人制作のポートフォリオ作品。">
     <meta name="keywords" content="地方移住,47都道府県,移住先,比較,診断,データ,可視化,シミュレーション,物価,地価,治安,空気質,災害リスク,予測,Streamlit">
-    <meta name="author" content="神山隆憲">
+    <meta name="author" content="MoveMap 開発者">
     <meta name="robots" content="index, follow">
     <meta name="format-detection" content="telephone=no">
     <meta property="og:title" content="地方移住MAP|47都道府県を9指標で比較・診断 - MoveMap">
@@ -107,7 +107,7 @@ st.markdown(
       },
       "creator": {
         "@type": "Person",
-        "name": "神山隆憲"
+        "name": "MoveMap 開発者"
       }
     }
     </script>

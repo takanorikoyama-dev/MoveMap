@@ -2,13 +2,14 @@
 
 **最終改定日**: 2026-05-30
 **制定日**: 2026-05-30
-**運営者**: 神山隆憲(個人)
+**運営者**: MoveMap 開発者(個人制作のポートフォリオ作品)
+**連絡先**: [GitHub Issue](https://github.com/takanorikoyama-dev/MoveMap/issues) にて受付
 
 ---
 
 ## 第1条(本ポリシーの目的)
 
-本ポリシーは、運営者(神山隆憲)が個人として運営するウェブアプリケーション「MoveMap」(以下「本サービス」)における、利用者の個人情報・利用情報の取扱いについて定めるものです。
+本ポリシーは、運営者(MoveMap 開発者)が個人として運営するウェブアプリケーション「MoveMap」(以下「本サービス」)における、利用者の個人情報・利用情報の取扱いについて定めるものです。運営者への連絡は GitHub Issue([https://github.com/takanorikoyama-dev/MoveMap/issues](https://github.com/takanorikoyama-dev/MoveMap/issues))にて受付けます。
 
 ## 第2条(本サービスの基本方針)
 

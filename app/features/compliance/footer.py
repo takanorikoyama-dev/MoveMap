@@ -22,7 +22,7 @@ PRIVACY_URL = "https://github.com/takanorikoyama-dev/MoveMap/blob/training/outpu
 REPO_URL = "https://github.com/takanorikoyama-dev/MoveMap"
 ISSUES_URL = "https://github.com/takanorikoyama-dev/MoveMap/issues"
 
-OPERATOR_NAME = "神山隆憲(個人)"
+OPERATOR_NAME = "MoveMap 開発者(個人制作)"
 LAST_UPDATED = "2026-05-30"
 
 FOOTER_CSS = """

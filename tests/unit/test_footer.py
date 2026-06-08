@@ -23,8 +23,8 @@ def test_footer_constants_contain_required_urls() -> None:
 
 
 def test_footer_metadata_complete() -> None:
-    """運営者・最終改定日が定義されている."""
-    assert "神山隆憲" in footer.OPERATOR_NAME
+    """運営者・最終改定日が定義されている(2026-06-05 個人特定回避のためジェネリック化)."""
+    assert "MoveMap" in footer.OPERATOR_NAME
     # 最終改定日は YYYY-MM-DD 形式
     assert len(footer.LAST_UPDATED) == 10
     assert footer.LAST_UPDATED.count("-") == 2

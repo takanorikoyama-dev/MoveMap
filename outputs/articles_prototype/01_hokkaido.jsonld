@@ -1,0 +1,21 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "北海道の移住検討ガイド — データで読み解く暮らしと魅力",
+  "image": "https://images.unsplash.com/photo-1603435580027-f30889418372?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NjYxMzN8MHwxfHNlYXJjaHwxfHxIb2trYWlkbyUyMG5hdHVyZSUyMGxhbmRzY2FwZSUyMG1vdW50YWlufGVufDF8MHx8fDE3ODAyODkyNDZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+  "datePublished": "2026-06-05",
+  "dateModified": "2026-06-05",
+  "author": {
+    "@type": "Person",
+    "name": "MoveMap 開発者"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "MoveMap"
+  },
+  "about": {
+    "@type": "Place",
+    "name": "北海道"
+  },
+  "isAccessibleForFree": true
+}
