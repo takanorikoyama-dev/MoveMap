@@ -5,13 +5,17 @@ DEC-016(2026-05-30 mode C 解禁)に伴い、UI フッターに以下を常設�
     - プライバシーポリシーへのリンク(サイト内 view)
     - お問い合わせへのリンク(サイト内 view)
     - 運営者・最終改定日表記
-    - 画像クレジット総合表記(Unsplash + Wikimedia)
 
 DEC-017(2026-06-13)で表示形態を変更:
     - 旧: 利用規約 / プライバシー → GitHub の blob/training/outputs/legal/*.md を新タブで開く
     - 新: サイト内 view(?view=terms / ?view=privacy / ?view=contact)に遷移
     - 旧: GitHub リポジトリリンクをフッターに表示
     - 新: 削除(ポートフォリオ訪問者の UX を優先、技術者層は README 等から到達可能)
+
+DEC-018(2026-06-13)で全クレジットリンクを削除:
+    - 旧: フッター末尾に画像クレジット一覧 markdown への外部リンク
+    - 新: 削除(47 県全て Unsplash License で帰属表示は任意。
+           個別画像近くの Photo: クレジット表記は維持されるため情報損失なし)
 
 INV-BIZ-008: mode C 公開時、UI フッターから利用規約・プライバシーポリシーへの導線を必ず提供
     → 本変更後も導線は維持(リンク先がサイト内に変わるだけで、要件は満たす)
@@ -20,8 +24,6 @@ INV-BIZ-008: mode C 公開時、UI フッターから利用規約・プライバ
 from __future__ import annotations
 
 import streamlit as st
-
-from app.features.map_view.images import all_credits_summary
 
 # 法務文書(outputs/legal/ 配下が正典)— サイト内 view として表示
 # DEC-017(2026-06-13): GitHub URL からサイト内 query_params へ変更.
@@ -62,17 +64,6 @@ FOOTER_CSS = """
 def render() -> None:
     """法務リンク・運営者情報を常時表示するフッター(INV-BIZ-008)."""
     st.markdown(FOOTER_CSS, unsafe_allow_html=True)
-    photo_credit_html = all_credits_summary()
-    # Markdown のリンクを HTML <a> に簡易変換(footer は raw HTML 表示なので)
-    if photo_credit_html:
-        import re
-
-        photo_credit_html = re.sub(
-            r"\[([^\]]+)\]\(([^)]+)\)",
-            r'<a href="\2" target="_blank">\1</a>',
-            photo_credit_html,
-        )
-        photo_credit_html = f"<br>{photo_credit_html}"
     # サイト内 view への遷移は target を指定しない(同窓内で query_params 切替).
     st.markdown(
         f"""
@@ -85,7 +76,7 @@ def render() -> None:
   <div class="movemap-footer-meta">
     MoveMap — 地方移住MAP(個人制作のポートフォリオ、商用ではありません)<br>
     運営者: {OPERATOR_NAME} / 最終改定日: {LAST_UPDATED}<br>
-    本ツールは投資助言・不動産取引助言・移住助言ではありません。詳細は利用規約をご確認ください。{photo_credit_html}
+    本ツールは投資助言・不動産取引助言・移住助言ではありません。詳細は利用規約をご確認ください。
   </div>
 </div>
 """,

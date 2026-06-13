@@ -92,6 +92,10 @@ def test_app_footer_links_point_to_internal_views() -> None:
     assert "github.com/takanorikoyama-dev/MoveMap\"" not in md_html, (
         "GitHub リポジトリリンクは DEC-017 で削除されているはず"
     )
+    # DEC-018: 全クレジット導線(seeds/image_credits.md)もフッターから削除
+    assert "seeds/image_credits.md" not in md_html, (
+        "DEC-018 で全クレジット導線は削除済み(個別画像近くの Photo: 表記は維持)"
+    )
 
 
 @pytest.mark.parametrize("view_name", ["terms", "privacy", "contact"])
