@@ -1,0 +1,37 @@
+name: Keep MoveMap awake
+
+# Streamlit Community Cloud の "7 日間無アクセスでスリープ" を防ぐため
+# 6 時間に 1 回 https://movemap.streamlit.app/ に HTTP GET を投げる.
+#
+# - ステータスコードと応答時間のみログに残す(本文は /dev/null へ捨てる)
+# - 失敗(非 2xx / タイムアウト)時は workflow が赤くなり GitHub から通知される
+# - workflow_dispatch で手動 trigger 可能
+#
+# 参照:
+#   - DEC-016 mode C 公開
+#   - INV-BIZ-008 公開デモの可用性維持
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"   # 6 時間毎(UTC)= 0, 6, 12, 18 時 UTC = 9, 15, 21, 3 時 JST
+  workflow_dispatch:         # Actions タブから手動実行も可
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Ping movemap.streamlit.app
+        run: |
+          set -euo pipefail
+          URL="https://movemap.streamlit.app/"
+          echo "Pinging ${URL} ..."
+          curl --fail-with-body \
+               --location \
+               --max-time 60 \
+               --retry 2 \
+               --retry-delay 10 \
+               --silent --show-error \
+               --output /dev/null \
+               --write-out "HTTP %{http_code} (%{time_total}s) — %{url_effective}\n" \
+               "${URL}"
