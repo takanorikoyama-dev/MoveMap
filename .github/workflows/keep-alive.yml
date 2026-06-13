@@ -25,13 +25,22 @@ jobs:
         run: |
           set -euo pipefail
           URL="https://movemap.streamlit.app/"
+          UA="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36"
+          COOKIE_JAR="$(mktemp)"
           echo "Pinging ${URL} ..."
+          # Streamlit Cloud は最初のリクエストで /-/login にリダイレクトし
+          # セッション Cookie を発行する. Cookie jar を持たないクライアント
+          # (default curl)は無限リダイレクトに陥るため -b/-c で有効化する.
           curl --fail-with-body \
                --location \
+               --max-redirs 20 \
                --max-time 60 \
                --retry 2 \
                --retry-delay 10 \
                --silent --show-error \
+               --cookie-jar "${COOKIE_JAR}" \
+               --cookie    "${COOKIE_JAR}" \
+               --user-agent "${UA}" \
                --output /dev/null \
                --write-out "HTTP %{http_code} (%{time_total}s) — %{url_effective}\n" \
                "${URL}"
