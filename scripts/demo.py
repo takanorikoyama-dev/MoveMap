@@ -36,7 +36,6 @@ def _step_seed(synthetic: bool = True) -> None:
 
 
 def _step_geojson() -> None:
-    from pathlib import Path
 
     from app.shared.config import PROJECT_ROOT
 

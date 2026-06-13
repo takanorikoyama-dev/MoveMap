@@ -184,12 +184,12 @@ class HistoryProtectedConnection:
     def __init__(self, con: duckdb.DuckDBPyConnection) -> None:
         self._con = con
 
-    def execute(self, query: str, *args: Any, **kwargs: Any) -> "HistoryProtectedConnection":
+    def execute(self, query: str, *args: Any, **kwargs: Any) -> HistoryProtectedConnection:
         _assert_history_immutable(query)
         self._con.execute(query, *args, **kwargs)
         return self
 
-    def executemany(self, query: str, *args: Any, **kwargs: Any) -> "HistoryProtectedConnection":
+    def executemany(self, query: str, *args: Any, **kwargs: Any) -> HistoryProtectedConnection:
         _assert_history_immutable(query)
         self._con.executemany(query, *args, **kwargs)
         return self
@@ -197,7 +197,7 @@ class HistoryProtectedConnection:
     def close(self) -> None:
         self._con.close()
 
-    def __enter__(self) -> "HistoryProtectedConnection":
+    def __enter__(self) -> HistoryProtectedConnection:
         return self
 
     def __exit__(self, *_exc: Any) -> None:

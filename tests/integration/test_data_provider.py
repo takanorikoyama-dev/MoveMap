@@ -5,7 +5,6 @@ DB 存在/空/データあり の 3 ケースで fallback 挙動を検証.
 
 from __future__ import annotations
 
-from datetime import date
 from pathlib import Path
 
 import duckdb

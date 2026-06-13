@@ -12,6 +12,7 @@ from __future__ import annotations
 import json
 import os
 from collections.abc import Iterator
+from datetime import UTC
 from pathlib import Path
 from typing import Any
 
@@ -50,9 +51,9 @@ class GsiHazardAdapter(DataSourceAdapter):
 
     def last_updated(self) -> str | None:
         if self.score_path.exists():
-            from datetime import datetime, timezone
+            from datetime import datetime
 
-            return datetime.fromtimestamp(self.score_path.stat().st_mtime, tz=timezone.utc).isoformat()
+            return datetime.fromtimestamp(self.score_path.stat().st_mtime, tz=UTC).isoformat()
         return head_last_modified(self.score_url)
 
     def _load_local(self) -> Any | None:

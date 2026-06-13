@@ -214,7 +214,7 @@ def values_for(indicator_id: str, horizon: Horizon) -> ValueWithMeta:
                 """,
                 [indicator_id],
             ).fetchall()
-            values: dict[str, float | None] = {code: None for code in PREF_CODES}
+            values: dict[str, float | None] = dict.fromkeys(PREF_CODES)
             latest: datetime | None = None
             for code, value, updated_at in rows:
                 values[code] = float(value) if value is not None else None
@@ -241,7 +241,7 @@ def values_for(indicator_id: str, horizon: Horizon) -> ValueWithMeta:
                     [indicator_id],
                 ).fetchall()
                 years_inherit = HORIZON_TO_YEARS[horizon]
-                values_inherit: dict[str, float | None] = {code: None for code in PREF_CODES}
+                values_inherit: dict[str, float | None] = dict.fromkeys(PREF_CODES)
                 latest_inherit: datetime | None = None
                 use_extrapolation = (
                     indicator_id in _SIMPLE_FORECAST_RATES or indicator_id == "net_migration"
@@ -273,7 +273,7 @@ def values_for(indicator_id: str, horizon: Horizon) -> ValueWithMeta:
                     )
             # current_values も空なら従来通り全 None
             return ValueWithMeta(
-                values={code: None for code in PREF_CODES},
+                values=dict.fromkeys(PREF_CODES),
                 availability=DataAvailability(source="db", note="この指標は予測対象外"),
             )
 
@@ -288,7 +288,7 @@ def values_for(indicator_id: str, horizon: Horizon) -> ValueWithMeta:
         ).fetchall()
         # predicted_values が完全に空でも、予測対象指標は現在値 × 県別年率で補完できる
         # サンプル DB 等(run_batch.py 未実行)の初期状態でも UI に値を出すための救済策
-        result: dict[str, float | None] = {code: None for code in PREF_CODES}
+        result: dict[str, float | None] = dict.fromkeys(PREF_CODES)
         latest = None
         no_prediction_codes: list[str] = []
         filled_codes: set[str] = set()
@@ -379,7 +379,7 @@ def values_for_all_indicators(
             return {ind: dummy_values_for(ind, horizon) for ind in indicator_ids}
 
         result: dict[str, dict[str, float | None]] = {
-            ind: {code: None for code in PREF_CODES} for ind in indicator_ids
+            ind: dict.fromkeys(PREF_CODES) for ind in indicator_ids
         }
 
         if horizon == "current":
@@ -510,7 +510,7 @@ def prefecture_full_table(prefecture_code: str) -> dict[str, dict[Horizon, float
     )
 
     # 初期化(全 None)
-    table: dict[str, dict[Horizon, float | None]] = {ind: {h: None for h in horizons} for ind in indicators}
+    table: dict[str, dict[Horizon, float | None]] = {ind: dict.fromkeys(horizons) for ind in indicators}
 
     con = _try_connect_readonly()
     db_has_current = False

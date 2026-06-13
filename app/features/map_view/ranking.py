@@ -25,7 +25,6 @@ from dataclasses import dataclass
 from typing import Literal
 
 from app.features.map_view.data_provider import values_for_all_indicators
-from app.features.map_view.usecases.switch_indicator import INDICATOR_LABELS
 
 # 値の方向(住みやすさ観点)
 HIGHER_IS_BETTER: frozenset[str] = frozenset(

@@ -8,7 +8,6 @@
 from __future__ import annotations
 
 import sys
-from pathlib import Path
 
 from app.shared.config import PROJECT_ROOT
 from app.shared.http_client import HttpRetryExhausted, get_json

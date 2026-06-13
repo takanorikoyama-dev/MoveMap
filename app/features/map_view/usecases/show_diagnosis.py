@@ -75,7 +75,7 @@ def _compute_weights(answers: DiagnosisAnswers) -> dict[IndicatorId, float]:
         - 家族構成 / 働き方 / 予算 / 避けたい / 優先項目 ごとに +10〜+40
         - 最後に min(100, weight) でクリップ
     """
-    weights: dict[IndicatorId, float] = {ind: 30.0 for ind in ALL_INDICATORS}  # type: ignore[misc]
+    weights: dict[IndicatorId, float] = dict.fromkeys(ALL_INDICATORS, 30.0)  # type: ignore[misc]
 
     # 家族構成
     if answers.family == "family":
@@ -307,27 +307,26 @@ def show_diagnosis(horizon: Horizon = "current") -> None:
     medal_icons = ["🥇", "🥈", "🥉"]
     rec_cols = st.columns(3)
     for i, r in enumerate(top3):
-        with rec_cols[i]:
-            with st.container(border=True):
-                st.markdown(f"### {medal_icons[i]} {r.prefecture_name}")
-                st.caption(f"地方: {region_of(r.prefecture_code)} ｜ コード: {r.prefecture_code}")
-                st.metric(
-                    label="住みやすさスコア",
-                    value=f"{r.composite_score:.1f}" if r.composite_score is not None else "—",
-                    delta=stars_to_unicode(r.stars),
-                )
-                # 上位 3 観点のスコア
-                ind_scores = [
-                    (ind, r.per_indicator_score[ind])
-                    for ind in ALL_INDICATORS
-                    if r.per_indicator_score[ind] is not None
-                ]
-                ind_scores.sort(key=lambda kv: kv[1] or 0, reverse=True)
-                st.markdown("**得意な観点(上位3):**")
-                for ind, sc in ind_scores[:3]:
-                    icon = INDICATOR_ICONS.get(ind, "")  # type: ignore[arg-type]
-                    label = INDICATOR_LABELS.get(ind, ind)  # type: ignore[arg-type]
-                    st.markdown(f"- {icon} {label}: **{sc:.0f}**")
+        with rec_cols[i], st.container(border=True):
+            st.markdown(f"### {medal_icons[i]} {r.prefecture_name}")
+            st.caption(f"地方: {region_of(r.prefecture_code)} ｜ コード: {r.prefecture_code}")
+            st.metric(
+                label="住みやすさスコア",
+                value=f"{r.composite_score:.1f}" if r.composite_score is not None else "—",
+                delta=stars_to_unicode(r.stars),
+            )
+            # 上位 3 観点のスコア
+            ind_scores = [
+                (ind, r.per_indicator_score[ind])
+                for ind in ALL_INDICATORS
+                if r.per_indicator_score[ind] is not None
+            ]
+            ind_scores.sort(key=lambda kv: kv[1] or 0, reverse=True)
+            st.markdown("**得意な観点(上位3):**")
+            for ind, sc in ind_scores[:3]:
+                icon = INDICATOR_ICONS.get(ind, "")  # type: ignore[arg-type]
+                label = INDICATOR_LABELS.get(ind, ind)  # type: ignore[arg-type]
+                st.markdown(f"- {icon} {label}: **{sc:.0f}**")
 
     st.info(
         "💡 もっと細かく見るには **🏆 ランキング** タブを開いてください。"

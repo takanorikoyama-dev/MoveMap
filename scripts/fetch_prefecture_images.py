@@ -365,7 +365,7 @@ def save_html_preview(records: dict[str, dict[str, Any]]) -> None:
                 for g in gallery
             )
 
-        html.append(f'<article class="card">')
+        html.append('<article class="card">')
         if hero_url:
             html.append(
                 f'<a href="{hero_url}" target="_blank">'

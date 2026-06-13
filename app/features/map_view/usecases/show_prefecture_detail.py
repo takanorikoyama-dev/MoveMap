@@ -97,17 +97,16 @@ def _render_municipality_section(prefecture_code: str, prefecture_name: str) -> 
     # まず上段に「サムネ + 名前」のコンパクトな 5 枚カード
     thumb_cols = st.columns(len(municipalities))
     for col, m in zip(thumb_cols, municipalities):
-        with col:
-            with st.container(border=True):
-                info = _cached_wiki_info(m["wiki_title"])
-                if info and info.image_url:
-                    st.image(info.image_url, use_container_width=True)
-                else:
-                    st.markdown("📷 *(画像なし)*")
-                st.markdown(f"**{m['name']}**")
-                if info and info.extract:
-                    text = info.extract[:80] + ("…" if len(info.extract) > 80 else "")
-                    st.caption(text)
+        with col, st.container(border=True):
+            info = _cached_wiki_info(m["wiki_title"])
+            if info and info.image_url:
+                st.image(info.image_url, use_container_width=True)
+            else:
+                st.markdown("📷 *(画像なし)*")
+            st.markdown(f"**{m['name']}**")
+            if info and info.extract:
+                text = info.extract[:80] + ("…" if len(info.extract) > 80 else "")
+                st.caption(text)
 
     # 下段に「もっと見る」展開エリア(全市区町村が縦に並ぶ)
     st.markdown("#### 📖 詳しく見る(クリックで展開)")

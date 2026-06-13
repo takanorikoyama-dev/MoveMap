@@ -43,7 +43,6 @@ from app.features.map_view.usecases.show_prefecture_detail import (  # noqa: E40
     PREFECTURE_NAMES,
 )
 from app.features.map_view.usecases.switch_indicator import (  # noqa: E402
-    INDICATOR_DEFINITIONS,
     INDICATOR_LABELS,
     INDICATOR_UNITS,
 )
@@ -622,7 +621,7 @@ def main() -> int:
     data = collect_pref_data(TARGET_PREF_CODE)
     print(f"  Wiki 概要: {len(data['wiki_extract'])} 字")
     print(f"  ヒーロー画像: {data['hero_image_url'][:80] if data['hero_image_url'] else '(なし)'}")
-    print(f"  9 指標数値:")
+    print("  9 指標数値:")
     for ind, d in data["indicators"].items():
         print(f"    {d['label']}: {_format_value(ind, d['value'])} (順位 {d['rank']})")
 
@@ -657,7 +656,7 @@ def main() -> int:
     )
     print(f"  JSON-LD: {json_ld_path}")
 
-    print(f"\n=== 完了 ===")
+    print("\n=== 完了 ===")
     print(f"プレビュー URL: file:///{html_path.as_posix()}")
     return 0
 
