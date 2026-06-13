@@ -17,7 +17,7 @@ AppTest = streamlit_testing.AppTest
 APP_PATH = Path(__file__).resolve().parents[2] / "app" / "main.py"
 
 
-def _new_app() -> "AppTest":
+def _new_app() -> AppTest:
     # 6 タブの初期描画で compute_ranking が複数回走るため余裕を持って 90 秒
     return AppTest.from_file(str(APP_PATH), default_timeout=90)
 
@@ -72,3 +72,35 @@ def test_app_home_view_has_section_banners() -> None:
     assert expected_keys.issubset(button_keys), (
         f"バナーボタンが揃っていない: 期待 {expected_keys} / 実際 {button_keys}"
     )
+
+
+def test_app_footer_links_point_to_internal_views() -> None:
+    """INV-BIZ-008 + DEC-017: フッターの法務リンクがサイト内 view を指している.
+
+    旧実装(GitHub の blob/training/outputs/legal/*.md)から、
+    `?view=terms` / `?view=privacy` / `?view=contact` のサイト内遷移に変更.
+    GitHub リポジトリリンクはフッターから削除済.
+    """
+    at = _new_app()
+    at.run()
+    md_html = " ".join(el.value for el in at.markdown if hasattr(el, "value"))
+    # サイト内 view への 3 リンクが存在
+    assert "?view=terms" in md_html, "利用規約のサイト内 view リンクが見つからない"
+    assert "?view=privacy" in md_html, "プライバシーポリシーのサイト内 view リンクが見つからない"
+    assert "?view=contact" in md_html, "お問い合わせのサイト内 view リンクが見つからない"
+    # GitHub リポジトリへの直接リンクは削除されている
+    assert "github.com/takanorikoyama-dev/MoveMap\"" not in md_html, (
+        "GitHub リポジトリリンクは DEC-017 で削除されているはず"
+    )
+
+
+@pytest.mark.parametrize("view_name", ["terms", "privacy", "contact"])
+def test_legal_views_render_without_errors(view_name: str) -> None:
+    """法務系 3 view が ?view=KEY で開いた時に例外なく描画される(DEC-017)."""
+    at = _new_app()
+    at.query_params["view"] = view_name
+    at.run()
+    assert not at.exception, f"view={view_name} で例外: {at.exception}"
+    # 各 view の冒頭にタイトル相当の h1/markdown が出ている(空ページではない)
+    md_texts = " ".join(el.value for el in at.markdown if hasattr(el, "value"))
+    assert len(md_texts) > 100, f"view={view_name} の描画が空に近い"

@@ -1,13 +1,20 @@
 """フッター — INV-BIZ-008(DEC-016 派生)を担保する法務リンク導線.
 
 DEC-016(2026-05-30 mode C 解禁)に伴い、UI フッターに以下を常設表示する:
-    - 利用規約へのリンク(outputs/legal/terms.md の要旨)
-    - プライバシーポリシーへのリンク(outputs/legal/privacy_policy.md の要旨)
-    - GitHub リポジトリリンク(お問い合わせ窓口)
+    - 利用規約へのリンク(サイト内 view)
+    - プライバシーポリシーへのリンク(サイト内 view)
+    - お問い合わせへのリンク(サイト内 view)
     - 運営者・最終改定日表記
     - 画像クレジット総合表記(Unsplash + Wikimedia)
 
+DEC-017(2026-06-13)で表示形態を変更:
+    - 旧: 利用規約 / プライバシー → GitHub の blob/training/outputs/legal/*.md を新タブで開く
+    - 新: サイト内 view(?view=terms / ?view=privacy / ?view=contact)に遷移
+    - 旧: GitHub リポジトリリンクをフッターに表示
+    - 新: 削除(ポートフォリオ訪問者の UX を優先、技術者層は README 等から到達可能)
+
 INV-BIZ-008: mode C 公開時、UI フッターから利用規約・プライバシーポリシーへの導線を必ず提供
+    → 本変更後も導線は維持(リンク先がサイト内に変わるだけで、要件は満たす)
 """
 
 from __future__ import annotations
@@ -16,14 +23,15 @@ import streamlit as st
 
 from app.features.map_view.images import all_credits_summary
 
-# 法務文書(outputs/legal/ 配下の正典)— GitHub training ブランチ上で公開閲覧可能
-TERMS_URL = "https://github.com/takanorikoyama-dev/MoveMap/blob/training/outputs/legal/terms.md"
-PRIVACY_URL = "https://github.com/takanorikoyama-dev/MoveMap/blob/training/outputs/legal/privacy_policy.md"
-REPO_URL = "https://github.com/takanorikoyama-dev/MoveMap"
-ISSUES_URL = "https://github.com/takanorikoyama-dev/MoveMap/issues"
+# 法務文書(outputs/legal/ 配下が正典)— サイト内 view として表示
+# DEC-017(2026-06-13): GitHub URL からサイト内 query_params へ変更.
+TERMS_URL = "?view=terms"
+PRIVACY_URL = "?view=privacy"
+ISSUES_URL = "?view=contact"
+# REPO_URL は DEC-017 で削除(ポートフォリオ訪問者向けに UI ノイズを減らす).
 
 OPERATOR_NAME = "MoveMap 開発者(個人制作)"
-LAST_UPDATED = "2026-05-30"
+LAST_UPDATED = "2026-06-13"
 
 FOOTER_CSS = """
 <style>
@@ -65,14 +73,14 @@ def render() -> None:
             photo_credit_html,
         )
         photo_credit_html = f"<br>{photo_credit_html}"
+    # サイト内 view への遷移は target を指定しない(同窓内で query_params 切替).
     st.markdown(
         f"""
 <div class="movemap-footer" id="footer-legal">
   <div class="movemap-footer-links">
-    📋 <a href="{TERMS_URL}" target="_blank" id="footer-legal-terms">利用規約</a>
-    🔒 <a href="{PRIVACY_URL}" target="_blank" id="footer-legal-privacy">プライバシーポリシー</a>
-    🐙 <a href="{REPO_URL}" target="_blank">GitHub リポジトリ</a>
-    💬 <a href="{ISSUES_URL}" target="_blank">お問い合わせ(GitHub Issue)</a>
+    📋 <a href="{TERMS_URL}" id="footer-legal-terms">利用規約</a>
+    🔒 <a href="{PRIVACY_URL}" id="footer-legal-privacy">プライバシーポリシー</a>
+    💬 <a href="{ISSUES_URL}" id="footer-legal-contact">お問い合わせ</a>
   </div>
   <div class="movemap-footer-meta">
     MoveMap — 地方移住MAP(個人制作のポートフォリオ、商用ではありません)<br>

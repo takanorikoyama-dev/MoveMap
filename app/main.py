@@ -15,6 +15,7 @@ import streamlit as st
 from app.features.compliance.cookie_consent import render_consent_banner
 from app.features.compliance.disclaimer import render as render_disclaimer
 from app.features.compliance.footer import render as render_footer
+from app.features.compliance.legal_pages import show_contact, show_privacy, show_terms
 from app.features.compliance.show_data_sources import show_data_sources
 from app.features.map_view.usecases.show_comparison import show_comparison
 from app.features.map_view.usecases.show_diagnosis import show_diagnosis
@@ -28,6 +29,8 @@ from app.features.map_view.usecases.show_ranking import show_ranking
 from app.features.map_view.usecases.switch_horizon import HORIZON_LABELS
 from app.features.map_view.usecases.switch_indicator import (
     INDICATOR_LABELS,
+)
+from app.features.map_view.usecases.switch_indicator import (
     labeled as indicator_labeled,
 )
 from app.shared.bootstrap import ensure_db_initialized
@@ -124,7 +127,10 @@ if render_consent_banner(_ga4_id):
 # ====================================================
 # View Router(session_state 主導、URL は補助同期)
 # ====================================================
-_VALID_VIEWS = ("home",) + SECTION_KEYS
+# 法務関連の特別 view(diagnosis 等と同様に indicator/horizon を持たない単純ページ)
+# DEC-017(2026-06-13): フッターの法務リンクをサイト内 view 化する一環で追加.
+_LEGAL_VIEWS = ("terms", "privacy", "contact")
+_VALID_VIEWS = ("home",) + SECTION_KEYS + _LEGAL_VIEWS
 
 # URL クエリ ?view=KEY を毎回 session_state に同期.
 # ・?view=KEY (valid)            → KEY をアクティブに
@@ -231,6 +237,16 @@ else:
     # 診断 — indicator/horizon に依存しない
     if view == "diagnosis":
         show_diagnosis("current")
+
+    # 法務系 view(terms / privacy / contact)— indicator/horizon に依存しない単純ページ
+    # DEC-017(2026-06-13)に伴い追加.
+    elif view in _LEGAL_VIEWS:
+        if view == "terms":
+            show_terms()
+        elif view == "privacy":
+            show_privacy()
+        elif view == "contact":
+            show_contact()
 
     # 地図 / 順位 / 比較 / 詳細 / AI根拠 — indicator/horizon が必要
     else:
