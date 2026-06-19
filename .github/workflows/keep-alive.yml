@@ -43,7 +43,7 @@ jobs:
           npm install --save-dev playwright@^1.49
           npx playwright install --with-deps chromium
 
-      - name: Visit MoveMap and hold Streamlit session
+      - name: Visit MoveMap, wake if sleeping, hold session
         run: |
           cat > visit.js <<'JSEOF'
           const { chromium } = require('playwright');
@@ -61,25 +61,69 @@ jobs:
             console.log(`Navigating to ${URL} ...`);
             await page.goto(URL, { waitUntil: 'networkidle', timeout: 90000 });
 
-            console.log('Initial load complete. Waiting for Streamlit container...');
-            try {
-              await page.waitForSelector(
-                '[data-testid="stApp"], [data-testid="stAppViewContainer"], [data-testid="stMain"], iframe',
-                { timeout: 60000 }
-              );
-              console.log('Streamlit container detected — WebSocket session likely established.');
-            } catch (e) {
-              console.log('No explicit Streamlit selector seen; continuing.');
+            // ─── Step 1: Detect Streamlit Cloud sleep screen ──────────────
+            // スリープ時は "Zzzz" + "Yes, get this app back up!" ボタンが
+            // 表示される. ボタンをクリックして本体起動を促す.
+            const wakeBtn = page.locator(
+              'button:has-text("Yes, get this app back up"), ' +
+              'button:has-text("get this app back up"), ' +
+              'button:has-text("wake")'
+            );
+            const wakeBtnCount = await wakeBtn.count();
+            if (wakeBtnCount > 0) {
+              console.log('💤 SLEEP PAGE DETECTED. Clicking wake-up button...');
+              await wakeBtn.first().click();
+              console.log('Wake button clicked. Cold boot in progress (Prophet/ARIMA may take time)...');
+
+              // ─── Step 2: Wait for cold boot to complete ───────────────
+              // 最大 120 秒待機(prophet コンパイル等で時間がかかる).
+              // "Zzzz" / "back up" 文言が消えた = ブート完了.
+              try {
+                await page.waitForFunction(
+                  () => {
+                    const t = document.body ? document.body.textContent || '' : '';
+                    return !t.includes('Zzzz') && !t.includes('back up');
+                  },
+                  { timeout: 120000 }
+                );
+                console.log('✅ Cold boot completed. Streamlit app responding.');
+              } catch (e) {
+                console.log('⚠️ Cold boot may not have completed in 120s; continuing anyway.');
+              }
+            } else {
+              console.log('App appears to be already running (no sleep screen).');
             }
 
-            // WebSocket セッションを安定させるため 20 秒滞在
-            await page.waitForTimeout(20000);
+            // ─── Step 3: Wait for Streamlit container ─────────────────
+            try {
+              await page.waitForSelector(
+                '[data-testid="stApp"], [data-testid="stAppViewContainer"], [data-testid="stMain"]',
+                { timeout: 30000 }
+              );
+              console.log('Streamlit container rendered.');
+            } catch (e) {
+              console.log('Streamlit container not detected, continuing.');
+            }
 
+            // ─── Step 4: Hold session for activity counter ───────────
+            // WebSocket を 25 秒保持し活動として計上させる.
+            await page.waitForTimeout(25000);
+
+            // ─── Step 5: Verify and screenshot ────────────────────────
             await page.screenshot({ path: 'keep-alive.png', fullPage: false });
             const title = await page.title();
-            console.log(`OK — held session ~20s. Final title: "${title}"`);
+            const bodyText = await page.evaluate(() => document.body.textContent || '');
+            const isStillSleeping = bodyText.includes('Zzzz') || bodyText.includes('back up');
+            console.log(`Final title: "${title}"`);
+            console.log(`Is still on sleep page: ${isStillSleeping}`);
 
             await browser.close();
+
+            // スリープ画面のままなら失敗扱い(GitHub Actions が赤くなる).
+            if (isStillSleeping) {
+              console.error('FAILED: Still on sleep page after wake attempt.');
+              process.exit(1);
+            }
           })().catch((err) => {
             console.error('FAILED:', err);
             process.exit(1);
