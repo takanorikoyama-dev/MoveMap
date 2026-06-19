@@ -1,17 +1,22 @@
 name: Keep MoveMap awake
 
-# Streamlit Community Cloud の "無アクセスでスリープ" を防ぐため
-# 3 時間に 1 回 https://movemap.streamlit.app/ に HTTP GET を投げる.
+# Streamlit Community Cloud のスリープ防止(Playwright 版).
 #
-# - ステータスコードと応答時間のみログに残す(本文は /dev/null へ捨てる)
-# - 失敗(非 2xx / タイムアウト)時は workflow が赤くなり GitHub から通知される
-# - workflow_dispatch で手動 trigger 可能
+# Streamlit Cloud のドメインはすべての HTTP リクエストに React フロントエンドの
+# shell HTML を 200 で返す SPA 構成のため、curl の HTTP GET / HEAD は Streamlit
+# 本体に到達せず "活動カウンタ" を増やさない. ヘッドレス Chromium で実際にアプリ
+# を訪問し、JS 実行と WebSocket セッション確立まで完遂させることで初めて
+# Streamlit 側の活動として認識される.
 #
 # 履歴:
-#   - 2026-06-13: 6 時間毎で開始
-#   - 2026-06-15: 3 時間毎に短縮(6h cron の実態は ±30 分ドリフトで 7h 超になり、
-#                  新規アプリ・低トラフィック時の Cloud 側活動カウンタが切れた).
-#                  UptimeRobot との二重監視で運用.
+#   - 2026-06-13: 6 時間毎 curl HEAD で開始
+#   - 2026-06-15: 3 時間毎に短縮 + UptimeRobot 5 分二重監視
+#   - 2026-06-19: それでも眠るため Playwright (Chromium) に切替.
+#                  根本原因 = HTTP ping は SPA shell しか返らない(/_stcore/health
+#                  も同じ shell を返すと判明).
+#
+# 副産物: 訪問成功時のスクリーンショットを artifact として 7 日保存.
+#         視覚的死活監視として参照できる.
 #
 # 参照:
 #   - DEC-016 mode C 公開
@@ -19,35 +24,74 @@ name: Keep MoveMap awake
 
 on:
   schedule:
-    - cron: "0 */3 * * *"   # 3 時間毎(UTC)= 0, 3, 6, 9, 12, 15, 18, 21 時 UTC
-                            # JST だと 9, 12, 15, 18, 21, 0, 3, 6 時
-  workflow_dispatch:         # Actions タブから手動実行も可
+    - cron: "0 */2 * * *"   # 2 時間毎(UTC)
+  workflow_dispatch:
 
 jobs:
-  ping:
+  visit:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 6
     steps:
-      - name: Ping movemap.streamlit.app
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install Playwright (Chromium only)
         run: |
-          set -euo pipefail
-          URL="https://movemap.streamlit.app/"
-          UA="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36"
-          COOKIE_JAR="$(mktemp)"
-          echo "Pinging ${URL} ..."
-          # Streamlit Cloud は最初のリクエストで /-/login にリダイレクトし
-          # セッション Cookie を発行する. Cookie jar を持たないクライアント
-          # (default curl)は無限リダイレクトに陥るため -b/-c で有効化する.
-          curl --fail-with-body \
-               --location \
-               --max-redirs 20 \
-               --max-time 60 \
-               --retry 2 \
-               --retry-delay 10 \
-               --silent --show-error \
-               --cookie-jar "${COOKIE_JAR}" \
-               --cookie    "${COOKIE_JAR}" \
-               --user-agent "${UA}" \
-               --output /dev/null \
-               --write-out "HTTP %{http_code} (%{time_total}s) — %{url_effective}\n" \
-               "${URL}"
+          npm init -y
+          npm install --save-dev playwright@^1.49
+          npx playwright install --with-deps chromium
+
+      - name: Visit MoveMap and hold Streamlit session
+        run: |
+          cat > visit.js <<'JSEOF'
+          const { chromium } = require('playwright');
+          (async () => {
+            const browser = await chromium.launch({ args: ['--no-sandbox'] });
+            const ctx = await browser.newContext({
+              userAgent:
+                'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 ' +
+                '(KHTML, like Gecko) Chrome/120.0 Safari/537.36',
+              viewport: { width: 1280, height: 800 },
+            });
+            const page = await ctx.newPage();
+
+            const URL = 'https://movemap.streamlit.app/';
+            console.log(`Navigating to ${URL} ...`);
+            await page.goto(URL, { waitUntil: 'networkidle', timeout: 90000 });
+
+            console.log('Initial load complete. Waiting for Streamlit container...');
+            try {
+              await page.waitForSelector(
+                '[data-testid="stApp"], [data-testid="stAppViewContainer"], [data-testid="stMain"], iframe',
+                { timeout: 60000 }
+              );
+              console.log('Streamlit container detected — WebSocket session likely established.');
+            } catch (e) {
+              console.log('No explicit Streamlit selector seen; continuing.');
+            }
+
+            // WebSocket セッションを安定させるため 20 秒滞在
+            await page.waitForTimeout(20000);
+
+            await page.screenshot({ path: 'keep-alive.png', fullPage: false });
+            const title = await page.title();
+            console.log(`OK — held session ~20s. Final title: "${title}"`);
+
+            await browser.close();
+          })().catch((err) => {
+            console.error('FAILED:', err);
+            process.exit(1);
+          });
+          JSEOF
+          node visit.js
+
+      - name: Upload screenshot artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: keep-alive-screenshot
+          path: keep-alive.png
+          retention-days: 7
+          if-no-files-found: ignore
