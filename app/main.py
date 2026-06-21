@@ -16,6 +16,11 @@ from app.features.compliance.cookie_consent import render_consent_banner
 from app.features.compliance.disclaimer import render as render_disclaimer
 from app.features.compliance.footer import render as render_footer
 from app.features.compliance.legal_pages import show_contact, show_privacy, show_terms
+from app.features.compliance.seo_meta import (
+    VIEW_METADATA,
+    build_meta_html,
+    get_metadata,
+)
 from app.features.compliance.show_data_sources import show_data_sources
 from app.features.map_view.usecases.show_comparison import show_comparison
 from app.features.map_view.usecases.show_diagnosis import show_diagnosis
@@ -47,9 +52,28 @@ from app.shared.ui_theme import (
 # ephemeral 環境(Streamlit Cloud)で DB が無ければ自動初期化
 ensure_db_initialized()
 
+
+# ====================================================
+# View 判定 (set_page_config 前に query_params を読む)
+# T1-08: view ごとに動的な page_title を発行するため.
+# st.query_params の読み取りは Streamlit "コマンド" ではないため
+# set_page_config より前でも問題なく動作する.
+# ====================================================
+def _detect_view_for_seo() -> str:
+    """SEO metadata 用の view 判定. 失敗時は home にフォールバック."""
+    try:
+        qp = st.query_params.get("view")
+    except Exception:  # noqa: BLE001
+        return "home"
+    return qp if qp in VIEW_METADATA else "home"
+
+
+_initial_view = _detect_view_for_seo()
+_initial_meta = get_metadata(_initial_view)
+
 st.set_page_config(
-    # SEO 強化:検索クエリ「地方移住 比較」「47 都道府県 診断」等にヒットさせる
-    page_title="地方移住MAP|47都道府県を9指標で比較・診断 - MoveMap",
+    # T1-08: view ごとに動的タイトル(SERP / ブラウザタブの表示が変わる)
+    page_title=_initial_meta.page_title,
     page_icon="🗾",
     layout="wide",
     initial_sidebar_state="collapsed",
@@ -67,24 +91,21 @@ st.set_page_config(
 # グローバル CSS(サイドバー非表示 + ヒーロー + バナー定義含む)
 inject_global_css()
 
-# SEO 用 meta タグを <head> 風に挿入(Streamlit は body に置かれるが、
-# Google は body 内の meta も認識する場合がある。LP 側の本格 SEO は
-# 別途 GitHub Pages 等で対応予定)
+# T1-01 / T1-03 / T4-05: view ごとの meta description / OGP / Twitter Card / canonical.
+# Streamlit は body に置かれるが、Google は body 内の meta も認識する場合がある
+# (本格 SEO は LP 側 GitHub Pages 等で別途対応予定 — T4-01).
+_view_meta_html = build_meta_html(_initial_meta)
 st.markdown(
-    """
-    <meta name="description" content="全国 47 都道府県を 9 指標(物価・地価・賃料・出生・空気質・災害・交通・治安・人口流入)で比較・診断できる地方移住検討ツール。ARIMA/Prophet による 3/5/10 年後の予測付き。個人制作のポートフォリオ作品。">
+    f"""
+    {_view_meta_html}
     <meta name="keywords" content="地方移住,47都道府県,移住先,比較,診断,データ,可視化,シミュレーション,物価,地価,治安,空気質,災害リスク,予測,Streamlit">
     <meta name="author" content="MoveMap 開発者">
     <meta name="robots" content="index, follow">
     <meta name="format-detection" content="telephone=no">
-    <meta property="og:title" content="地方移住MAP|47都道府県を9指標で比較・診断 - MoveMap">
-    <meta property="og:description" content="全国 47 都道府県を 9 指標で比較・診断できる地方移住検討ツール。データドリブンで移住先を選ぶ。">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="ja_JP">
     <meta property="og:site_name" content="MoveMap">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="地方移住MAP|47都道府県を9指標で比較・診断">
-    <meta name="twitter:description" content="全国 47 都道府県を 9 指標で比較・診断できる地方移住検討ツール。">
     """,
     unsafe_allow_html=True,
 )
