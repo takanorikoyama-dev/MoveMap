@@ -1,46 +1,115 @@
 # MoveMap 🗾
 
-**地方移住検討者向け、全国 47 都道府県の定量比較 + AI 予測ツール**
+**全国 47 都道府県 × 9 指標 × 3/5/10 年後 AI 予測の地方移住検討ツール。**
 
-主に 50-60 代のセカンドキャリア/リタイア前後の層を想定。物価・地価・賃料・出生数の **3年/5年/10年後 AI 予測** をヒートマップで一覧できます。
+[![Live](https://img.shields.io/badge/Live-movemap.streamlit.app-brightgreen?style=for-the-badge)](https://movemap.streamlit.app/)
+[![tests](https://img.shields.io/badge/pytest-243%20passed-success?style=flat-square)](.github/workflows)
+[![mode-C](https://img.shields.io/badge/DEC--016-mode%20C%20public-blue?style=flat-square)](outputs/decisions/DEC-016.md)
+[![twin-build](https://img.shields.io/badge/twin--build-Phase%200--8-purple?style=flat-square)](outputs/)
 
-⚠️ 本ツールは **個人利用を目的とした参考情報** です。投資判断・意思決定の最終責任はユーザーにあります。
+## 🌐 触ってみる:[https://movemap.streamlit.app/](https://movemap.streamlit.app/)
 
----
+![MoveMap hero](docs/images/hero-screenshot.png)
 
-## 📚 学習ドキュメント(セールス / AI コンサル向け)
+「物価が安く治安が良い県は?」「5 年後に住みよさが伸びそうな県は?」を、**公的統計の数値だけ**で答えるツール。風景写真をめくりながら、47 候補を 9 観点で同時に比較できます。
 
-| ドキュメント | 内容 |
-|---|---|
-| [docs/learning/01_executive_summary.md](docs/learning/01_executive_summary.md) | **5 分で全体を語る**エグゼクティブサマリー |
-| [docs/learning/02_self_quiz.md](docs/learning/02_self_quiz.md) | 初級/中級/上級 各 10 問の **自己テスト**(解答 + 解説) |
-| [docs/learning/03_architecture.md](docs/learning/03_architecture.md) | **Mermaid 図** + 詳細解説のアーキテクチャ |
-| [docs/learning/04_pitch_deck_outline.md](docs/learning/04_pitch_deck_outline.md) | **7 スライド**ピッチデッキ構成案(顧客/投資家/自治体/メディア向けバリエーション付き) |
-| [docs/learning/07_ai_dev_playbook.md](docs/learning/07_ai_dev_playbook.md) | **AI 駆動開発プレイブック**(twin-build フロー汎用化、5 原則 / Phase チェックリスト / つまずき TOP10 / 提案フレーズ集) |
+> ⚠️ **個人制作のポートフォリオ作品**(DEC-016 mode C)です。投資・不動産取引・移住の助言ではありません。最終判断はご自身で。
 
 ---
 
-## 主な機能
+## 👀 採用担当・技術評価者の方へ
+
+最短経路で本プロダクトの「設計力」「実装力」「運用力」を確認できる導線:
+
+| 観点 | 推奨ドキュメント | 何が見えるか |
+|---|---|---|
+| **触ってみる** | [movemap.streamlit.app](https://movemap.streamlit.app/) | UI / UX / 機能網羅性 |
+| **設計の通し方** | [outputs/](outputs/) — `00_problem.md` 〜 `99_review.md` | 課題定義から振り返りまで Phase 0-8 全成果物 |
+| **意思決定の質** | [outputs/decisions/](outputs/decisions/) — 18 件の DEC ログ | なぜその設計を選んだか・選ばなかったかの全履歴 |
+| **不変条件の運用** | [outputs/baseline.md](outputs/baseline.md) — 18 個の INV | DB制約 / アプリ層 / E2E で何を守らせているか |
+| **AI 駆動開発の流儀** | [docs/learning/07_ai_dev_playbook.md](docs/learning/07_ai_dev_playbook.md) | twin-build フロー汎用化、つまずき TOP10 |
+| **計測駆動運用** | [outputs/seo/](outputs/seo/) | 仮説 → GA4 イベント → 14日後振り返りループ |
+
+---
+
+## 💡 主な機能
 
 | 機能 | 内容 |
 |------|------|
-| 🗾 全国ヒートマップ | 47 都道府県を Plotly choropleth で表示。指標切替・年次切替対応 |
-| 📊 7 指標 | 物価指数 / 地価 / 賃料相場 / 出生数 / 空気質 / 災害リスク / 交通アクセス |
-| 🔮 AI 予測 | 主要 4 指標について **ARIMA + Prophet** モデルで 3/5/10 年後を推計 |
-| 📋 モデル根拠 | 使用変数・R²/MAE・学習日時を UI で透明化 |
-| 📅 月次自動更新 | GitHub Actions cron で 6 つの公的データソースを自動取込 |
-| 🛡️ 不変条件強制 | INV-BIZ × 5 + INV-DATA × 8 + INV-EXT × 3 + INV-IDEM × 2(計 18 件) |
+| 🗾 **47 都道府県マップ** | 9 指標で全国を一望できる Plotly ヒートマップ。指標切替・年次切替対応 |
+| 📊 **9 指標** | 物価 / 地価 / 賃料 / 出生数 / 空気質 / 災害リスク / 交通アクセス / 治安 / 人口流入 |
+| 🔮 **AI 予測** | 主要 4 指標について **ARIMA + Prophet** で 3 / 5 / 10 年後を推計 |
+| 🎯 **適合度診断** | 優先したい / 避けたい要素から、おすすめ 5 県を提示 |
+| ⚖️ **2 県比較** | 気になる 2 県を 9 指標で並べて違いを可視化 |
+| 📋 **モデル根拠** | R² / MAE / 学習日時を UI で透明化 |
+| 📅 **月次自動更新** | GitHub Actions cron で 6 つの公的データソースを自動取込 |
+| 🛡️ **不変条件強制** | INV-BIZ × 8 + INV-DATA × 8 + INV-EXT × 3 + INV-IDEM × 2(計 21 件) |
 
 ---
 
-## クイックスタート(5 分でブラウザ表示)
+## ⚙️ 技術スタック
+
+| カテゴリ | 採用 |
+|---|---|
+| 言語 | Python 3.11 |
+| UI | Streamlit + Plotly choropleth + components.html(iframe ヒーロー) |
+| DB | DuckDB(組み込み、append-only 強制 / `HistoryProtectedConnection`) |
+| HTTP | httpx + truststore(社内 SSL 自動)+ tenacity(リトライ) |
+| ETL | pandas |
+| 予測 | statsmodels(ARIMA / SARIMA) + Prophet |
+| スケジューラ | GitHub Actions cron(月初 02:00 JST) |
+| パッケージ管理 | uv |
+| テスト | pytest + streamlit.testing (243 cases pass) |
+| Lint / Type | ruff + mypy |
+| 計測 | Google Analytics 4 (opt-in Cookie 同意済) |
+| 死活監視 | Playwright (Chromium) で自動ウェイク + UptimeRobot |
+
+---
+
+## 🏗 アーキテクチャ(VSA / Vertical Slice Architecture)
+
+```
+                     ┌──────────────────────────┐
+                     │   Streamlit UI           │  app/main.py
+                     │   - home / map / ranking │  + features/map_view/usecases/
+                     │   - diagnosis / detail   │
+                     │   - compare / model      │
+                     │   - terms / privacy /    │
+                     │     contact (?view=...)  │
+                     └────────────┬─────────────┘
+                                  │ data_provider.py (DB → dummy fallback)
+                                  ▼
+                     ┌──────────────────────────┐
+                     │  DuckDB (組み込み)        │  data/movemap.duckdb
+                     │  10 tables + 21 INV       │  - 履歴 append-only 強制
+                     └────────────┬─────────────┘
+                                  ▲
+                                  │ run_batch.py (月次 cron)
+              ┌───────────────────┴──────────────────────────┐
+              │   ETL + 予測パイプライン                       │
+              │   fetch → normalize → upsert + append →       │
+              │   retrain → evaluate → predict → fallback     │
+              └───────────────────┬──────────────────────────┘
+                                  │
+                                  ▼
+                     ┌──────────────────────────┐
+                     │  6 公的データソース        │  e-Stat / MLIT地価 / reinfolib
+                     │                          │  そらまめくん / ハザード / 交通
+                     └──────────────────────────┘
+```
+
+詳細: [outputs/05_architecture.md](outputs/05_architecture.md) / [outputs/06_system_design/](outputs/06_system_design/)
+
+---
+
+## 🚀 クイックスタート(ローカル 5 分)
 
 ```sh
 # 1. 環境セットアップ(uv 必須)
 python -m pip install uv
 python -m uv sync --extra dev
 
-# 2. DB 初期化 +デモ用合成履歴投入(API キー不要)
+# 2. DB 初期化 + デモ用合成履歴投入(API キー不要)
 python -m uv run python scripts/seed.py --with-synthetic-history
 
 # 3. 日本地図 GeoJSON 取得(初回のみ)
@@ -50,98 +119,53 @@ python -m uv run python scripts/fetch_geojson.py
 python -m uv run streamlit run app/main.py
 ```
 
-これでダミーモデルの予測値が UI に表示されます(🟡 ダミー表示)。
-**本物データを使う**には reinfolib / e-Stat の API キーを `.env` に設定し、`run_batch.py` を実行してください(🔵 DB 実データに切替)。
+これでダミーモデルの予測値が表示されます(🟡 ダミー表示)。
+**本物データを使う**には reinfolib / e-Stat の API キーを `.env` に設定し、`run_batch.py` を実行(🔵 DB 実データに切替)。
 
 詳細は [STARTUP.md](STARTUP.md) を参照。
 
 ---
 
-## 動作モード
+## 📊 動作モード
 
-| モード | データ取得 | データ表示 | 用途 |
-|-------|----------|----------|------|
-| **デモ**(API キーなし) | dummy.py の合成データ | 🟡 ダミー | UI 動作確認 |
-| **合成履歴投入後**(`seed.py --with-synthetic-history`)| historical_values は実値 | 現在値は 🟡 ダミー、AI 予測は 🔵 DB | 予測モデル動作確認 |
-| **本番**(API キー設定 + `run_batch.py` 実行) | 6 つの公的データソース | すべて 🔵 DB 実データ | リリース運用 |
-
----
-
-## 技術スタック
-
-| カテゴリ | 採用 |
-|---------|------|
-| 言語 | Python 3.11+ |
-| UI | Streamlit + Plotly choropleth |
-| DB | DuckDB(組み込み、append-only 強制) |
-| HTTP | httpx + truststore(社内 SSL 自動対応)+ tenacity(リトライ) |
-| ETL | pandas |
-| 予測 | statsmodels(ARIMA/SARIMA) + Prophet |
-| スケジューラ | GitHub Actions cron(月初 02:00 JST) |
-| パッケージ管理 | uv |
-| テスト | pytest + streamlit.testing(117 cases、Coverage 100%) |
-| Lint | ruff + mypy |
+| モード | データ取得 | 表示 | 用途 |
+|---|---|---|---|
+| **デモ** (API キーなし) | dummy.py の合成データ | 🟡 ダミー | UI 動作確認 |
+| **合成履歴投入後** (`seed.py --with-synthetic-history`) | historical_values は実値 | 現在値は 🟡 / 予測は 🔵 | モデル動作確認 |
+| **本番** (API キー + `run_batch.py`) | 6 公的データソース | すべて 🔵 DB 実データ | 公開運用 |
 
 ---
 
-## アーキテクチャ
+## 🛡 不変条件(21 件、`outputs/baseline.md` で正典化)
 
-```
-┌─────────────────────┐
-│   Streamlit UI      │   app/main.py + features/map_view/
-│   (3 tabs)          │   - MAP / 都道府県詳細 / モデル根拠
-└──────────┬──────────┘
-           │  data_provider.py(DB → dummy fallback)
-           ▼
-┌─────────────────────┐
-│  DuckDB(組み込み)  │   data/movemap.duckdb
-│  10 tables + INV    │   - 履歴 append-only 強制
-└──────────┬──────────┘   - HistoryProtectedConnection
-           ▲
-           │  run_batch.py(月次)
-┌──────────┴──────────────────────────────────┐
-│  ETL + 予測パイプライン                      │
-│  fetch → normalize → upsert → append        │
-│  retrain → evaluate → predict → fallback    │
-└──────────┬──────────────────────────────────┘
-           │
-           ▼
-┌─────────────────────┐
-│  6 公的データソース  │  e-Stat / 国交省地価 / 不動産価格指数
-│                     │  そらまめくん / ハザードマップ / 交通インフラ
-└─────────────────────┘
-```
+| カテゴリ | 件数 | 例 |
+|---|---|---|
+| INV-BIZ(業務ルール) | 8 | INV-BIZ-005: MAP 表示時に免責バナー常時表示 / INV-BIZ-008: 法務リンク導線 |
+| INV-DATA(データ整合性) | 8 | INV-DATA-007: `historical_values` 物理 append-only(`HistoryProtectedConnection`) |
+| INV-EXT(外部連携) | 3 | INV-EXT-001: 外部 API 失敗時は前回値保持 |
+| INV-IDEM(冪等性) | 2 | INV-IDEM-001: 月次バッチが同月内再実行で同等結果 |
 
-詳細: [outputs/05_architecture.md](outputs/05_architecture.md) / [outputs/06_system_design/](outputs/06_system_design/)
+E2E + 単体テスト + DB CHECK 制約 + 静的検査で多重防御。
 
 ---
 
-## ローンチ READY ステータス(2026-05-18 時点)
+## 🔄 計測駆動運用(2026-06 〜)
 
-| 項目 | 状態 |
-|------|------|
-| 設計フロー Phase 0-8 | ✅ /review 評価 A- |
-| 実装(全 17 Usecase) | ✅ impl 17/17 |
-| テスト | ✅ **pytest 117 passed / Coverage 100%** |
-| Streamlit 起動確認 | ✅ HTTP 200 / health=ok |
-| **UI ⇄ DB データ連携** | ✅(dummy フォールバック付き) |
-| **API キーなしデモ可能** | ✅(`--with-synthetic-history`) |
-| 月次バッチ(GitHub Actions cron)| ✅ ワークフロー定義済 |
-| 不変条件強制(静的+DB 層) | ✅ INV-DATA-007 ともに完備 |
-| snapshot / restore | ✅(retention 12 世代) |
-| 依存脆弱性スキャン | ✅ pip-audit on CI |
-| ドキュメント | ✅ STARTUP.md / 99_review.md / 設計書一式 |
+**「公開して終わり」ではなく「計測 → 学習 → 改善」のループ**を回しています:
 
-**残作業**:
-- reinfolib API キー取得 → 本番 ETL 試走(ユーザー作業)
-- Streamlit Cloud or ローカル限定 デプロイ判断(→ [outputs/DEPLOYMENT.md](outputs/DEPLOYMENT.md) 参照)
+1. **VPC**(バリュープロポジションキャンバス)で 2 セグメントを言語化 → [outputs/value_proposition_canvas.md](outputs/value_proposition_canvas.md)
+2. **SEO 36 施策** を ICE スコア順に整理 → [outputs/seo/01_action_list.md](outputs/seo/01_action_list.md)
+3. **数値入り仮説 5 件** を立て、Brier score で予測キャリブレーション → [outputs/seo/02_hypotheses.md](outputs/seo/02_hypotheses.md)
+4. **GA4 カスタムイベント**(horizon 切替 / 指標切替 / 県選択)で実測
+5. **T+14 振り返り** で当たり外れを記録 → 次の打ち手へ
 
 ---
 
-## 設計ドキュメント(参照用)
+## 📚 ドキュメント目次
 
+### Phase 成果物(設計の通し)
 | Phase | ドキュメント |
-|-------|------------|
+|---|---|
 | 0 課題定義 | [outputs/00_problem.md](outputs/00_problem.md) |
 | 1 要求仕様 | [outputs/01_requirements.md](outputs/01_requirements.md) |
 | 2 業務構造 | [outputs/02_business_structure.md](outputs/02_business_structure.md) |
@@ -149,33 +173,46 @@ python -m uv run streamlit run app/main.py
 | 4 システム要件 | [outputs/04_system_requirements.md](outputs/04_system_requirements.md) |
 | 5 アーキテクチャ | [outputs/05_architecture.md](outputs/05_architecture.md) |
 | 6 システム設計 | [outputs/06_system_design/](outputs/06_system_design/) |
-| 7 実装 | `app/`、`scripts/`、`seeds/`、`tests/`、`.github/` |
+| 7 実装 | `app/` `scripts/` `seeds/` `tests/` `.github/` |
 | 8 最終レビュー | [outputs/99_review.md](outputs/99_review.md) |
 | - 業務不変条件 | [outputs/baseline.md](outputs/baseline.md) |
-| - 起動手順 | [STARTUP.md](STARTUP.md) |
+
+### 学習向け
+| ドキュメント | 内容 |
+|---|---|
+| [docs/learning/01_executive_summary.md](docs/learning/01_executive_summary.md) | **5 分で全体を語る**サマリー |
+| [docs/learning/02_self_quiz.md](docs/learning/02_self_quiz.md) | 39 問の自己テスト(初/中/上 + AX セールス) |
+| [docs/learning/03_architecture.md](docs/learning/03_architecture.md) | Mermaid 図 + 詳細解説 |
+| [docs/learning/04_pitch_deck_outline.md](docs/learning/04_pitch_deck_outline.md) | 7 スライドピッチデッキ案 |
+| [docs/learning/07_ai_dev_playbook.md](docs/learning/07_ai_dev_playbook.md) | AI 駆動開発プレイブック |
 
 ---
 
-## データソース
+## 📡 データソース
 
 | ソース | 取得指標 | ライセンス |
-|--------|---------|----------|
-| [e-Stat](https://www.e-stat.go.jp/) | 物価指数・出生数 | 政府標準利用規約 2.0 |
+|---|---|---|
+| [e-Stat](https://www.e-stat.go.jp/) | 物価指数・出生数・治安・人口流入 | 政府標準利用規約 2.0 |
 | [国土交通省 地価公示](https://www.land.mlit.go.jp/landPrice_/) | 地価 | 政府標準利用規約 2.0 |
-| [国土交通省 不動産価格指数](https://www.reinfolib.mlit.go.jp/) | 賃料相場 | 政府標準利用規約 2.0 |
+| [国土交通省 reinfolib](https://www.reinfolib.mlit.go.jp/) | 賃料相場 | 政府標準利用規約 2.0 |
 | [環境省 そらまめくん](https://soramame.env.go.jp/) | 空気質(PM2.5) | 政府標準利用規約 2.0 |
 | [国土地理院 ハザードマップ](https://disaportal.gsi.go.jp/) | 災害リスク | 政府標準利用規約 2.0 |
 | [国土交通省 交通インフラ](https://www.mlit.go.jp/sogoseisaku/transport/) | 交通アクセス | 政府標準利用規約 2.0 |
 
-各データの出典・最終更新日は本ツール内で常時表示されます。
+各データの出典・最終更新日はアプリ内で常時表示。
 
 ---
 
-## ライセンス
+## ⚖️ ライセンス・運営者
 
-MIT(コード)/ 各データソースのライセンスに従う(取込データ)
+- **コード**: MIT
+- **データ**: 各データソースのライセンスに従う
+- **画像**: Unsplash License(個別画像近くにクレジット表記)
+- **運営者**: MoveMap 開発者(個人制作のポートフォリオ作品)
+- **問い合わせ**: [サイト内 ?view=contact](https://movemap.streamlit.app/?view=contact) または GitHub Issue(任意)
 
-## クレジット
+## 🙏 クレジット
 
 - [dataofjapan/land](https://github.com/dataofjapan/land) — 都道府県境界 GeoJSON
+- [Unsplash](https://unsplash.com/) — 47 県の風景写真
 - twin-build フローによる設計駆動開発(Phase 0-8 を一貫トレース)
