@@ -1,0 +1,34 @@
+# MoveMap robots.txt
+#
+# ⚠️ 重要な注意:
+# 現在の本番デプロイ先 (Streamlit Community Cloud / movemap.streamlit.app)
+# は SPA (React フロントエンド) 構成で、すべての HTTP リクエストに同一の
+# shell HTML を返すため、このファイルは検索エンジンに届きません.
+# 詳細: outputs/seo/03_streamlit_cloud_seo_constraints.md
+#
+# 現状の robots 指示は app/main.py の <meta name="robots"> タグで body 層に
+# 注入しています.
+#
+# 本ファイルは以下のタイミングで効力を持つ予定:
+#   - T4-01 で GitHub Pages 等の静的 LP を併設した時
+#   - セルフホスト (Fly.io / Render 等) に移行した時
+# その日に備えてリポジトリに用意しています.
+
+User-agent: *
+Allow: /
+
+# 法務 view は indexable. これらは独立した SERP エントリとして価値がある
+# (canonical で /?view=terms など).
+Allow: /?view=terms
+Allow: /?view=privacy
+Allow: /?view=contact
+
+# Streamlit 内部の管理パス (将来も含め保険として)
+Disallow: /_stcore/
+Disallow: /-/
+
+# 攻撃的なスクレイパー対策 (低品質ボット、AI 学習用クローラー等の制限は
+# 個人プロダクトとして必要に応じて追加)
+
+# サイトマップ (T1-07 で動的生成後に有効化)
+Sitemap: https://movemap.streamlit.app/sitemap.xml
