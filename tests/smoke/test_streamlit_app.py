@@ -221,3 +221,50 @@ def test_compare_view_uses_prefecture_names_not_a_b() -> None:
     winner_values = set(at.dataframe[0].value["優位な県"].unique())
     # 勝者列の値も "A"/"B" ではなく実名か "—"(引き分け)のみ
     assert winner_values <= {"東京都", "福岡県", "—"}, f"想定外の勝者値: {winner_values}"
+
+
+def test_ranking_view_controls_consolidated_into_single_expander() -> None:
+    """ランキング: 重み付け・ピン留め・表示指標の 3 コントロールが単一 expander に統合されている(2026-07-12).
+
+    以前はテーブルに辿り着くまでに独立したコントロールが積み上がり
+    「見にくい」というフィードバックを受けて改善した.
+    """
+    at = _new_app()
+    at.query_params["view"] = "ranking"
+    at.run()
+    assert not at.exception, f"ranking view で例外: {at.exception}"
+
+    expander_labels = [e.label for e in at.expander if hasattr(e, "label")]
+    settings_expanders = [lbl for lbl in expander_labels if "表示設定" in lbl]
+    assert len(settings_expanders) == 1, f"表示設定 expander が1つのはずが: {expander_labels}"
+    assert "重み付け" in settings_expanders[0]
+    assert "ピン留め" in settings_expanders[0]
+    assert "表示指標" in settings_expanders[0]
+
+    # 統合後もウィジェット自体は正常に機能する(9 指標分のスライダー + 2 つの multiselect)
+    assert len(at.slider) == 9
+    multiselect_keys = {ms.key for ms in at.multiselect if ms.key}
+    assert "pinned_current" in multiselect_keys
+    assert "visible_indicators_current" in multiselect_keys
+
+
+def test_ranking_view_net_migration_values_are_not_all_zero() -> None:
+    """ランキング: net_migration(人口流入)が全県 0.00 に潰れていない(2026-07-12 データバグ修正の回帰防止).
+
+    scripts/seed.py のオフセット計算バグにより、DB 実データで人口流入が
+    全 47 都道府県 0.0 になっていた(base=0.0 の指標に相対オフセットを
+    掛けると常に 0 になる問題). 表示指標に人口流入を含めて確認する.
+    """
+    at = _new_app()
+    at.query_params["view"] = "ranking"
+    at.run()
+    assert not at.exception, f"ranking view で例外: {at.exception}"
+
+    df = at.dataframe[0].value
+    net_migration_cols = [c for c in df.columns if "人口流入" in c]
+    assert net_migration_cols, "人口流入列がデフォルト表示に含まれていない"
+    col = net_migration_cols[0]
+
+    values = df[col].tolist()
+    assert not all(v == 0 for v in values), "人口流入が全県 0 のまま(データバグが再発している疑い)"
+    assert len(set(values)) > 1, "人口流入の値に変化がない(データバグが再発している疑い)"

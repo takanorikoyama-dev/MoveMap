@@ -107,39 +107,46 @@ def _make_formatter(fmt: str):
 
 
 def _render_weight_sliders(horizon: Horizon) -> dict[str, float]:
-    """7 指標の重み付けスライダー(0-100)."""
-    with st.expander("⚖️ あなたの優先度で重み付け(0=無視、100=最重視)", expanded=False):
-        st.caption("各指標のスライダーを動かすと、総合偏差値が即座に再計算されます(0 にすればその指標を除外)。")
-        weights: dict[str, float] = {}
-        cols = st.columns(4)
-        for i, ind in enumerate(ALL_INDICATORS):
-            with cols[i % 4]:
-                # key を horizon 非依存に統一(キャッシュヒット率向上 + horizon 切替時の重み維持)
-                weights[ind] = st.slider(
-                    f"{INDICATOR_ICONS.get(ind, '')} {INDICATOR_LABELS[ind]}",
-                    min_value=0,
-                    max_value=100,
-                    value=st.session_state.get(f"weight_{ind}", 50),
-                    step=10,
-                    key=f"weight_{ind}",
-                )
-        cb = st.columns([1, 1, 6])
-        with cb[0]:
-            if st.button("均等にリセット", key="reset_weight"):
-                for ind in ALL_INDICATORS:
-                    st.session_state[f"weight_{ind}"] = 50
-                st.rerun()
+    """9 指標の重み付けスライダー(0-100).
+
+    2026-07-12: 呼び出し元(show_ranking)が単一の「⚙️ 表示設定」expander の
+    中で呼ぶことを前提とし、この関数自体は expander を作らない(以前は
+    独自の expander を持っていたが、ピン留め・指標選択と合わせて 1 つに統合).
+    """
+    st.markdown("**⚖️ 優先度で重み付け**(0=無視、100=最重視)")
+    st.caption("各指標のスライダーを動かすと、総合偏差値が即座に再計算されます(0 にすればその指標を除外)。")
+    weights: dict[str, float] = {}
+    cols = st.columns(4)
+    for i, ind in enumerate(ALL_INDICATORS):
+        with cols[i % 4]:
+            # key を horizon 非依存に統一(キャッシュヒット率向上 + horizon 切替時の重み維持)
+            weights[ind] = st.slider(
+                f"{INDICATOR_ICONS.get(ind, '')} {INDICATOR_LABELS[ind]}",
+                min_value=0,
+                max_value=100,
+                value=st.session_state.get(f"weight_{ind}", 50),
+                step=10,
+                key=f"weight_{ind}",
+            )
+    cb = st.columns([1, 1, 6])
+    with cb[0]:
+        if st.button("均等にリセット", key="reset_weight"):
+            for ind in ALL_INDICATORS:
+                st.session_state[f"weight_{ind}"] = 50
+            st.rerun()
     return weights
 
 
 def _render_pin_selector(horizon: Horizon, pref_codes_and_names: list[tuple[str, str]]) -> list[str]:
-    """お気に入りピン留め(複数選択 → 上に固定)."""
+    """お気に入りピン留め(複数選択 → 上に固定). 表示設定 expander 内から呼ぶ想定(2026-07-12)."""
+    st.markdown("**📌 お気に入りピン留め**(上に固定表示)")
     options = [f"{c} {n}" for c, n in pref_codes_and_names]
     pinned_labels = st.multiselect(
-        "📌 お気に入りピン留め(上に固定表示)",
+        "都道府県を選択",
         options=options,
         default=st.session_state.get(f"pinned_{horizon}", []),
         key=f"pinned_{horizon}",
+        label_visibility="collapsed",
     )
     return [s.split(" ", 1)[0] for s in pinned_labels]
 
@@ -152,17 +159,22 @@ _DEFAULT_VISIBLE_INDICATORS: tuple[str, ...] = (
 
 
 def _render_indicator_selector(horizon: Horizon) -> list[str]:
-    """表示する指標を選択(横スクロール軽減のため、デフォルトは主要 4 指標に絞る)."""
+    """表示する指標を選択(横スクロール軽減のため、デフォルトは主要 4 指標に絞る).
+
+    表示設定 expander 内から呼ぶ想定(2026-07-12).
+    """
+    st.markdown("**📋 表示する指標**(絞り込むと横スクロールが減って見やすくなります)")
     label_of = {ind: f"{INDICATOR_ICONS.get(ind, '')} {INDICATOR_LABELS[ind]}" for ind in ALL_INDICATORS}
     ind_of_label = {v: k for k, v in label_of.items()}
     default_labels = [label_of[ind] for ind in _DEFAULT_VISIBLE_INDICATORS]
 
     selected_labels = st.multiselect(
-        "📋 表示する指標(絞り込むと横スクロールが減って見やすくなります)",
+        "表示する指標",
         options=[label_of[ind] for ind in ALL_INDICATORS],
         default=st.session_state.get(f"visible_indicators_{horizon}", default_labels),
         key=f"visible_indicators_{horizon}",
         help="選択した指標のみランキング表・カードに表示されます。順位・都道府県などの基本情報は常に表示されます。",
+        label_visibility="collapsed",
     )
     selected = [ind_of_label[lbl] for lbl in selected_labels if lbl in ind_of_label]
     # 全解除された場合は表自体が空虚になるため、デフォルトにフォールバック
@@ -181,7 +193,15 @@ def show_ranking(horizon: Horizon = "current") -> None:
     )
 
     # --- コントロール ---
-    weights = _render_weight_sliders(horizon)
+    # 2026-07-12: 重み付け・ピン留め・表示指標選択を 1 つの expander に統合.
+    # 以前は各々が独立したコントロールとしてテーブルの手前に積み上がっており、
+    # 認知負荷が高い(「見にくい」フィードバックの一因)という指摘を受けて改善.
+    # st.expander() が返すコンテナは同一スクリプト実行内で複数回 `with` 可能
+    # なため、ランキング計算(ピン留めの選択肢に必要)を挟んでも 1 つの
+    # 折りたたみブロックとして描画できる.
+    settings = st.expander("⚙️ 表示設定(重み付け・ピン留め・表示指標)", expanded=False)
+    with settings:
+        weights = _render_weight_sliders(horizon)
 
     # --- ランキング計算(キャッシュ付き、重み反映) ---
     ranks = cached_ranking(horizon=horizon, weights=weights)
@@ -228,8 +248,12 @@ def show_ranking(horizon: Horizon = "current") -> None:
     df_value["総合偏差値"] = df_value["総合偏差値"].round(1)
 
     # ピン留め(上に並べる)+ 表示指標の絞り込み(横スクロール軽減)
-    pinned_codes = _render_pin_selector(horizon, pref_codes_and_names)
-    visible_indicators = _render_indicator_selector(horizon)
+    # 同じ settings expander に描画を続ける(重み付けセクションの続き)
+    with settings:
+        st.divider()
+        pinned_codes = _render_pin_selector(horizon, pref_codes_and_names)
+        st.divider()
+        visible_indicators = _render_indicator_selector(horizon)
 
     df_filtered = df_value.copy()
     df_score_filtered = df_score.copy()

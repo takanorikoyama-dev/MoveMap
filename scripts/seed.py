@@ -147,6 +147,25 @@ NON_PREDICTABLE_RANGES: dict[str, float] = {
     "net_migration": 0.0,       # 転入超過率(‰)。0 周辺で県別オフセット ±数 ‰
 }
 
+# net_migration の県別オフセット片側幅(‰). 2026-07-12 発見・修正:
+# 他の指標は「base の 20%」を県別オフセットに使うが、net_migration は
+# base=0(転入超過率が 0 付近で変動する指標のため)であり、base に比例する
+# 計算式では offset が常に 0 になり、全 47 都道府県が 0.00 のまま埋まって
+# しまうバグがあった(データ品質: DB 実測でも全県 0.0 を確認して発覚)。
+# net_migration のみ絶対値でオフセット幅を指定する.
+_NET_MIGRATION_OFFSET_SPREAD = 5.0
+
+
+def _non_predictable_offset_spread(indicator_id: str, base: float) -> float:
+    """予測対象外指標の都道府県別オフセット片側幅(±)を返す.
+
+    通常は base の 20% だが、net_migration は base=0 のため絶対値を使う
+    (2026-07-12、上記コメント参照).
+    """
+    if indicator_id == "net_migration":
+        return _NET_MIGRATION_OFFSET_SPREAD
+    return base * 0.2
+
 
 def seed_synthetic_current(con) -> int:  # type: ignore[no-untyped-def]
     """全 7 指標 × 47 都道府県の current_values を合成値で埋める.
@@ -170,9 +189,10 @@ def seed_synthetic_current(con) -> int:  # type: ignore[no-untyped-def]
                 # 最新月インデックスの値を採用(履歴の最終時点と整合)
                 value = _synthetic_value(ind, pref, SYNTHETIC_MONTHS - 1)
             else:
-                # 予測対象外: 中央値の周辺で都道府県別オフセット
+                # 予測対象外: 中央値の周辺で都道府県別オフセット(絶対幅ベース、2026-07-12修正)
                 base = NON_PREDICTABLE_RANGES.get(ind, 1.0)
-                offset = (_hash_unit(ind, pref) - 0.5) * 0.4 * base  # ±20%
+                spread = _non_predictable_offset_spread(ind, base)
+                offset = (_hash_unit(ind, pref) - 0.5) * 2 * spread
                 value = base + offset
             rows.append((pref, ind, value, today))
 
