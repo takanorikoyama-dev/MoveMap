@@ -144,6 +144,31 @@ def _render_pin_selector(horizon: Horizon, pref_codes_and_names: list[tuple[str,
     return [s.split(" ", 1)[0] for s in pinned_labels]
 
 
+# 表示指標のデフォルト(横スクロール軽減のため 9 指標中 4 つに絞る、2026-07-12).
+# 定番指標(物価・地価)+ MoveMap 独自の差別化指標(治安・転入超過)のミックス.
+_DEFAULT_VISIBLE_INDICATORS: tuple[str, ...] = (
+    "price_index", "land_price", "public_safety", "net_migration",
+)
+
+
+def _render_indicator_selector(horizon: Horizon) -> list[str]:
+    """表示する指標を選択(横スクロール軽減のため、デフォルトは主要 4 指標に絞る)."""
+    label_of = {ind: f"{INDICATOR_ICONS.get(ind, '')} {INDICATOR_LABELS[ind]}" for ind in ALL_INDICATORS}
+    ind_of_label = {v: k for k, v in label_of.items()}
+    default_labels = [label_of[ind] for ind in _DEFAULT_VISIBLE_INDICATORS]
+
+    selected_labels = st.multiselect(
+        "📋 表示する指標(絞り込むと横スクロールが減って見やすくなります)",
+        options=[label_of[ind] for ind in ALL_INDICATORS],
+        default=st.session_state.get(f"visible_indicators_{horizon}", default_labels),
+        key=f"visible_indicators_{horizon}",
+        help="選択した指標のみランキング表・カードに表示されます。順位・都道府県などの基本情報は常に表示されます。",
+    )
+    selected = [ind_of_label[lbl] for lbl in selected_labels if lbl in ind_of_label]
+    # 全解除された場合は表自体が空虚になるため、デフォルトにフォールバック
+    return selected if selected else list(_DEFAULT_VISIBLE_INDICATORS)
+
+
 def show_ranking(horizon: Horizon = "current") -> None:
     """ランキング画面を描画."""
     st.subheader("都道府県ランキング(住みやすさ総合)")
@@ -202,8 +227,9 @@ def show_ranking(horizon: Horizon = "current") -> None:
     ]
     df_value["総合偏差値"] = df_value["総合偏差値"].round(1)
 
-    # ピン留め(上に並べる)
+    # ピン留め(上に並べる)+ 表示指標の絞り込み(横スクロール軽減)
     pinned_codes = _render_pin_selector(horizon, pref_codes_and_names)
+    visible_indicators = _render_indicator_selector(horizon)
 
     df_filtered = df_value.copy()
     df_score_filtered = df_score.copy()
@@ -238,9 +264,9 @@ def show_ranking(horizon: Horizon = "current") -> None:
     )
 
     if view_mode.startswith("📊"):
-        _render_table_view(df_filtered, df_score_filtered)
+        _render_table_view(df_filtered, df_score_filtered, visible_indicators)
     else:
-        _render_card_view(df_filtered, df_score_filtered)
+        _render_card_view(df_filtered, df_score_filtered, visible_indicators)
 
     # サマリ + ダウンロード
     st.markdown("---")
@@ -300,10 +326,19 @@ def _render_top3_hero(df: pd.DataFrame) -> None:
     st.markdown("---")
 
 
-def _render_table_view(df_value: pd.DataFrame, df_score: pd.DataFrame) -> None:
-    """表モード: Styler で色付け + マイクロチャート(プログレスバー)."""
-    indicator_columns = [_column_header(ind) for ind in ALL_INDICATORS]
-    df_view = df_value.drop(columns=["_code", "_rank_int"], errors="ignore").copy()
+def _render_table_view(
+    df_value: pd.DataFrame, df_score: pd.DataFrame, visible_indicators: list[str]
+) -> None:
+    """表モード: Styler で色付け + マイクロチャート(プログレスバー).
+
+    2026-07-12: 9 指標 + 基本情報 5 列 = 14 列は横スクロールが必須になり見づらいため、
+    (1) 表示指標をユーザーが絞り込めるようにし(visible_indicators)、
+    (2) 順位・★・総合偏差値・都道府県は pinned=True で固定して、横スクロール時も
+        「どの県を見ているか」のコンテキストを失わないようにした.
+    """
+    indicator_columns = [_column_header(ind) for ind in visible_indicators]
+    base_columns = ["順位", "★", "総合偏差値", "都道府県", "地方"]
+    df_view = df_value[base_columns + indicator_columns].copy()
 
     # column_config: 各指標列を ProgressColumn にしたいところだが、ProgressColumn は
     # 単一スケールで描画されるため指標ごとに範囲が違うと比較不能.
@@ -328,24 +363,25 @@ def _render_table_view(df_value: pd.DataFrame, df_score: pd.DataFrame) -> None:
 
     # フォーマット
     fmt_map: dict[str, object] = {"総合偏差値": "{:.1f}"}
-    for ind in ALL_INDICATORS:
+    for ind in visible_indicators:
         col = _column_header(ind)
         _, fmt = _DISPLAY_SCALE.get(ind, (1.0, "{:.1f}"))
         fmt_map[col] = _make_formatter(fmt)
     styler = styler.format(fmt_map)
 
     column_config: dict[str, object] = {
-        "順位": st.column_config.TextColumn("順位", width="small"),
-        "★": st.column_config.TextColumn("★ 評価", width="small"),
+        "順位": st.column_config.TextColumn("順位", width="small", pinned=True),
+        "★": st.column_config.TextColumn("★ 評価", width="small", pinned=True),
         "総合偏差値": st.column_config.NumberColumn(
             "総合偏差値",
-            help="7 指標を住みやすさ方向で揃えて偏差値化、(重み付け)平均",
+            help="9 指標を住みやすさ方向で揃えて偏差値化、(重み付け)平均",
             width="small",
+            pinned=True,
         ),
-        "都道府県": st.column_config.TextColumn("都道府県", width="medium"),
+        "都道府県": st.column_config.TextColumn("都道府県", width="medium", pinned=True),
         "地方": st.column_config.TextColumn("地方", width="small"),
     }
-    for ind in ALL_INDICATORS:
+    for ind in visible_indicators:
         col = _column_header(ind)
         d = INDICATOR_DEFINITIONS.get(ind, {})  # type: ignore[arg-type]
         tip = (
@@ -364,9 +400,14 @@ def _render_table_view(df_value: pd.DataFrame, df_score: pd.DataFrame) -> None:
     )
 
 
-def _render_card_view(df_value: pd.DataFrame, df_score: pd.DataFrame) -> None:
-    """カードモード: 各都道府県を縦並びのカードで表示."""
-    indicator_columns = [_column_header(ind) for ind in ALL_INDICATORS]
+def _render_card_view(
+    df_value: pd.DataFrame, df_score: pd.DataFrame, visible_indicators: list[str]
+) -> None:
+    """カードモード: 各都道府県を縦並びのカードで表示.
+
+    2026-07-12: 表示指標の絞り込み(visible_indicators)を表モードと共通適用し、
+    表示⇔カード切替時の一貫性を保つ.
+    """
     for i, (_, row) in enumerate(df_value.iterrows()):
         with st.container(border=True):
             c1, c2 = st.columns([1, 4])

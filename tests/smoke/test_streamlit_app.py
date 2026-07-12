@@ -108,3 +108,43 @@ def test_legal_views_render_without_errors(view_name: str) -> None:
     # 各 view の冒頭にタイトル相当の h1/markdown が出ている(空ページではない)
     md_texts = " ".join(el.value for el in at.markdown if hasattr(el, "value"))
     assert len(md_texts) > 100, f"view={view_name} の描画が空に近い"
+
+
+def test_ranking_view_default_indicator_selection_reduces_columns() -> None:
+    """ランキング表: 横スクロール軽減のため、デフォルトで指標が 4 つに絞られている(2026-07-12).
+
+    9 指標 + 基本情報 5 列 = 14 列は横スクロール必須になり見づらいため、
+    表示指標をユーザーが選べるようにし、デフォルトは主要 4 指標のみ表示する.
+    """
+    at = _new_app()
+    at.query_params["view"] = "ranking"
+    at.run()
+    assert not at.exception, f"ranking view で例外: {at.exception}"
+
+    indicator_selector = at.multiselect(key="visible_indicators_current")
+    assert len(indicator_selector.value) == 4, (
+        f"デフォルト表示指標は 4 つのはずが {len(indicator_selector.value)} 個: "
+        f"{indicator_selector.value}"
+    )
+
+    assert len(at.dataframe) >= 1, "ランキング表(dataframe)が描画されていない"
+    columns = list(at.dataframe[0].value.columns)
+    # 基本情報 5 列 + 選択指標 4 列 = 9 列(14 列から削減できている)
+    assert len(columns) == 9, f"列数が 9 のはずが {len(columns)}: {columns}"
+    for base_col in ("順位", "★", "総合偏差値", "都道府県", "地方"):
+        assert base_col in columns, f"基本列 {base_col} が見当たらない"
+
+
+def test_ranking_view_indicator_selection_can_be_widened() -> None:
+    """指標選択を増やすと、表の列数もそれに応じて増える(絞り込みが実際に効いている)."""
+    at = _new_app()
+    at.query_params["view"] = "ranking"
+    at.run()
+
+    all_options = at.multiselect(key="visible_indicators_current").options
+    at.multiselect(key="visible_indicators_current").set_value(all_options).run()
+
+    assert not at.exception, f"全指標選択時に例外: {at.exception}"
+    columns = list(at.dataframe[0].value.columns)
+    # 基本情報 5 列 + 全 9 指標 = 14 列
+    assert len(columns) == 14, f"全指標選択時は 14 列のはずが {len(columns)}: {columns}"
