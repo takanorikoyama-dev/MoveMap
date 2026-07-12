@@ -199,3 +199,25 @@ def test_map_view_secondary_controls_are_collapsed_in_expander() -> None:
     # 主要都市マーカーのチェックボックスは expander 内でも動作する(デフォルト ON)
     checkbox = at.checkbox(key="major_cities_price_index_current")
     assert checkbox.value is True
+
+
+def test_compare_view_uses_prefecture_names_not_a_b() -> None:
+    """2県比較: 列名・勝者列が「A/B」ではなく実際の都道府県名になっている(2026-07-12)."""
+    at = _new_app()
+    at.query_params["view"] = "compare"
+    at.run()
+    assert not at.exception, f"compare view で例外: {at.exception}"
+
+    columns = list(at.dataframe[0].value.columns)
+    assert "優位な県" in columns, f"「優位な県」列が見当たらない: {columns}"
+    # デフォルト選択は 13 東京都 / 40 福岡県(show_comparison.py 参照)
+    assert any("東京都" in c for c in columns), f"列名に都道府県名が含まれていない: {columns}"
+    assert any("福岡県" in c for c in columns), f"列名に都道府県名が含まれていない: {columns}"
+    # 「A」「B」という汎用ラベルの列が残っていないこと
+    assert not any(c in ("A 実数値", "A 偏差値", "B 実数値", "B 偏差値", "勝者") for c in columns), (
+        f"旧 A/B 表記が残っている: {columns}"
+    )
+
+    winner_values = set(at.dataframe[0].value["優位な県"].unique())
+    # 勝者列の値も "A"/"B" ではなく実名か "—"(引き分け)のみ
+    assert winner_values <= {"東京都", "福岡県", "—"}, f"想定外の勝者値: {winner_values}"

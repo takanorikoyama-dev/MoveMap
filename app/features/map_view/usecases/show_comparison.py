@@ -24,7 +24,7 @@ def show_comparison(horizon: Horizon = "current") -> None:
     """2 県を選んでレーダーチャート + 数値テーブルで比較."""
     st.subheader("2 県を比較する")
     st.caption(
-        "7 指標を住みやすさ偏差値(50=平均、>50=平均より良い)に揃えて、レーダーチャートで重ねます。"
+        "9 指標を住みやすさ偏差値(50=平均、>50=平均より良い)に揃えて、レーダーチャートで重ねます。"
         " 値が外側に広いほど住みやすい。"
     )
 
@@ -113,7 +113,9 @@ def show_comparison(horizon: Horizon = "current") -> None:
     )
     st.plotly_chart(fig, use_container_width=True)
 
-    # 数値テーブル
+    # 数値テーブル(2026-07-12: 列名・勝者を「A/B」ではなく実際の都道府県名で表示)
+    a_name = a.prefecture_name
+    b_name = b.prefecture_name
     rows = []
     for ind in ALL_INDICATORS:
         a_val = a.per_indicator_value[ind]
@@ -121,15 +123,19 @@ def show_comparison(horizon: Horizon = "current") -> None:
         a_sc = a.per_indicator_score[ind]
         b_sc = b.per_indicator_score[ind]
         diff = None if (a_sc is None or b_sc is None) else round(a_sc - b_sc, 1)
-        winner = "A" if (diff is not None and diff > 0) else "B" if (diff is not None and diff < 0) else "—"
+        winner = (
+            a_name if (diff is not None and diff > 0)
+            else b_name if (diff is not None and diff < 0)
+            else "—"
+        )
         rows.append({
             "指標": f"{INDICATOR_ICONS.get(ind, '')} {INDICATOR_LABELS[ind]}",  # type: ignore[index,arg-type]
-            "A 実数値": _format_value(ind, a_val),
-            "A 偏差値": f"{a_sc:.1f}" if a_sc is not None else "—",
-            "B 実数値": _format_value(ind, b_val),
-            "B 偏差値": f"{b_sc:.1f}" if b_sc is not None else "—",
-            "差(A−B)": f"{diff:+.1f}" if diff is not None else "—",
-            "勝者": winner,
+            f"{a_name} 実数値": _format_value(ind, a_val),
+            f"{a_name} 偏差値": f"{a_sc:.1f}" if a_sc is not None else "—",
+            f"{b_name} 実数値": _format_value(ind, b_val),
+            f"{b_name} 偏差値": f"{b_sc:.1f}" if b_sc is not None else "—",
+            f"差({a_name}−{b_name})": f"{diff:+.1f}" if diff is not None else "—",
+            "優位な県": winner,
         })
 
     import pandas as pd
@@ -138,20 +144,20 @@ def show_comparison(horizon: Horizon = "current") -> None:
     st.dataframe(df, use_container_width=True, hide_index=True)
 
     # サマリ
-    a_better = sum(1 for r in rows if r["勝者"] == "A")
-    b_better = sum(1 for r in rows if r["勝者"] == "B")
+    a_better = sum(1 for r in rows if r["優位な県"] == a_name)
+    b_better = sum(1 for r in rows if r["優位な県"] == b_name)
     cols = st.columns(2)
     with cols[0]:
         st.metric(
-            f"{a.prefecture_code} {a.prefecture_name}({region_of(a.prefecture_code)})",
+            f"{a.prefecture_code} {a_name}({region_of(a.prefecture_code)})",
             stars_to_unicode(a.stars),
-            f"総合 {a.composite_score:.1f} / 7指標中 {a_better} 勝" if a.composite_score else "—",
+            f"総合 {a.composite_score:.1f} / 9指標中 {a_better} 勝" if a.composite_score else "—",
         )
     with cols[1]:
         st.metric(
-            f"{b.prefecture_code} {b.prefecture_name}({region_of(b.prefecture_code)})",
+            f"{b.prefecture_code} {b_name}({region_of(b.prefecture_code)})",
             stars_to_unicode(b.stars),
-            f"総合 {b.composite_score:.1f} / 7指標中 {b_better} 勝" if b.composite_score else "—",
+            f"総合 {b.composite_score:.1f} / 9指標中 {b_better} 勝" if b.composite_score else "—",
         )
 
 
