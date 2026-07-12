@@ -23,6 +23,14 @@ import streamlit.components.v1 as components
 
 _GLOBAL_CSS = """
 <style>
+/* ---- Streamlit 標準メニュー(⋮ ハンバーガー)+ フッターを非表示化 ----
+   "Settings / Print / Record a screencast / About / Made with Streamlit"
+   は個人アプリ感を強めるため、広告経由の訪問者向けに隠す
+   (toolbarMode="minimal" 設定と合わせて .streamlit/config.toml 参照、2026-07-12). */
+#MainMenu { visibility: hidden; }
+footer { visibility: hidden; }
+[data-testid="stToolbar"] { visibility: hidden; }
+
 /* ---- Base typography (50-60 代向けに大きめ + 行間広め) ---- */
 html, body, [class*="css"], [data-testid="stMarkdownContainer"] p {
     font-size: 17px !important;

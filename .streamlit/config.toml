@@ -15,3 +15,9 @@ runOnSave = false
 
 [browser]
 gatherUsageStats = false
+
+[client]
+# Streamlit Cloud のツールバー(Fork ボタン・GitHub アイコン・Manage app)を非表示化.
+# 広告経由の訪問者に「無料 OSS の個人アプリ」という印象を与えず、製品として
+# 一貫した体験にするため(2026-07-12、リスティング広告配信に伴う対応).
+toolbarMode = "minimal"
