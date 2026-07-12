@@ -233,6 +233,10 @@ def _ranked_top_codes(
     return [c for c, _ in with_values[:n]]
 
 
+_DENSE_THRESHOLD = 12
+"""この件数を超えるラベル表示は「密集」とみなし、視認性のためサイズ縮小 + 県名ラベル省略."""
+
+
 def _add_label_overlay(
     fig: go.Figure,
     values: dict[str, float | None],
@@ -245,9 +249,17 @@ def _add_label_overlay(
         1. 都道府県名(白)を太字でハロ(縁取り)として描画.
         2. 都道府県名(黒)を上記の前面に重ねる.
         3. 値は白い丸ピン(マーカー)の中に黒太字で配置(地図色に左右されない).
+
+    2026-07-12: 「47都道府県すべて表示」モードでは件数が多く(dense)、
+    県名ラベルまで出すと密集地域(関東等)で重なって読めなくなるため、
+    dense 時は県名レイヤーを省略し値ピンのみ縮小表示する(クラッター対策).
     """
     if not codes_to_label:
         return
+
+    dense = len(codes_to_label) > _DENSE_THRESHOLD
+    marker_size = 15 if dense else 26
+    value_font_size = 8 if dense else 10
 
     centroids = prefecture_centroids()
     lons: list[float] = []
@@ -274,32 +286,33 @@ def _add_label_overlay(
     if not lons:
         return
 
-    # Layer 1: 都道府県名のハロ(白・太字、わずかに大きく)
-    fig.add_trace(
-        go.Scattergeo(
-            lon=lons,
-            lat=lats,
-            text=name_texts,
-            mode="text",
-            textfont={"family": "Arial Black", "size": 13, "color": "white"},
-            textposition="top center",
-            hoverinfo="skip",
-            showlegend=False,
+    if not dense:
+        # Layer 1: 都道府県名のハロ(白・太字、わずかに大きく)
+        fig.add_trace(
+            go.Scattergeo(
+                lon=lons,
+                lat=lats,
+                text=name_texts,
+                mode="text",
+                textfont={"family": "Arial Black", "size": 13, "color": "white"},
+                textposition="top center",
+                hoverinfo="skip",
+                showlegend=False,
+            )
         )
-    )
-    # Layer 2: 都道府県名(黒太字)
-    fig.add_trace(
-        go.Scattergeo(
-            lon=lons,
-            lat=lats,
-            text=name_texts,
-            mode="text",
-            textfont={"family": "Arial Black", "size": 12, "color": "black"},
-            textposition="top center",
-            hoverinfo="skip",
-            showlegend=False,
+        # Layer 2: 都道府県名(黒太字)
+        fig.add_trace(
+            go.Scattergeo(
+                lon=lons,
+                lat=lats,
+                text=name_texts,
+                mode="text",
+                textfont={"family": "Arial Black", "size": 12, "color": "black"},
+                textposition="top center",
+                hoverinfo="skip",
+                showlegend=False,
+            )
         )
-    )
     # Layer 3: 値を白丸ピン+黒太字でセンタリング(地図塗り色と干渉しない)
     fig.add_trace(
         go.Scattergeo(
@@ -308,12 +321,12 @@ def _add_label_overlay(
             text=val_texts,
             mode="markers+text",
             marker={
-                "size": 26,
+                "size": marker_size,
                 "color": "white",
-                "line": {"width": 1.4, "color": "black"},
+                "line": {"width": 1.2, "color": "black"},
                 "opacity": 0.95,
             },
-            textfont={"family": "Arial Black", "size": 10, "color": "black"},
+            textfont={"family": "Arial Black", "size": value_font_size, "color": "black"},
             textposition="middle center",
             hoverinfo="skip",
             showlegend=False,

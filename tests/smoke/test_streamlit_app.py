@@ -148,3 +148,54 @@ def test_ranking_view_indicator_selection_can_be_widened() -> None:
     columns = list(at.dataframe[0].value.columns)
     # 基本情報 5 列 + 全 9 指標 = 14 列
     assert len(columns) == 14, f"全指標選択時は 14 列のはずが {len(columns)}: {columns}"
+
+
+def test_map_view_defaults_to_all_prefectures_labeled() -> None:
+    """Map: ラベル表示のデフォルトが「47都道府県すべて表示」になっている(2026-07-12).
+
+    以前は上位/下位5県のみ表示で「値が読めない」UX 課題があったため変更.
+    """
+    at = _new_app()
+    at.query_params["view"] = "map"
+    at.run()
+    assert not at.exception, f"map view で例外: {at.exception}"
+
+    radio = at.radio(key="annotation_price_index_current")
+    assert radio.value == "47都道府県すべて表示", (
+        f"ラベル表示のデフォルトが想定と異なる: {radio.value}"
+    )
+
+
+def test_map_view_shows_region_cluster_summary() -> None:
+    """Map: 地方別平均サマリー(8ブロック)が描画される(2026-07-12、地理的クラスタ視認).
+
+    Map 画面固有のジョブ(空間的パターン認識)を担保する新機能.
+    """
+    at = _new_app()
+    at.query_params["view"] = "map"
+    at.run()
+    assert not at.exception, f"map view で例外: {at.exception}"
+
+    metrics = at.metric
+    assert len(metrics) == 8, f"地方は 8 ブロックのはずが {len(metrics)} 件: {[m.label for m in metrics]}"
+    expected_regions = {"北海道", "東北", "関東", "中部", "近畿", "中国", "四国", "九州・沖縄"}
+    labeled_regions = {m.label.split(" ")[-1] for m in metrics}
+    assert labeled_regions == expected_regions, (
+        f"地方名が一致しない: {labeled_regions} != {expected_regions}"
+    )
+
+
+def test_map_view_secondary_controls_are_collapsed_in_expander() -> None:
+    """Map: 主要都市・非日常スポット等の詳細設定が expander に畳まれている(2026-07-12、認知負荷軽減)."""
+    at = _new_app()
+    at.query_params["view"] = "map"
+    at.run()
+    assert not at.exception, f"map view で例外: {at.exception}"
+
+    expander_labels = [e.label for e in at.expander if hasattr(e, "label")]
+    assert any("詳細設定" in lbl for lbl in expander_labels), (
+        f"「詳細設定」expander が見つからない: {expander_labels}"
+    )
+    # 主要都市マーカーのチェックボックスは expander 内でも動作する(デフォルト ON)
+    checkbox = at.checkbox(key="major_cities_price_index_current")
+    assert checkbox.value is True

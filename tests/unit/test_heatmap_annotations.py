@@ -103,7 +103,12 @@ def test_render_choropleth_off_no_overlay() -> None:
 
 
 def test_render_choropleth_all_overlay_includes_47() -> None:
-    """all モードでは 47 都道府県の値+ラベルが Scattergeo (3 trace) に乗る."""
+    """all モードでは 47 都道府県の値が Scattergeo に乗る(2026-07-12: 密集対策で 1 trace).
+
+    47 件は _DENSE_THRESHOLD(12)を超える「密集」表示のため、視認性のため
+    県名ラベル(halo + name の 2 trace)を省略し、値ピル(1 trace)のみ描画する.
+    (12 件以下なら extremes モードのテストの通り halo + name + value-pill = 3 trace.)
+    """
     geojson = load_japan_geojson()
     if geojson is None:
         pytest.skip("GeoJSON 未配置")
@@ -114,12 +119,33 @@ def test_render_choropleth_all_overlay_includes_47() -> None:
         show_major_cities=False,
     )
     scatter_traces = [t for t in fig.data if t.type == "scattergeo"]
-    # halo + name + value-pill = 3
-    assert len(scatter_traces) == 3
+    # 密集(47件 > _DENSE_THRESHOLD)時は value-pill のみ = 1 trace
+    assert len(scatter_traces) == 1
     for overlay in scatter_traces:
         assert len(overlay.text) == 47
         assert len(overlay.lon) == 47
         assert len(overlay.lat) == 47
+
+
+def test_render_choropleth_dense_marker_smaller_than_sparse() -> None:
+    """密集時(>12件)の値ピルは非密集時より marker size / font size が小さい(視認性維持)."""
+    geojson = load_japan_geojson()
+    if geojson is None:
+        pytest.skip("GeoJSON 未配置")
+
+    sparse_values: dict[str, float | None] = {f"{i:02d}": float(i) for i in range(1, 6)}  # 5件
+    dense_values: dict[str, float | None] = {f"{i:02d}": float(i) for i in range(1, 48)}  # 47件
+
+    sparse_fig = render_choropleth(
+        sparse_values, indicator_label="テスト", annotation_mode="all", show_major_cities=False,
+    )
+    dense_fig = render_choropleth(
+        dense_values, indicator_label="テスト", annotation_mode="all", show_major_cities=False,
+    )
+    sparse_pill = [t for t in sparse_fig.data if t.type == "scattergeo"][-1]
+    dense_pill = [t for t in dense_fig.data if t.type == "scattergeo"][-1]
+    assert dense_pill.marker.size < sparse_pill.marker.size
+    assert dense_pill.textfont.size < sparse_pill.textfont.size
 
 
 def test_render_choropleth_value_pill_has_white_marker() -> None:
