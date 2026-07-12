@@ -415,12 +415,19 @@ def _render_table_view(
         )
         column_config[col] = st.column_config.NumberColumn(col, help=tip)
 
+    # 2026-07-12: 列構成(visible_indicators)が変わるたびに st.dataframe を
+    # 確実に再マウントさせるため、選択指標を含む key を明示指定する.
+    # key 未指定だと、列セットが変化してもグリッド内部(検索/列表示パネル等)
+    # の状態が古いまま引き継がれ、「すべて選択しても全列表示されない」ような
+    # 不整合を起こすことがある(Streamlit の dataframe コンポーネントの既知動作).
+    table_key = "ranking_table_" + "_".join(visible_indicators)
     st.dataframe(
         styler,
         use_container_width=True,
         hide_index=True,
         column_config=column_config,
         height=min(900, 40 * (len(df_view) + 1) + 40),
+        key=table_key,
     )
 
 
