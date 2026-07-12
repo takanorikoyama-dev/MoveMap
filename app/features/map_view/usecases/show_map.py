@@ -259,7 +259,20 @@ def show_map(indicator_id: IndicatorId, horizon: Horizon) -> None:
         rich_hover=rich_hover,
         pois=pois if pois else None,
     )
-    st.plotly_chart(fig, use_container_width=True)
+    # 2026-07-12: マウスのスクロール/ドラッグによる自由ズームは、固定サイズの
+    # 描画領域から北海道・九州等がはみ出て「見切れる」原因になっていたため無効化.
+    # ズームは「🌐 地域ジャンプ」(検証済みの範囲設定)で行う運用に統一する.
+    st.plotly_chart(
+        fig,
+        use_container_width=True,
+        config={
+            "scrollZoom": False,
+            "displayModeBar": True,
+            "modeBarButtonsToRemove": [
+                "zoomInGeo", "zoomOutGeo", "resetGeo", "pan2d", "select2d", "lasso2d",
+            ],
+        },
+    )
 
     # 地方別平均サマリー(2026-07-12、地理的クラスタ傾向を一目で把握できるようにする)
     _render_region_summary(values, reverse_color=is_lower_better)

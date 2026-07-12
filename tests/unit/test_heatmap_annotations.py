@@ -182,3 +182,55 @@ def test_render_choropleth_major_cities_adds_one_trace() -> None:
         show_major_cities=False,
     )
     assert len(fig_with.data) == len(fig_without.data) + 1
+
+
+def test_render_choropleth_region_zoom_uses_larger_labels_than_zenkoku() -> None:
+    """地域ジャンプ(2026-07-12): 特定地域に絞り込むと「見えている県数」基準で
+    密集判定が行われ、全国表示より大きく読みやすいラベル(県名+値)になる.
+
+    47 都道府県全てに値がある状態で all モード表示した場合:
+    - 全国表示: dense(47件)→ 値ピルのみ 1 trace、marker_size=15
+    - 関東ズーム: 関東 7 県のみ視界内 → dense=False → halo+name+value の 3 trace、marker_size=26
+    """
+    geojson = load_japan_geojson()
+    if geojson is None:
+        pytest.skip("GeoJSON 未配置")
+
+    values: dict[str, float | None] = {f"{i:02d}": float(i) for i in range(1, 48)}
+
+    fig_zenkoku = render_choropleth(
+        values, indicator_label="テスト", annotation_mode="all",
+        show_major_cities=False, region_zoom="全国",
+    )
+    fig_kanto = render_choropleth(
+        values, indicator_label="テスト", annotation_mode="all",
+        show_major_cities=False, region_zoom="関東",
+    )
+
+    zenkoku_traces = [t for t in fig_zenkoku.data if t.type == "scattergeo"]
+    kanto_traces = [t for t in fig_kanto.data if t.type == "scattergeo"]
+
+    # 全国表示は密集(値ピルのみ 1 trace)
+    assert len(zenkoku_traces) == 1
+    # 関東ズームは非密集(halo + name + value-pill の 3 trace)
+    assert len(kanto_traces) == 3
+
+    zenkoku_pill = zenkoku_traces[-1]
+    kanto_pill = kanto_traces[-1]
+    assert kanto_pill.marker.size > zenkoku_pill.marker.size
+    assert kanto_pill.textfont.size > zenkoku_pill.textfont.size
+
+
+def test_render_choropleth_unknown_region_zoom_falls_back_to_zenkoku() -> None:
+    """未知の region_zoom 値(例: "_focus_13")でも全国基準にフォールバックして例外にならない."""
+    geojson = load_japan_geojson()
+    if geojson is None:
+        pytest.skip("GeoJSON 未配置")
+
+    values: dict[str, float | None] = {f"{i:02d}": float(i) for i in range(1, 48)}
+    fig = render_choropleth(
+        values, indicator_label="テスト", annotation_mode="all",
+        show_major_cities=False, region_zoom="_focus_13",
+    )
+    scatter_traces = [t for t in fig.data if t.type == "scattergeo"]
+    assert len(scatter_traces) == 1  # 全国基準(dense)にフォールバック

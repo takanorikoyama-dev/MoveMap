@@ -159,9 +159,12 @@ def render_choropleth(
         )
 
     # ラベル(引き出し線 + メダル)
+    # 2026-07-12: 地域ジャンプで特定地域に絞り込んだ場合、その地域内に実際に
+    # 見えている県数を基準に密集判定する(全国基準の小さいラベルのままにしない).
     if annotation_mode != "off":
         labeled_codes = _select_labeled_codes(values, annotation_mode, extremes_n, reverse_color)
-        _add_label_overlay(fig, values, labeled_codes, reverse_color)
+        active_bounds = REGION_BOUNDS.get(region_zoom, REGION_BOUNDS["全国"])
+        _add_label_overlay(fig, values, labeled_codes, reverse_color, active_bounds=active_bounds)
 
     if show_major_cities:
         _add_major_city_markers(fig)
@@ -242,6 +245,7 @@ def _add_label_overlay(
     values: dict[str, float | None],
     codes_to_label: list[str],
     reverse_color: bool = False,
+    active_bounds: tuple[float, float, float, float] | None = None,
 ) -> None:
     """choropleth に Scattergeo オーバーレイで都道府県名+値ラベルを追加.
 
@@ -253,15 +257,31 @@ def _add_label_overlay(
     2026-07-12: 「47都道府県すべて表示」モードでは件数が多く(dense)、
     県名ラベルまで出すと密集地域(関東等)で重なって読めなくなるため、
     dense 時は県名レイヤーを省略し値ピンのみ縮小表示する(クラッター対策).
+
+    密集判定は「実際に画面内に見えている県数」(active_bounds 内)を基準にする.
+    地域ジャンプで関東等に絞り込んだ場合、全国基準では 47 件で dense=True の
+    ままだったが、実際に見えているのは 7 県程度なので dense=False とし、
+    大きく読みやすいラベル(県名+値)で表示する.
     """
     if not codes_to_label:
         return
 
-    dense = len(codes_to_label) > _DENSE_THRESHOLD
+    centroids = prefecture_centroids()
+
+    if active_bounds is not None:
+        lat_min, lat_max, lon_min, lon_max = active_bounds
+        visible_count = sum(
+            1 for c in codes_to_label
+            if c in centroids
+            and lat_min <= centroids[c][0] <= lat_max
+            and lon_min <= centroids[c][1] <= lon_max
+        )
+    else:
+        visible_count = len(codes_to_label)
+
+    dense = visible_count > _DENSE_THRESHOLD
     marker_size = 15 if dense else 26
     value_font_size = 8 if dense else 10
-
-    centroids = prefecture_centroids()
     lons: list[float] = []
     lats: list[float] = []
     name_texts: list[str] = []
